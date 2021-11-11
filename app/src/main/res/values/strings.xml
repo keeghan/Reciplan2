@@ -1,0 +1,102 @@
+<resources>
+    <string name="app_name">Reciplan</string>
+
+    <string name="title_recipe">Recipe</string>
+    <string name="title_plan">Plan</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="recipe_image_desc">Recipe image description</string>
+    <string name="recipe_title_placeholder">recipe_title</string>
+    <string name="collection_alternate_text">No Recipe has been added to your collection\nGo to Explore to add Recipes</string>
+    <string name="favorite_alternate_text">No Recipe has been added to your Favorite\nGo to Collection to add Recipes</string>
+    <string name="str_view_directions">VIEW DIRECTIONS</string>
+    <string name="str_minutes">mins</string>
+    <string name="str_ingredients">Ingredients</string>
+    <string name="str_20">20</string>
+    <string name="str_8">8</string>
+    <string name="str_recipeName_placeholder">Face De Wall</string>
+    <string name="str_directions">DIRECTIONS</string>
+    <string name="str_clear_collection">Clear all recipes from collection</string>
+    <string name="str_clear_plans">Clear all Plans</string>
+    <string name="str_clear_favorite">Clear all favorite recipes</string>
+    <string name="txt_plan_edit">EDIT</string>
+    <string name="no_directions">no direction</string>
+
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!--MealTypes-->
+    <string name="str_breakfast">Breakfast</string>
+    <string name="str_lunch">Lunch</string>
+    <string name="str_dinner">Dinner</string>
+
+
+    <!--Preference text values-->
+    <string name="pref_build_version">Version 1.0.0</string>
+
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+    <string name="other_header">Other</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="str_setRecipe_info">Only Recipes that are part of your collection shows here</string>
+    <string name="str_plan_default_meal">Missing Meal Plan(s)</string>
+    <string name="menu_item_settings">settings</string>
+    <string name="menu_item_read_info">read info</string>
+    <string name="missing_recipe_text">Recipe not set</string>
+    <string name="swipeRemove">remove</string>
+    <string name="close">close</string>
+    <string name="str_developer_info">Kojo Kakraba Eghan is a student of UCC, and a Tech enthusiast with interest in Gaming, Graphic design and 3d modelling</string>
+    <string name="link_developer_profile"><a href="https://kojokeghan.000webhostapp.com/">Profile</a></string>
+    <string name="str_snacks">Snacks</string>
+    <string name="recipe_img_desc">Image of recipe</string>
+    <string name="recipe_name_placeholder">Agushi with palava sauce</string>
+
+
+    <!--Days of the week-->
+    <string name="str_monday">Monday</string>
+    <string name="str_tuesday">Tuesday</string>
+    <string name="str_wednesday">Wednesday</string>
+    <string name="str_thursday">Thursday</string>
+    <string name="str_friday">Friday</string>
+    <string name="str_saturday">Saturday</string>
+    <string name="str_sunday">Sunday</string>
+
+
+    <string name="recipe_ignore_desc">ignore recipe</string>
+    <string name="recipe_accept_desc">accept recipe</string>
+    <string name="placeholder_recipe_name">Fois de Grasee</string>
+
+    <string name="str_ingredient_placeholder">8</string>
+    <string name="str_recipe">Recipe</string>
+
+    <string name="default_recipe_txt">
+        1. place something on fire\n
+        2. preheat oven to 98 degress\n
+        3. place something on fire\n
+        4. Cook till its is brown and soft something on fire\n
+        5. Enjoy your meal with family and friends\n
+        6. Enjoy your meal with family and friends\n
+        7. Enjoy your meal with family and friends\n
+        8. This is a place holder for cooing</string>
+    <string name="profile_str">profile</string>
+
+
+    <string name="breakfast_set_status">Breakfast Not Set</string>
+    <string name="lunch_set_status">Lunch Not Set</string>
+    <string name="dinner_set_status">Dinner Not Set</string>
+    <string name="snack_set_status">Snack not set</string>
+    <string name="not_set_breakfast">breakfast not set</string>
+    <string name="not_set_lunch">lunch not set</string>
+    <string name="not_set_dinner">dinner not set</string>
+    <string name="not_set_snack">snack not set</string>
+</resources>

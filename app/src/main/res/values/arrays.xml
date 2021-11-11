@@ -1,0 +1,514 @@
+<resources>
+    <!-- Reply Preference -->
+    <string-array name="reply_entries">
+        <item>Reply</item>
+        <item>Reply to all</item>
+    </string-array>
+
+    <string-array name="reply_values">
+        <item>reply</item>
+        <item>reply_all</item>
+    </string-array>
+
+    <!--Set plan-->
+    <string-array name="days_array">
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Dinner</item>
+    </string-array>
+
+
+    <!--Recipes-->
+    <string-array name="hausa_kooko_array">
+        <item>
+            1/2 cup fermented corn or millet dough\n
+            3 cups water (divided use)\n
+            1 pinch salt\n
+            1/4 teaspoon ground cloves\n
+            1/2 teaspoon ground ginger\n
+            1/4 teaspoon hot chili powder\n
+            Optional: sugar to taste
+        </item>
+
+        <item>
+            1.	Gather the ingredients.\n\n
+            2.	Place the fermented corn or millet dough into a medium pot.\n\n
+            3.	Add 1 cup of cold water and crumble up the fermented dough to make a smooth paste. Place over high heat and bring to a simmer, stirring occasionally.\n\n
+            4.	Add 2 cups of boiling water to the pot and bring to a boil, stirring continuously. At this point, the mixture may form lumps. Whisk lumps out to keep the porridge smooth.\n\n
+            5.  Add a pinch of salt, the ground cloves, ginger, and chili powder. Stir and allow to simmer for 10 minutes over low heat.\n\n
+            6.  When ready to serve, add the desired amount of sugar, stir and enjoy.\n\n
+        </item>
+    </string-array>
+
+
+    <string-array name="koose_array">
+        <item>
+            1 1/2 cups black-eyed peas\n
+            medium onion\n
+            1 inch piece ginger\n
+            1/2 to 1 scotch bonnet pepper (or habanero pepper)\n
+            1/2 cup water (to blend)\n
+            1 level teaspoon salt\n
+            4 cups vegetable oil\n
+        </item>
+
+        <item>
+            1.	Prepare the beans by soaking and de-hulling two days in advance.\n\n
+            2.	Place the beans into a sturdy blender and begin to pulse until smooth. Add 1/4 cup of water at a time to facilitate the blending process.\n\n
+            3.	Add the onion, ginger, and scotch bonnet pepper to the blender.\n\n
+            4.	Pulse until smooth.\n\n
+            5.	Add the sea salt flakes and mix them into the batter.\n\n
+            6.	Heat up the cooking oil in a small to medium-sized saucepan.\n\n
+            7.	Test the readiness of the oil by adding a shaved piece of ginger. If it sizzles and rises to the top, the oil is hot enough.\n\n
+            8.	Using a tablespoon to scoop the batter, spoon about five tablespoons of batter into the oil. You will see them puff up into round balls.\n\n
+            9.	Allow to fry for three to four minutes. Turn them halfway through to ensure they are evenly browned.\n\n
+            10.	Once cooked, scoop them out of the oil using a slotted spoon or spider, and allow to drain on a paper towel.\n\n
+            11.	Serve as a snack with hot pepper sauce or tomato gravy. You can also enjoy them the traditional Hausa breakfast way, with porridge known as hausa koko.\n\n
+        </item>
+    </string-array>
+
+
+    <string-array name="yam_balls_array">
+        <item>
+            400 Grams Vegetable Oil\n
+            250 Grams Yam\n
+            50 Grams Margarine\n
+            5 Grams All Purpose Seasoning\n
+            3 Grams Kpakposhito Puree\n
+            1 Gram Grated Nutmeg\n
+            1 Egg
+        </item>
+
+        <item>
+            1.	Boil Yam thoroughly till cooked. Drain and mash to get a smooth result.\n\n
+            2.	Add Margarine while still hot.\n\n
+            3.	Add Kpakposhito, All Purpose Seasoning, Salt and grated Nutmeg.\n\n
+            4.	Roll in to individual Balls and coat with Egg and Bread Crumbs (optional – Flour).\n\n
+            5.	Deep fry them in Vegetable Oil until Golden Brown colour.\n\n
+            6.	Drain and serve with Vegetables and Meat.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="kelewele_array">
+        <item>
+            500 Grams Vegetable Oil\n
+            200 Grams Ripe Plantain\n
+            15 Grams Red Pepper (Blended)\n
+            15 Grams Ginger (Blended)\n
+            15 Grams  All Purpose Seasoning\n
+        </item>
+
+        <item>
+            1.	Peel the ripe Plantain and cut in to cubes.\n\n
+            2.	Grind Pepper and Ginger.\n\n
+            3.	Add All Purpose Seasoning in to the Mix.\n\n
+            4.	Pour on to the bowl of cube plantain.\n\n
+            5.	Deep fry in Vegetable Oil until desired results.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="fish_stew_array">
+        <item>
+            1000 Grams Fresh Fish\n
+            200 Grams Onion (Blended)\n
+            150 Grams Fresh cut Tomatoes\n
+            125 Grams Vegetable Oil\n
+            35 Grams Tomato Puree\n
+            35 Grams Kpakposhito (Blended)\n
+            20 Grams Seasoning\n
+            5 Grams Salt\n
+            200 Grams Fresh Onions (optional)\n
+        </item>
+
+        <item>
+            1.	Clean the Fish (if they are to be fried whole, make a slit on either side of the Fish).\n\n
+            2.	Marinate with Seasoning\n\n
+            3.	Heat sufficient Vegetable Oil in a frying pan until Fish is well done.\n\n
+            4.	Drain Fish and set it aside.\n\n
+            5.	Add blended Onions, blended pepper, tomato puree and simmer for 5 Minutes. Add fresh Onion as Optional.\n\n
+            6.	Add fresh cut tomatoes.\n\n
+            7.	Add water to the gravy. Allow to simmer until desired results.\n\n
+            8.	Add fried Fish to gravy or spread the gravy over the Fish on a plate.\n\n
+            9.	Serve with suitable accompaniment like Kenkey, Banku, Boiled Rice, Boiled Yam, ect.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="omo_tuo_array">
+        <item>
+            2 cups rice (long grain preferred)\n
+            3 cups water\n
+            1 teaspoon salt
+        </item>
+
+        <item>
+            1.	Rinse the rice to remove excess starch. This is optional as the starch encourages the stickiness of the rice.\n\n
+            2.	Place the rice, salt and water in a pot and bring to a boil.\n\n
+            3.	Turn the heat down to medium and allow the rice to steam in the pot, until most of the water is absorbed.\n\n
+            4.	Using a sturdy wooden spoon, pound the rice using a mash and fold method. Bring the rice toward the side of the pot, then turn over. Repeat until the rice is mushy and glutinous.\n\n
+            5.	To serve, scoop the desired amount into a wet bowl and swirl around until balls are formed.\n\n
+            6.	Omu tuo may be served with any type of soup but best served with peanut soup stew or palm nut soup.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="bankye_krakro_array">
+        <item>
+            3 Medium size cassava\n
+            Salt to season\n
+            1 Medium onion\n
+            Vegetable cooking oil\n
+        </item>
+
+        <item>
+            1.	Wash the cassava and peel off the skin.\n\n
+            2.	Cut them into big chunks.\n\n
+            3.	Grate the cassava at the smallest side of the grater.\n\n
+            4.	Pour the grated cassava onto a clean muslin/napkin cloth.\n\n
+            5.	Squeeze out the excess starch from the muslin cloth.\n\n
+            6.	Allow to air dry a bit on a plane/large tray(optional).\n\n
+            7.	Finely chop half of the onion and grate the other half.\n\n
+            8.	Add the onion(chopped &amp; grated) to the grated cassava and add salt to taste.\n\n
+            9.	Preheat the oil for deep frying.\n\n
+            10.	Mould the cassava mixture into small round balls, pressing them firmly to keep them bound together.\n\n
+            10.	Fry them on a moderate heat, turning them intermittently to evenly cook them. (ready after 5 to 8 min. ( remove from the oil when it is golden brown.)\n\n
+            11. Strain off excess oil and serve with dry coconut.
+        </item>
+    </string-array>
+
+
+    <string-array name="nkatie_cake_array">
+        <item>
+            2 Cups Roasted peanuts\n
+            1 Cup Sugar
+        </item>
+
+        <item>
+            1.	Measure the peanut and roast on the hub for about 15-20 min, stirring intermittently till golden brown.\n\n
+            2.	Remove all the skin off the peanuts.\n\n
+            3.	Crush the roasted peanuts nicely with your rolling pin.\n\n
+            4.	Heat the hub and pour the sugar in the source pan, allow to melt to a golden brown colour.\n\n
+            5.	Add the crushed peanuts to the melted sugar and stir them till they are all bound together.\n\n
+            6.	Remove from hub and pour the mixture onto your working chop board. [Be careful its very hot].\n\n
+            7.	Use the rolling pin to roll and flatten the mixture to a desired thickness.\n\n
+            8.	Use your knife to mark and demarcate into small/cute shapes.\n\n
+            9.	Allow to cool and separate them into single bars.\n\n
+            10.	Store in an air tight container. \n Enjoy.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="adaakwa_array">
+        <item>
+            1 cup Roasted corn mill/flour\n
+            1 cup Roasted Peanuts\n
+            3 Table spoon Sugar\n
+            A pinch Ground cloves\n
+            1 Table Spoon powdered pepper
+        </item>
+
+        <item>
+            1.	Put all the ingredients together in your processor/blender.\n\n
+            2.	Allow to blend and mix well.\n\n
+            3.	Add a little water as a binding agent \n [ water should be added gradually and as and when they are moulded to prevent it from being too soggy/watery.]\n\n
+            4.	Mould into desired sizes.\n\n
+            5.	Ready to be served.\n  Keep refrigerated.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="fante_fante_array">
+        <item>
+            Fresh medium sized tomatoes\n
+            Onions\n
+            Garlic\n
+            Ginger\n
+            Pepper (kpakposhito)\n
+            Garlic cloves\n
+            Salt\n
+            Palm oil\n
+            Fish powder\n
+            Salmon or any other fish of preference\n
+            Shrimp powder\n
+            Nutmeg optional\n
+            Red snapper or Salted fish (koobi) (optional)\n
+        </item>
+
+        <item>
+            1.	Thoroughly was onion, garlic and ginger.\n\n
+            2.	Transfer them into a blender and blend together.\n\n
+            3.	Add salt and maggi cube to the blended mixture and use it to season the fish.\n\n
+            4.	Steam the salmon for about 8 minutes.\n\n
+            5.	Pour palm oil into a sauce pan and place it over medium heat.\n\n
+            6.  Chop some onions and add to the oil.\n\n
+            7.  Put salted fish into a bowl of water to remove some of the salt from it.\n\n
+            8.  Chop salted fish into sizeable pieces and add to oil.\n\n
+            9.  Blend tomatoes and pepper and add mixture to the oil.\n\n
+            10. Stir continuously and add shrimp  powder and nutmeg.\n\n
+            11. Allow the stew to cook for about 5-8 minutes.\n\n
+            12. Add the seasoned fish and cook for 5 minutes.\n\n
+            13. Serve wth Banku, Kenkey, Ampesi or Rice.
+        </item>
+    </string-array>
+
+    <string-array name="ga_kenkeny_array">
+        <item>
+            3 cups white cornmeal\n
+            1 tablespoon cornstarch\n
+            3 cups warm water (at 100 F)\n
+            1 teaspoon salt\n
+            Dried corn leaves\n
+        </item>
+
+        <item>
+            1.  Pour the cornmeal and the cornstarch into a large bowl.\n\n
+            2.  Add warm water and stir until a smooth dough is obtained.\n\n
+            3.  Cover the bowl with a cloth and put it in a warm place for 2 days.\n\n
+            4.  Divide the formed dough in half.\n\n
+            5.  Bring 2 cups of water to a boil in a large pot, add salt and reduce heat to medium.\n\n
+            6.  Place half of the dough in the water and mix.\n\n
+            7.  Cook for 10 minutes, stirring regularly.\n\n
+            8.  Remove the pot from the heat, stir in the rest of the dough and mix well.\n\n
+            9.  Divide the dough into 3 or 4 large portions, form balls and place each ball on a corn leaf.\n\n
+            10. Wrap the corn leaf around each ball by tying it up with a string.\n\n
+            11. Steam as follows:\n
+            12. Pour a large amount of hot water into a steamer.\n\n
+            13. Place the packaged kenkey in the steam basket and bring the water to a boil over high heat.\n\n
+            14. Reduce to low heat and steam for about 1 hour and 30 minutes.
+        </item>
+    </string-array>
+
+    <string-array name="jollof_array">
+        <item>
+            2 large yellow onions, roughly chopped\n
+            ⅓ cup vegetable oil (80 mL), plus 2 tablespoons, divided\n
+            14 oz diced tomato (395 g), 2 cans\n
+            6 oz tomato paste (170 g), 1 can\n
+            1 Habanero pepper\n
+            2 teaspoons curry powder\n
+            1 teaspoon garlic powder\n
+            1 teaspoon ground ginger\n
+            ½ teaspoon mixed dried herbs\n
+            3 chicken bouillon cubes, crushed\n
+            2½ cups long grain rice (500 g), rinsed\n
+            1 cup frozen mixed vegetable (150 g)\n
+            1½ cups water (360 mL)\n
+        </item>
+
+        <item>
+            1.  Add onions and 2 tablespoons of oil to a blender and pulse until smooth. Transfer to a medium bowl.\n\n
+            2.  Add the diced tomatoes, tomato paste, and habanero pepper to the blender, and pulse until smooth. Transfer to a separate medium bowl.\n\n
+            3.  Heat the remaining ⅓ cup (80 ml) of oil in a large, heavy-bottomed pot over medium heat.\n\n
+            4.  Once the oil is shimmering, add the onion puree and cook until the water has cooked out and the puree is starting to brown, about 10 minutes.\n\n
+            5.  Stir in the tomato puree and add the curry powder, garlic powder, ginger, dried herbs, and crushed bouillon cubes.\n\n
+            6.  Cook for 20-30 minutes, stirring occasionally, until the stew has reduced by half and is deep red in color.\n\n
+            7.  Add the rice, mixed vegetables, and water. Bring to a boil, then reduce the heat to low and cover the pot with foil and a lid.\n\n
+            8.  Simmer for another 30 minutes, until the rice is cooked through and the liquid is absorbed.\n\n
+            9.  Enjoy!
+        </item>
+    </string-array>
+
+    <string-array name="fried_rice_array">
+        <item>
+            3 cups cooked rice\n
+            2 tbsp cooking oil\n
+            Cooked Chicken pieces\n
+            2 pieces onions\n
+            Carrots\n
+            Spring onions\n
+            Green Pepper\n
+            Chilli powdered pepper\n
+            1 cup frozen peas\n
+            2 tbsp soy sauce\n
+            Curry Powder\n
+            Salt\n
+            Sausage optional
+        </item>
+
+        <item>
+            1.  Wash under water onion, carrots, spring onions, and green pepper then chop them into pieces.\n\n
+            2.  Heat oil in a large skillet or saucepan under medium heat.\n\n
+            3.  Add sausage and chicken pieces and fry. Stir until it turns golden brown then set aside.\n\n
+            4.  Add chopped onions, carrots, green pepper, peas(if preferred)and spring onion to oil. Stir for 2-4 mins until tender.\n\n
+            5.  Beat eggs then slide the cooked onion, carrots, green pepper,peas and spring onion to the side of skillet.\n\n
+            6.  Pour the beaten eggs onto the other side then scramble eggs until cooked.\n\n
+            7.  Mix eggs with vegetables then add cooked rice, sausage and chicken pieces.\n\n
+            8.  Add soy sauce, curry powder, powdered pepper and salt to taste then stir rice and vegetables together for 3-5 mins.\n\n
+            9.  Serve fried rice with chicken or fish or salad. Enjoy.
+        </item>
+    </string-array>
+
+    <string-array name="waakye_array">
+        <item>
+            1 cup dried black eyed beans/ peas soaked overnight\n
+            2 cups rice\n
+            8-10 dried millet stalk leaves\n
+            salt as required\n
+        </item>
+
+        <item>
+            1.  Pour over a litre of water into a saucepan together with the millet leaf stalks. Put on high heat to boil.\n\n
+            2.  Rinse the soaked beans and add to the boiling water when the water turns wine from the millet leaves.\n\n
+            3.  Add sausage and chicken pieces and fry. Stir until it turns golden brown then set aside.\n\n
+            4.  Cover and let it cook till tender. Mean while rinse the rice till the water is cleared.\nAdd the washed rice into the saucepan together with salt to taste.\n\n
+            5.  Add water if needed. Stir and cover tightly.\n\n
+            6.  Do not remove the millet stalk leaves. When the rice boils over, reduce heat and simmer till the water is absorbed and the rice is cooked through.\n\n
+            7.  Rest for three to five minutes, remove millet stalk leaves and fluff with a fork.\n\n
+            8.  Serve with shito, salad, gari and tomato stew. Enjoy!
+        </item>
+    </string-array>
+
+    <string-array name="rice_water_array">
+        <item>
+            1 cup rice\n
+            5 cups water\n
+            Salt (to taste)\n
+            1 pinch nutmeg\n
+            Sugar (or honey), to serve\n
+            Evaporated milk , to serve\n
+            Hot water (boiling)
+        </item>
+
+        <item>
+            1.  Wash the rice until the water is clear, then drain.\n\n
+            2.  Place the rice in a bowl and add 5 cups (1,2 l) of water.\n\n
+            3.  Cook the rice until tender, about 15 minutes. Use more water, if necessary, to obtain a soft and sticky rice.\n\n
+            4.  Add a pinch of salt.\n\n
+            5.  Using the flat side of a wooden spoon, crush the rice until it is soft and flattens into a ball.\n\n
+            6.  Add boiling water to soften it to the desired thickness and consistency.\n\n
+            7.  Serve the hot rice water with a pinch of nutmeg, evaporated milk, sugar (or honey), \ntoasted nuts and coconut flakes or other ingredients of your choice.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="tatale_array">
+        <item>
+            2 yellow plantains (very ripe)\n
+            ½ cup corn flour (fine corn meal)\n
+            1 onion , chopped\n
+            1 teaspoon grated fresh ginger\n
+            1 small lemon (freshly squeezed)\n
+            ½ teaspoon red pepper powder\n
+            ½ pinch salt\n
+            Vegetable oil (for frying)\n
+        </item>
+
+        <item>
+            1.  Slice the plantains, place in a large bowl and immediately sprinkle with lemon juice.\n\n
+            2.  With a fork, mash the plantains and add the onion and ginger.\n\n
+            3.  Add the corn flour, chilli and salt and mix well with a wooden spoon.\n\n
+            4.  In a deep skillet, heat a large amount of vegetable oil over medium heat.\n\n
+            5.  Maintain the temperature of the oil around 340 F (175 C) during frying.\n\n
+            6.  Form balls the size of a ping pong ball, flatten them slightly and fry on both sides until they are golden brown.\n\n
+            7.  Serve immediately.\n\n
+        </item>
+    </string-array>
+
+
+    <string-array name="nkate_nkwan_array">
+        <item>
+            3 lb chicken (with bone)\n
+            6 kpakpo shito peppers (pettie belles)\n
+            2 onions , whole\n
+            3 cloves garlic (optional)\n
+            1 (1-inch) piece fresh ginger\n
+            3 large ripe tomatoes\n
+            4 cups chicken stock\n
+            2 bay leaves\n
+            Scotch bonnet pepper or chili power (according to taste)\n
+            ½ cup unsweetened peanut butter\n
+            2 cups water (plus extra as needed)\n
+            10 whole okra pods
+        </item>
+
+        <item>
+            1.  Place the chicken pieces into a pot. Cut off the top and bottom edges of the onions and add them whole into the pot.\n\n
+            2.  Add the tomatoes whole into the pot, removing the core tips. Add the garlic and ginger into the pot.\n They may be grated or added whole, then processed afterwards.\n\n
+            3.  Add the bay leaves, kpakpo shito and chicken stock then bring to the boil and simmer until tender.\n\n
+            4.  Prepare the peanut sauce while the soup is simmering by placing the peanut butter into a pot and mixing it with ½ a cup of water. \nThis will allow the peanut butter to meld well with the water prior to adding the rest.\n\n
+            5.  Place the peanut sauce on a high heat and add the remaining water. \nSimmer for about 20 minutes until peanut oil rises to the surface.\n\n
+            6.  When the onions and tomatoes are soft, remove them from the broth and place them into a blender.\n If you want the soup to be very spicy, you may add some of the kpakpo shito now. Process them in the blender, then pour back into the soup and stir. \nSimmer for 5 minutes.\n\n
+            7.  Pour the peanut sauce into the soup and allow to simmer for 15 minutes.\n\n
+            8.  Cut off the head and tail of the okra and boil them briefly before adding them to the soup. \nThis is used as a garnish.\n\n
+            9.  Check for seasoning and add salt and chili powder if desired. \nThe dish is now ready to be served alongside omo tuo.
+        </item>
+    </string-array>
+
+    <string-array name="banku_array">
+        <item>
+            1 lb corn dough\n
+            ¼ lb cassava dough  (or up to ½ lb)\n
+            1 teaspoon salt\n
+            1 cup water (or up to 2 cups)\n
+        </item>
+
+        <item>
+            1.  Mix together the corn and cassava dough with water until smooth, then transfer to high heat and stir continuously.\n\n
+            2.  Depending on how moist the processed dough was at the start, more water may be added so far as the consistency is solid, but not too firm.\n\n
+            3.  Turn the heat down to medium and allow the banku to steam in the pot, surrounded by 1 or 2 tablespoons of water. This should take 5 minutes.\n\n
+            4.  Give the banku one final stir then take off the heat\n\n
+            5.  To serve, scoop the desired amount into a wet bowl and swirl around until balls are formed.\n\n
+            6.  Banku may be served with okro stew, fante fante or grilled tilapia with shito.
+        </item>
+    </string-array>
+
+    <string-array name="mputomputo_array">
+        <item>
+            Yam or cocoyam\n
+            Small tomatoes\n
+            Medium sized onion\n
+            Palm oil\n
+            Garlic cloves\n
+            Kpakposhito\n
+            Seasoning (maggi or onga cube)\n
+            Ginger optional\n
+            Salt\n
+            Water\n
+            Nutmeg\n
+            Herrings
+
+        </item>
+
+        <item>
+            1.  Cut yam tuber into about 4 parts. Place it on a cuttin board and peel the skin off.\n\n
+            2.  Chop peeled yam into small sizes and pour chopped yam into a container filled with water.\n\n
+            3.  Rinse yam thoroughly to ensure there is not dirt. It is recommended you repeat this step twice.\n\n
+            4.  Transfer rinsed yam into a clean cooking pot and fill it with a reasonable amount of water and place it on high heat.\n\n
+            5.  Add tomatoes, onions and pepper to the yam and cover it and allow it to boil.\n\n
+            6.  Transfer fish into a clean bowl and add water to soften it.\n\n
+            7.  Remove the tomatoes, onions, garlic and ginger from the boiling pan and transfer them into a blender.\n\n
+            8.  Blend the mixture until smooth and pour it into the boiling yam.\n Increase the heat to facilitate boiling and add fish and salt.\n\n
+            9.  Using a spatula, mash the yam against the sides of the cooking pot to get a porridge consistency.\nYou can also transfer some of the cooked yam into an earthenware bowl and mash. After that you transfer it back into the mixture.\n Do not mash all of them.\n\n
+            10.  Add seasoning and palm oil and allow it to boil for about 7 - 10 mins.\n\n
+            11.  It is a one pot meal and can be enjoyed anytime of the day.\n\n
+        </item>
+    </string-array>
+
+    <string-array name="kontomire_stew_array">
+        <item>
+            Kontomire leaves/ cocoyam leaves About 15\n
+            4-6 small tomatoes\n
+            1/4 cup turkey berries optional\n
+            3 medium onions\n
+            Pepper as required\n
+            2 medium smoked salmon\n
+            1 cup melon seeds AKA akatoa or agushie\n
+            1/2 cup palm oil\n
+            2 teaspoons grounded shrimp\n
+            salt as required\n
+            momoni optional
+        </item>
+
+        <item>
+            1.  Soak melon seeds in water, set aside. Wash kontomire leaves with a generous amount of salt to prevent itching of hands when cutting.\n\n
+            2.  Cut kontomire into desired stripes. Put the cut kontomire into a saucepan with little water and place on high heat. \nCover and bring to a boil..\n\n
+            3.  Turn the kontomire after about five minutes of cooking to make sure everything is cooked through. \nTurn off fire and set aside..\n\n
+            4.  Blend two onions, tomatoes, pepper and turkey berries together, set aside.\n\n
+            5.  Remove the flesh of the salmon, break into two and remove the bones, break into desired sizes, set aside.\n\n
+            6.  Wash the soaked melon seeds and put into a blender. Add about ¼ teaspoon salt and just enough water to blend into a paste. Set aside. Slice the remaining onion.\n\n
+            7.  Pour palm oil into a medium saucepan, add half of the sliced onions and momoni if using.\n Fry till onions are softened. \n\n
+            8.  Add the blended tomatoes, onions, turkey berries and pepper. Bring to a simmer on medium heat.\n\n
+            9.  Add the salmon, salt and grounded shrimp if using. Cover and let simmer for 7 to 10 minutes till sauce is bare thickened.\n\n
+            10. Add in the blended melon seeds, DO NOT STIR, cover and reduce heat to low.\n\n
+            11. Let it simmer 8 to 10 minutes or till the blended melon seeds sets. Gently stir in the steamed kontomire.\n\n
+            12. Add the remaining sliced onions, let simmer for about five minutes till onions are softened.\n\n
+            13. Serve with yam, rice, cocoyam, cassava, plantains or sweet potatoes.
+        </item>
+    </string-array>
+
+</resources>
