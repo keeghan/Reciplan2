@@ -1,10 +1,13 @@
 package com.keeghan.reciplan2
 
+import android.app.Activity
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
@@ -22,9 +25,14 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         AppBarConfiguration.Builder(
             R.id.navigation_recipe, R.id.navigation_plan
-        ) .build()
+        ).build()
 
-        val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        // val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavView, navController)
 
 
@@ -36,10 +44,14 @@ class MainActivity : AppCompatActivity() {
             applicationContext
         )
 
+
+        //check user settings for theme
         if (prefs.getBoolean("pref_theme", false)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
+
+
     }
 }

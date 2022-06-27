@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/drawable/ic_baseline_delete_outline_24.xml" value="0.1825" />
         <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/layout-sw600dp/fragment_explore.xml" value="0.33359375" />
         <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/activity_choose_recipe.xml" value="0.33" />
         <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/activity_directions.xml" value="0.22239583333333332" />
@@ -19,6 +20,9 @@
         <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/recipe_explorer_item.xml" value="0.14046052631578948" />
         <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/recipe_plan_default_item.xml" value="0.33359375" />
         <entry key="..\:/Users/KEEGHAN/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/recipe_plan_item.xml" value="0.33359375" />
+        <entry key="..\:/Users/eghan/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/activity_directions.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/eghan/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/activity_main.xml" value="0.16458333333333333" />
+        <entry key="..\:/Users/eghan/AndroidStudioProjects/Reciplan2/app/src/main/res/layout/fragment_plan.xml" value="0.2115036231884058" />
       </map>
     </option>
   </component>

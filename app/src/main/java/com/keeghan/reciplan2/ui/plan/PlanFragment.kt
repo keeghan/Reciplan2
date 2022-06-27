@@ -60,7 +60,8 @@ class PlanFragment : Fragment(), View.OnClickListener {
     ): View {
         _binding = FragmentPlanBinding.inflate(layoutInflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this).get(PlanViewModel::class.java)
+        viewModel = ViewModelProvider(this)[PlanViewModel::class.java]
+
 
         //initialize all adapters with context
         setAdapters()
@@ -140,7 +141,7 @@ class PlanFragment : Fragment(), View.OnClickListener {
         adapter: PlanRecyclerAdapter
     ) {
         val tempRecipeArray = IntArray(3)
-        viewModel.allDays.observe(viewLifecycleOwner, { days ->
+        viewModel.allDays.observe(viewLifecycleOwner) { days ->
             for (day in days) {
                 if (day._id == dayId) {
                     tempRecipeArray[0] = day.breakfast
@@ -149,35 +150,35 @@ class PlanFragment : Fragment(), View.OnClickListener {
                     viewModel.setRecipeArray(tempRecipeArray, dayId)
 
                     //Retrieve recipes for day after setting them above
-                    viewModel.getActiveDayRecipes(dayId)?.observe(viewLifecycleOwner,
-                        { recipes ->
-                            Collections.sort(recipes, Comparator { o1, o2 ->
-                                if (o1.type == "breakfast") {
-                                    if (o2.type == "lunch") {
-                                        return@Comparator -2
-                                    } else if (o2.type == "dinner") {
-                                        return@Comparator -10
-                                    }
-                                } else if (o1.type == "lunch") {
-                                    if (o2.type == "breakfast") {
-                                        return@Comparator 12
-                                    } else if (o2.type == "dinner") {
-                                        return@Comparator -8
-                                    }
-                                } else {
-                                    if (o2.type == "breakfast") {
-                                        return@Comparator 10
-                                    } else if (o2.type == "lunch") {
-                                        return@Comparator 8
-                                    }
+                    viewModel.getActiveDayRecipes(dayId)?.observe(viewLifecycleOwner
+                    ) { recipes ->
+                        Collections.sort(recipes, Comparator { o1, o2 ->
+                            if (o1.type == "breakfast") {
+                                if (o2.type == "lunch") {
+                                    return@Comparator -2
+                                } else if (o2.type == "dinner") {
+                                    return@Comparator -10
                                 }
-                                0
-                            })
-                            adapter.setRecipes(recipes)
+                            } else if (o1.type == "lunch") {
+                                if (o2.type == "breakfast") {
+                                    return@Comparator 12
+                                } else if (o2.type == "dinner") {
+                                    return@Comparator -8
+                                }
+                            } else {
+                                if (o2.type == "breakfast") {
+                                    return@Comparator 10
+                                } else if (o2.type == "lunch") {
+                                    return@Comparator 8
+                                }
+                            }
+                            0
                         })
+                        adapter.setRecipes(recipes)
+                    }
                 }
             }
-        })
+        }
 
         //pass array holding id to each viewModels switchMap
         recyclerView.setHasFixedSize(true)
@@ -209,25 +210,25 @@ class PlanFragment : Fragment(), View.OnClickListener {
                             val temp: Recipe =
                                 adapter.getRecipeAt(viewHolder.adapterPosition) //shouldn't have called this inside an observer
                             val tempDay: Array<Day?> = arrayOfNulls(1)
-                            viewModel.allDays.observe(viewLifecycleOwner,
-                                { days ->
-                                    for (day in days) if (day._id == dayId) {
-                                        tempDay[0] = day
-                                        when (temp._id) {
-                                            day.breakfast -> {
-                                                tempDay[0]?.breakfast = 0
-                                            }
-                                            day.lunch -> {
-                                                tempDay[0]?.lunch = 1
-                                            }
-                                            day.dinner -> {
-                                                tempDay[0]?.dinner = 2
-                                            }
+                            viewModel.allDays.observe(
+                                viewLifecycleOwner
+                            ) { days ->
+                                for (day in days) if (day._id == dayId) {
+                                    tempDay[0] = day
+                                    when (temp._id) {
+                                        day.breakfast -> {
+                                            tempDay[0]?.breakfast = 0
+                                        }
+                                        day.lunch -> {
+                                            tempDay[0]?.lunch = 1
+                                        }
+                                        day.dinner -> {
+                                            tempDay[0]?.dinner = 2
                                         }
                                     }
-                                })
+                                }
+                            }
                             viewModel.updateDay(tempDay[0]!!)
-                            //TODO: make sure notifyItem changed works
                             adapter.notifyItemChanged(viewHolder.adapterPosition)
                         }
                     }

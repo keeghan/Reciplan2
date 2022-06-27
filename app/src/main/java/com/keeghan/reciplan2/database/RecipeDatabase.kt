@@ -76,12 +76,12 @@ abstract class RecipeDatabase: RoomDatabase() {
 
             //Day Inserts
             recipeDao.insert( Day(1, "Sunday",3,14,22))
-            recipeDao.insert( Day(2, "Monday",3,15,19))
-            recipeDao.insert( Day(3, "Tuesday",20,22,17))
+            recipeDao.insert( Day(2, "Monday",0,1,2))
+            recipeDao.insert( Day(3, "Tuesday",0,1,2))
             recipeDao.insert( Day(4, "Wednesday",0,1,2))
             recipeDao.insert( Day(5, "Thursday",0,1,2))
             recipeDao.insert( Day(6, "Friday",0,1,2))
-            recipeDao.insert( Day(7, "Saturday",3,15,18))
+            recipeDao.insert( Day(7, "Saturday",0,1,2))
         }
     }
 }

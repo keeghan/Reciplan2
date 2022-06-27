@@ -44,7 +44,7 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(intent)
                     return true
                 }
-                "pref_theme" -> if (preference.sharedPreferences.getBoolean("pref_theme", false)) {
+                "pref_theme" -> if (preference.sharedPreferences!!.getBoolean("pref_theme", false)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     this.startActivity(requireActivity().intent)
                     requireActivity().finish()

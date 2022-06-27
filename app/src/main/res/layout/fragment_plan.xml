@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="56dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -42,7 +42,6 @@
                 android:text="@string/txt_plan_edit"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 android:textColor="@color/colorAccent"
-                android:textSize="14sp"
                 app:cornerRadius="10dp"
                 app:layout_constraintBottom_toTopOf="@+id/sundayRecycler"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -55,10 +54,10 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                tools:listitem="@layout/set_plan_item"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sunday_txt" />
+                app:layout_constraintTop_toBottomOf="@+id/sunday_txt"
+                tools:listitem="@layout/set_plan_item" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!--Monday Group-->

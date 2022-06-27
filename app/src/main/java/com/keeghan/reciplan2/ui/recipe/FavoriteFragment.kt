@@ -2,6 +2,7 @@ package com.keeghan.reciplan2.ui.recipe
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -34,18 +35,18 @@ class FavoriteFragment : Fragment() {
         val textView = binding.emptyListTxt
         adapter = FavoriteAdapter(context)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.favoriteRecipes.observe(viewLifecycleOwner,
-            {
-                adapter.setRecipes(it)
-                //Set Visibility of empty message
-                if (it.isEmpty()) {
-                    recyclerView.visibility = View.GONE
-                    textView.visibility = View.VISIBLE
-                } else {
-                    textView.visibility = View.GONE
-                    recyclerView.visibility = View.VISIBLE
-                }
-            })
+        viewModel.favoriteRecipes.observe(viewLifecycleOwner
+        ) {
+            adapter.setRecipes(it)
+            //Set Visibility of empty message
+            if (it.isEmpty()) {
+                recyclerView.visibility = View.GONE
+                textView.visibility = View.VISIBLE
+            } else {
+                textView.visibility = View.GONE
+                recyclerView.visibility = View.VISIBLE
+            }
+        }
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = GridLayoutManager(context, 2)
@@ -89,11 +90,13 @@ class FavoriteFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.collections_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
-                .setIcon(R.drawable.ic_action_clear_black)
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
-                .setIcon(R.drawable.ic_action_clear)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
+                    .setIcon(R.drawable.ic_action_clear_black)
+                Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
+                    .setIcon(R.drawable.ic_action_clear)
+            }
         }
     }
 
