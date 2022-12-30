@@ -106,6 +106,7 @@ class PlanFragment : Fragment(), View.OnClickListener {
         sundayAdapter = PlanRecyclerAdapter(context)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
 

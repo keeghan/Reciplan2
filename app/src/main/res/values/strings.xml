@@ -55,8 +55,8 @@
     <string name="missing_recipe_text">Recipe not set</string>
     <string name="swipeRemove">remove</string>
     <string name="close">close</string>
-    <string name="str_developer_info">Kojo Kakraba Eghan is a student of UCC, and a Tech enthusiast with interest in Gaming, Graphic design and 3d modelling</string>
-    <string name="link_developer_profile"><a href="https://kojokeghan.000webhostapp.com/">Profile</a></string>
+    <string name="str_developer_info">Kojo Kakraba Eghan is a software developer and a Technology enthusiast with a passion in 3D modelling</string>
+    <string name="link_developer_profile"><a href="https://kojokeghan.wordpress.com/">Profile</a></string>
     <string name="str_snacks">Snacks</string>
     <string name="recipe_img_desc">Image of recipe</string>
     <string name="recipe_name_placeholder">Agushi with palava sauce</string>
@@ -81,7 +81,7 @@
 
     <string name="default_recipe_txt">
         1. place something on fire\n
-        2. preheat oven to 98 degress\n
+        2. preheat oven to 98 degrees\n
         3. place something on fire\n
         4. Cook till its is brown and soft something on fire\n
         5. Enjoy your meal with family and friends\n

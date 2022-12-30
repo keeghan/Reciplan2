@@ -38,6 +38,7 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
+
         intentDay = intent.getIntExtra(DAY, 7)
         viewModel = ViewModelProvider(this).get(PlanViewModel::class.java)
         val spinner = binding.daySpinner
@@ -60,22 +61,22 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         when (parent!!.getItemAtPosition(position) as String) {
             "Breakfast" -> {
-                viewModel.breakfastCollection.observe(this, {
+                viewModel.breakfastCollection.observe(this) {
                     recyclerAdapter.setRecipes(it)
                     spinnerId = 1
-                })
+                }
             }
             "Lunch" -> {
-                viewModel.lunchCollection.observe(this, {
+                viewModel.lunchCollection.observe(this) {
                     recyclerAdapter.setRecipes(it)
                     spinnerId = 2
-                })
+                }
             }
             "Dinner" -> {
-                viewModel.dinnerCollection.observe(this, {
+                viewModel.dinnerCollection.observe(this) {
                     recyclerAdapter.setRecipes(it)
                     spinnerId = 3
-                })
+                }
             }
         }
     }
@@ -87,7 +88,7 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
     override fun onAssignClick(position: Int) {
         val workingRecipe: Recipe = recyclerAdapter.getRecipeAt(position)
-        viewModel.allDays.observe(this, { days ->
+        viewModel.allDays.observe(this) { days ->
             for (day in days) {
                 if (day._id == intentDay!!) {
                     when (spinnerId) {
@@ -100,7 +101,7 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     recyclerAdapter.selectedPosition = position
                 }
             }
-        })
+        }
         recyclerAdapter.notifyItemChanged(position)
         Toast.makeText(
             this,
