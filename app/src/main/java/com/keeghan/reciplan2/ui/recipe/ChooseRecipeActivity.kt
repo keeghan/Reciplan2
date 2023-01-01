@@ -6,9 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.keeghan.reciplan2.Constants
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.ActivityChooseRecipeBinding
@@ -77,22 +79,27 @@ class ChooseRecipeActivity : AppCompatActivity() {
                 adapter.notifyItemChanged(viewHolder.adapterPosition)
             }
         }).attachToRecyclerView(binding.exploreRecycler)
-
+        showWelcomeToast()
         setContentView(view)
     }
+
+
 
     //function to get the correct list to build recycler
     private fun getIntentList() {
         when (recipeType) {
-            "snack" -> viewModel.snackRecipes.observe(this@ChooseRecipeActivity,
-                { recipes -> adapter.setRecipes(recipes) })
-            "breakfast" -> viewModel.breakfastRecipes
-                .observe(this@ChooseRecipeActivity,
-                    { recipes -> adapter.setRecipes(recipes) })
-            "lunch" -> viewModel.lunchRecipes.observe(this@ChooseRecipeActivity,
-                { recipes -> adapter.setRecipes(recipes) })
-            "dinner" -> viewModel.dinnerRecipes.observe(this@ChooseRecipeActivity,
-                { recipes -> adapter.setRecipes(recipes) })
+            "snack" -> viewModel.snackRecipes.observe(this@ChooseRecipeActivity) { recipes ->
+                adapter.setRecipes(recipes)
+            }
+            "breakfast" -> viewModel.breakfastRecipes.observe(this@ChooseRecipeActivity) { recipes ->
+                adapter.setRecipes(recipes)
+            }
+            "lunch" -> viewModel.lunchRecipes.observe(this@ChooseRecipeActivity) { recipes ->
+                adapter.setRecipes(recipes)
+            }
+            "dinner" -> viewModel.dinnerRecipes.observe(this@ChooseRecipeActivity) { recipes ->
+                adapter.setRecipes(recipes)
+            }
         }
     }
 
@@ -134,6 +141,15 @@ class ChooseRecipeActivity : AppCompatActivity() {
             this@ChooseRecipeActivity, workingRecipe.name + " added to Collection",
             Toast.LENGTH_SHORT
         ).show()
+    }
+
+
+    private fun showWelcomeToast() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(this)
+        if (prefs.getBoolean(Constants.IS_FIRST_RUN_EXPLORE, true)) {
+            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_EXPLORE, false).apply();
+            Toast.makeText(this@ChooseRecipeActivity,R.string.str_need_internet,Toast.LENGTH_LONG).show()
+        }
     }
 
 

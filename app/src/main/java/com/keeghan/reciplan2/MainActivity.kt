@@ -1,12 +1,9 @@
 package com.keeghan.reciplan2
 
-import android.app.Activity
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -27,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             R.id.navigation_recipe, R.id.navigation_plan
         ).build()
 
-
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -46,12 +42,11 @@ class MainActivity : AppCompatActivity() {
 
 
         //check user settings for theme
-        if (prefs.getBoolean("pref_theme", false)) {
+        if (prefs.getBoolean("pref_theme", true)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
-
 
     }
 }

@@ -2,7 +2,9 @@ package com.keeghan.reciplan2
 
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.text.Layout
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -20,16 +22,13 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
         if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.settings, SettingsFragment())
+            supportFragmentManager.beginTransaction().replace(R.id.settings, SettingsFragment())
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    class SettingsFragment : PreferenceFragmentCompat(),
-        OnPreferenceTreeClickListener {
+    class SettingsFragment : PreferenceFragmentCompat(), OnPreferenceTreeClickListener {
         override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey)
         }
@@ -44,7 +43,7 @@ class SettingsActivity : AppCompatActivity() {
                     startActivity(intent)
                     return true
                 }
-                "pref_theme" -> if (preference.sharedPreferences!!.getBoolean("pref_theme", false)) {
+                "pref_theme" -> if (preference.sharedPreferences!!.getBoolean("pref_theme", true)) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
                     this.startActivity(requireActivity().intent)
                     requireActivity().finish()
@@ -66,6 +65,24 @@ class SettingsActivity : AppCompatActivity() {
                     ) { dialog, _ -> dialog.dismiss() }
                     builder.show()
                 }
+                "pref_copyright_disclaimer" -> {
+                    val builder = AlertDialog.Builder(
+                        requireActivity()
+                    )
+                    val v: View = LayoutInflater.from(context)
+                        .inflate(R.layout.copyright_disclaimer_dialog, null, false)
+                    val textView = v.findViewById<TextView>(R.id.disclaimer_txt)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        textView.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+                    }
+                    builder.setView(v)
+                    builder.setNegativeButton(
+                        R.string.close
+                    ) { dialog, _ -> dialog.dismiss() }
+                    builder.show()
+                }
+
+
             }
             return false
         }

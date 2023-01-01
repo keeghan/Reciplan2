@@ -17,7 +17,6 @@ class MainViewModel(application: Application) :
     init {
         val recipeDao = RecipeDatabase.getDatabase(application, viewModelScope).recipeDao()
         repository = RecipeRepository(recipeDao)
-
     }
 
     //getting different recipetype
@@ -42,6 +41,13 @@ class MainViewModel(application: Application) :
         }
     }
 
+
+    //update methods
+    fun insertRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.insert(recipe)
+        }
+    }
 
     //Menu commands
     fun clearCollection() {

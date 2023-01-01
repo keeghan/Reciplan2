@@ -10,6 +10,7 @@ import android.content.res.Configuration
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -18,9 +19,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.keeghan.reciplan2.Constants
 import com.keeghan.reciplan2.Constants.DAY
 import com.keeghan.reciplan2.Constants.FRIDAY_ID
 import com.keeghan.reciplan2.Constants.MONDAY_ID
@@ -75,7 +78,7 @@ class PlanFragment : Fragment(), View.OnClickListener {
         setRecycler(SATURDAY_ID, binding.saturdayRecycler, saturdayAdapter)
 
         setEditButtonOnclickListener()
-
+        showWelcomeToast()
         setHasOptionsMenu(true)
         return view
     }
@@ -151,7 +154,8 @@ class PlanFragment : Fragment(), View.OnClickListener {
                     viewModel.setRecipeArray(tempRecipeArray, dayId)
 
                     //Retrieve recipes for day after setting them above
-                    viewModel.getActiveDayRecipes(dayId)?.observe(viewLifecycleOwner
+                    viewModel.getActiveDayRecipes(dayId)?.observe(
+                        viewLifecycleOwner
                     ) { recipes ->
                         Collections.sort(recipes, Comparator { o1, o2 ->
                             if (o1.type == "breakfast") {
@@ -313,5 +317,14 @@ class PlanFragment : Fragment(), View.OnClickListener {
         }
         intent.putExtra(DAY, value)
         startActivity(intent)
+    }
+
+
+    private fun showWelcomeToast() {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+        if (prefs.getBoolean(Constants.IS_FIRST_RUN_PLAN, true)) {
+            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_PLAN, false).apply();
+            Toast.makeText(requireContext(), R.string.str_swipe_delete, Toast.LENGTH_LONG).show()
+        }
     }
 }

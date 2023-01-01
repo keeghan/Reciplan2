@@ -35,7 +35,8 @@ class FavoriteFragment : Fragment() {
         val textView = binding.emptyListTxt
         adapter = FavoriteAdapter(context)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        viewModel.favoriteRecipes.observe(viewLifecycleOwner
+        viewModel.favoriteRecipes.observe(
+            viewLifecycleOwner
         ) {
             adapter.setRecipes(it)
             //Set Visibility of empty message
@@ -90,13 +91,11 @@ class FavoriteFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.collections_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
-            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-                Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
-                    .setIcon(R.drawable.ic_action_clear_black)
-                Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
-                    .setIcon(R.drawable.ic_action_clear)
-            }
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
+                .setIcon(R.drawable.ic_action_clear_black)
+            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
+                .setIcon(R.drawable.ic_action_clear)
         }
     }
 

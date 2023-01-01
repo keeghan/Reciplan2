@@ -2,11 +2,12 @@
     <PreferenceCategory app:title="Theme">
         <SwitchPreference
             app:key="pref_theme"
+            app:defaultValue="true"
             app:summary="Tap to change"
             app:title="Enable Dark Mode" />
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="@string/other_header">
+    <PreferenceCategory app:title="@string/developer">
         <Preference
             app:key="pref_developer_info"
             app:summary="Tap for info"
@@ -16,11 +17,21 @@
             app:key="pref_contact_developer"
             app:summary="K33GH4N GH"
             app:title="Contact Developer" />
+    </PreferenceCategory>
 
+
+    <PreferenceCategory app:title="@string/other_header">
         <Preference
             app:key="build_version"
             app:summary="@string/pref_build_version"
             app:title="Build Version" />
+
+
+        <Preference
+            app:key="pref_copyright_disclaimer"
+            app:title="Copyright Disclaimer"
+            app:summary="Tap to read"
+            />
     </PreferenceCategory>
 
 </PreferenceScreen>

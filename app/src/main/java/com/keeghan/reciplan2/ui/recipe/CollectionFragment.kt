@@ -31,10 +31,10 @@ class CollectionFragment : Fragment() {
     ): View {
         _binding = FragmentCollectionBinding.inflate(inflater, container, false)
         val view = binding.root
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         val recyclerView = binding.collectionRecycler
         adapter = CollectionAdapter(activity)
-        viewModel.collectionRecipes.observe(viewLifecycleOwner, {
+        viewModel.collectionRecipes.observe(viewLifecycleOwner) {
             //Set Visibility of empty message
             if (it.isEmpty()) {
                 recyclerView.visibility = View.GONE
@@ -44,7 +44,7 @@ class CollectionFragment : Fragment() {
                 recyclerView.visibility = View.VISIBLE
                 adapter.setRecipes(it)
             }
-        })
+        }
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(
@@ -119,14 +119,14 @@ class CollectionFragment : Fragment() {
         textView.setText(R.string.str_clear_collection)
         builder.setView(v)
         builder.setPositiveButton(
-            "OK"
+            R.string.ok
         ) { _, _ ->
             viewModel.clearCollection()
             Toast.makeText(context, "All Recipes cleared", Toast.LENGTH_SHORT).show()
         }
 
         builder.setNegativeButton(
-            "cancel"
+            R.string.cancel
         ) { dialog, _ ->
             Toast.makeText(context, "operation cancelled", Toast.LENGTH_SHORT).show()
             dialog.dismiss()
