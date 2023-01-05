@@ -6,9 +6,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="recipe_image_desc">Recipe image description</string>
     <string name="recipe_title_placeholder">recipe_title</string>
-    <string name="collection_alternate_text">No Recipe has been added to your collection\nGo to Explore to add Recipes</string>
-    <string name="favorite_alternate_text">No Recipe has been added to your Favorite\nGo to Collection to add Recipes</string>
-    <string name="str_view_directions">VIEW DIRECTIONS</string>
+    <string name="collection_alternate_text">No Recipe has been added to your collection\nGo to Explore to add Recipes by clicking on the  \u2713  button</string>
+    <string name="favorite_alternate_text">No Recipe has been added to your Favorites\nGo to Collection to add Recipes by clicking on the  \u2764  button</string>
+    <string name="str_view_directions">DIRECTIONS</string>
     <string name="str_minutes">mins</string>
     <string name="str_ingredients">Ingredients</string>
     <string name="str_20">20</string>
@@ -30,7 +30,7 @@
 
 
     <!--Preference text values-->
-    <string name="pref_build_version">Version 1.0.0</string>
+    <string name="pref_build_version">Version 1.0.1</string>
 
 
     <!-- Preference Titles -->

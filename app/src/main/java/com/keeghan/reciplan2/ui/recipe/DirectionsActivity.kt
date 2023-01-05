@@ -1,12 +1,16 @@
 package com.keeghan.reciplan2.ui.recipe
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.google.android.material.appbar.AppBarLayout
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.databinding.ActivityDirectionsBinding
+import kotlin.math.abs
 
 class DirectionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDirectionsBinding
@@ -19,10 +23,27 @@ class DirectionsActivity : AppCompatActivity() {
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false);
 
-       // val title = intent.getStringExtra(RECIPE_NAME)
+        // val title = intent.getStringExtra(RECIPE_NAME)
         val directionAddress = intent.getIntExtra(RECIPE_DIRECTION, R.string.default_recipe_txt)
         val imageUrl = intent.getStringExtra(RECIPE_IMAGE)
+
+        binding.btnYoutube.setMagicButtonClickListener {
+            Toast.makeText(this, "button clicked", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.directionsAppBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            val percentage = abs(verticalOffset).toFloat() / appBarLayout!!.totalScrollRange
+            if (abs(verticalOffset) == appBarLayout.totalScrollRange) {
+                binding.btnYoutube.visibility = View.GONE
+            } else if (verticalOffset == 0) {
+                binding.btnYoutube.visibility = View.VISIBLE
+            } else {
+              TODO("Implement Transparency")
+            }
+        }
+
 
         Glide.with(this)
             .load(imageUrl)

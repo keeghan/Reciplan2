@@ -8,6 +8,7 @@
     tools:context=".ui.recipe.DirectionsActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/directions_appBar"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
@@ -35,6 +36,23 @@
                 android:layout_height="?attr/actionBarSize"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin" />
+
+            <br.com.bloder.magic.view.MagicButton
+                android:id="@+id/btn_youtube"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:button_icon="@drawable/ic_baseline_play_arrow_24"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                app:button_icon_height="25dp"
+                app:button_icon_width="25dp"
+                app:expandable_area_color="@color/youtubeRedVariation"
+                app:hide_text="Video"
+                app:hide_text_color="@android:color/black"
+                app:hide_text_size="6dp"
+                app:icon_button_color="@color/youtubeRed"
+                app:magic_button_size="50dp" />
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

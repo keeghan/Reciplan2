@@ -14,4 +14,10 @@
     <color name="colorAccent">#EF6C00</color>
     <color name="colorSecondaryAccent">#E65100</color>
     <color name="textSecondaryLight">#FFFFFF</color>
+
+
+    <color name="youtubeRed">#C4302B</color>
+    <color name="youtubeRedVariation">#DB3731</color>
+
+
 </resources>

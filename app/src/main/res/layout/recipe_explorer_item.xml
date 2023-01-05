@@ -27,7 +27,6 @@
             app:layout_constraintEnd_toStartOf="@+id/view_directions"
             app:layout_constraintStart_toStartOf="@+id/view_directions">
 
-
             <ImageView
                 android:id="@+id/collection_recipe_image"
                 android:layout_width="wrap_content"
@@ -63,7 +62,7 @@
                     app:layout_constraintHorizontal_bias="0.518"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.96" />
+                    app:layout_constraintVertical_bias="0.90" />
 
                 <TextView
                     android:id="@+id/collection_recipe_ingredients"
@@ -131,7 +130,7 @@
                 app:layout_constraintHorizontal_bias="0.83"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.74" />
+                app:layout_constraintVertical_bias="0.7" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
