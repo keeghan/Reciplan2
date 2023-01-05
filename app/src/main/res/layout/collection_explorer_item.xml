@@ -4,17 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_gravity="center|center_vertical">
 
 
     <androidx.cardview.widget.CardView
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
         android:paddingBottom="5dp"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="15dp"
+        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,6 +30,8 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:id="@+id/img_details_constraint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,6 +67,8 @@
                     android:id="@+id/collection_recipe_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:text="@string/str_recipeName_placeholder"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
                     app:layout_constraintBottom_toTopOf="@+id/collection_recipe_ingredients"
@@ -120,7 +131,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/colorPrimary"
+                android:background="@drawable/directions_corner_shape"
                 android:paddingStart="8dp"
                 android:paddingTop="8dp"
                 android:paddingEnd="8dp"
@@ -135,16 +146,32 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.74" />
 
-            <Button
+
+            <com.varunest.sparkbutton.SparkButton
                 android:id="@+id/btn_favorite_collection"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/ic_favorite_border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="SpeakableTextPresentCheck" />
+                app:sparkbutton_activeImage="@drawable/ic_favorite"
+                app:sparkbutton_iconSize="40dp"
+                app:sparkbutton_inActiveImage="@drawable/ic_favorite_border"
+                app:sparkbutton_primaryColor="@color/youtubeRed"
+                app:sparkbutton_secondaryColor="@color/colorAccent" />
+
+
+            <!--            <Button-->
+            <!--                android:id="@+id/btn_favorite_collection"-->
+            <!--                android:layout_width="48dp"-->
+            <!--                android:layout_height="48dp"-->
+            <!--                android:layout_marginTop="20dp"-->
+            <!--                android:layout_marginEnd="20dp"-->
+            <!--                android:background="@drawable/ic_favorite_border"-->
+            <!--                app:layout_constraintEnd_toEndOf="parent"-->
+            <!--                app:layout_constraintTop_toTopOf="parent"-->
+            <!--                tools:ignore="SpeakableTextPresentCheck" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

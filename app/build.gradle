@@ -78,4 +78,7 @@ dependencies {
     implementation 'it.xabaras.android:recyclerview-swipedecorator:1.2.3'
 
     implementation 'com.github.bloder:magic:1.1'
+
+    //favorite button animation
+    implementation 'com.github.varunest:sparkbutton:1.0.6'
 }

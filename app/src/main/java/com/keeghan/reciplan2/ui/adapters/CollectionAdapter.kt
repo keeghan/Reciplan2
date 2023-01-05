@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
+import com.varunest.sparkbutton.SparkButton
 import java.util.*
 
 class CollectionAdapter(var context: Context?) :
@@ -40,11 +41,7 @@ class CollectionAdapter(var context: Context?) :
 
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
         val currentRecipe: Recipe = recipes[position]
-        if (!currentRecipe.favorite) {
-            holder.btnFavorite.setBackgroundResource(R.drawable.ic_favorite_border)
-        } else {
-            holder.btnFavorite.setBackgroundResource(R.drawable.ic_favorite)
-        }
+        holder.btnFavorite.isChecked = currentRecipe.favorite                    //changed
         holder.textName.text = currentRecipe.name
         holder.textIngredients.text = currentRecipe.ingredients.toString()
         holder.textMin.text = currentRecipe.mins.toString()
@@ -58,7 +55,7 @@ class CollectionAdapter(var context: Context?) :
             .into(holder.recipeImg)
 
 
-        if(context != null){
+        if (context != null) {
             Log.e("context test", "context provided")
         }
     }
@@ -70,7 +67,7 @@ class CollectionAdapter(var context: Context?) :
         val textMin: TextView = itemView.findViewById(R.id.collection_recipe_min)
         val textIngredients: TextView = itemView.findViewById(R.id.collection_recipe_ingredients)
         val recipeImg: ImageView = itemView.findViewById(R.id.collection_recipe_image)
-        var btnFavorite: Button = itemView.findViewById(R.id.btn_favorite_collection)
+        var btnFavorite: SparkButton = itemView.findViewById(R.id.btn_favorite_collection)
 
         init {
             val directions = itemView.findViewById<TextView>(R.id.collection_view_directions)
@@ -78,6 +75,7 @@ class CollectionAdapter(var context: Context?) :
                 if (listener != null) {
                     val position = adapterPosition
                     listener.doFavoriteOperation(position)
+                    btnFavorite.playAnimation();
                 }
             }
             directions.setOnClickListener {

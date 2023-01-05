@@ -33,14 +33,14 @@ class DirectionsActivity : AppCompatActivity() {
             Toast.makeText(this, "button clicked", Toast.LENGTH_SHORT).show()
         }
 
+
+        //Hide video botton on collapsing AppBar
         binding.directionsAppBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             val percentage = abs(verticalOffset).toFloat() / appBarLayout!!.totalScrollRange
-            if (abs(verticalOffset) == appBarLayout.totalScrollRange) {
+            if (abs(verticalOffset) >= appBarLayout.totalScrollRange/2) {
                 binding.btnYoutube.visibility = View.GONE
             } else if (verticalOffset == 0) {
                 binding.btnYoutube.visibility = View.VISIBLE
-            } else {
-              TODO("Implement Transparency")
             }
         }
 
