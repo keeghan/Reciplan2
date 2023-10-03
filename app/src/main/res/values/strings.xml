@@ -30,7 +30,7 @@
 
 
     <!--Preference text values-->
-    <string name="pref_build_version">Version 1.0.1</string>
+    <string name="pref_build_version">Version 1.0.2</string>
 
 
     <!-- Preference Titles -->
@@ -110,5 +110,9 @@
     <string name="copyright_disclaimer">All images and recipes used in this app are the property of their respective owners. We do not claim ownership of any of the images or recipes. If you are the owner of an image or recipe and would like it to be removed from our app, please contact us and we will promptly remove it."
     </string>
     <string name="developer">Developer</string>
+    <string name="recipe_unavailable">\"Sorry, recipe video link not currently available\"</string>
+    <string name="video">video</string>
+    <string name="play_youtube_video">play youtube video</string>
+    <string name="clear_all_plans">Clear all plans</string>
 
 </resources>

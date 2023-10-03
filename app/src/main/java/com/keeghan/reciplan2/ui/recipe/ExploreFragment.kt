@@ -2,9 +2,9 @@ package com.keeghan.reciplan2.ui.recipe
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.text.LineBreaker
 import android.os.Build
 import android.os.Bundle
-import android.text.Layout.JUSTIFICATION_MODE_INTER_WORD
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +13,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
-import com.keeghan.reciplan2.Constants
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.databinding.FragmentExploreBinding
 import com.keeghan.reciplan2.ui.MainViewModel
+import com.keeghan.reciplan2.utils.Constants
 
 class ExploreFragment : Fragment() {
 
@@ -26,61 +26,53 @@ class ExploreFragment : Fragment() {
     private lateinit var prefs: SharedPreferences
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         val view = binding.root
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
-        val intent = Intent(context, ChooseRecipeActivity::class.java)
-
-        binding.snackCardView.setOnClickListener {
-            intent.putExtra(ChooseRecipeActivity.RECIPETYPE, "snack")
-            startActivity(intent)
-        }
-
-        binding.breakfastCardView.setOnClickListener {
-            intent.putExtra(ChooseRecipeActivity.RECIPETYPE, "breakfast")
-            startActivity(intent)
-        }
-
-        binding.lunchCardView.setOnClickListener {
-            intent.putExtra(ChooseRecipeActivity.RECIPETYPE, "lunch")
-            startActivity(intent)
-        }
-
-        binding.dinnerCardView.setOnClickListener {
-            intent.putExtra(ChooseRecipeActivity.RECIPETYPE, "dinner")
-            startActivity(intent)
-        }
+        binding.snackCardView.setOnClickListener { startChooseRecipeActivity("snack") }
+        binding.breakfastCardView.setOnClickListener { startChooseRecipeActivity("breakfast") }
+        binding.lunchCardView.setOnClickListener { startChooseRecipeActivity("lunch") }
+        binding.dinnerCardView.setOnClickListener { startChooseRecipeActivity("dinner") }
 
         //updateVersion2()
         showWelcomeDialog()
-
         return view
     }
 
+    //Show One Time Welcome message
     private fun showWelcomeDialog() {
-
         if (prefs.getBoolean(Constants.IS_FIRST_RUN, true)) {
 
             val builder = AlertDialog.Builder(requireContext())
             val v: View = LayoutInflater.from(context).inflate(R.layout.welcome_dialog, null, false)
 
             val textView = v.findViewById<TextView>(R.id.welcome_txt)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                textView.justificationMode = JUSTIFICATION_MODE_INTER_WORD
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
             }
             builder.setView(v)
             builder.setNegativeButton(R.string.str_close_welcome_dialog) { dialog, _ ->
-                prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply();
+                prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply()
                 dialog?.dismiss()
             }
             builder.show()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    //Create Intent and send string to ChooseRecipeActivity with the type of meals to display
+    private fun startChooseRecipeActivity(recipeType: String) {
+        val intent = Intent(context, ChooseRecipeActivity::class.java)
+        intent.putExtra(ChooseRecipeActivity.RECIPETYPE, recipeType)
+        startActivity(intent)
     }
 
     //Viable update path for new recipes to be added based on whether app is updated
@@ -91,7 +83,7 @@ class ExploreFragment : Fragment() {
 //                //version 1 update
 //                viewModel.insertRecipe(
 //                    Recipe(
-//                        24, "paano shew", R.array.kontomire_stew_array, 11, 45,
+//                        24, "Paano shew", R.array.kontomire_stew_array, 11, 45,
 //                        "https://firebasestorage.googleapis.com/v0/b/firesignindemo.appspot.com/o/recipeimages%2Fkontomire.webp?alt=media&token=06b881c0-9c1f-4e7f-b574-cfd9465a3620",
 //                        collection = true, favorite = false, type = "dinner"
 //                    )

@@ -9,11 +9,19 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Canvas
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -23,25 +31,25 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.keeghan.reciplan2.Constants
-import com.keeghan.reciplan2.Constants.DAY
-import com.keeghan.reciplan2.Constants.FRIDAY_ID
-import com.keeghan.reciplan2.Constants.MONDAY_ID
-import com.keeghan.reciplan2.Constants.SATURDAY_ID
-import com.keeghan.reciplan2.Constants.SUNDAY_ID
-import com.keeghan.reciplan2.Constants.THURSDAY_ID
-import com.keeghan.reciplan2.Constants.TUESDAY_ID
-import com.keeghan.reciplan2.Constants.WEDNESDAY_ID
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.database.Day
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentPlanBinding
 import com.keeghan.reciplan2.ui.adapters.PlanRecyclerAdapter
+import com.keeghan.reciplan2.utils.Constants
+import com.keeghan.reciplan2.utils.Constants.DAY
+import com.keeghan.reciplan2.utils.Constants.FRIDAY_ID
+import com.keeghan.reciplan2.utils.Constants.MONDAY_ID
+import com.keeghan.reciplan2.utils.Constants.SATURDAY_ID
+import com.keeghan.reciplan2.utils.Constants.SUNDAY_ID
+import com.keeghan.reciplan2.utils.Constants.THURSDAY_ID
+import com.keeghan.reciplan2.utils.Constants.TUESDAY_ID
+import com.keeghan.reciplan2.utils.Constants.WEDNESDAY_ID
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
-import java.util.*
 
-class PlanFragment : Fragment(), View.OnClickListener {
+
+class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
     private var _binding: FragmentPlanBinding? = null
     private val binding get() = _binding!!
@@ -79,7 +87,9 @@ class PlanFragment : Fragment(), View.OnClickListener {
 
         setEditButtonOnclickListener()
         showWelcomeToast()
-        setHasOptionsMenu(true)
+
+        requireActivity().addMenuProvider(this, viewLifecycleOwner)
+
         return view
     }
 
@@ -109,34 +119,6 @@ class PlanFragment : Fragment(), View.OnClickListener {
         sundayAdapter = PlanRecyclerAdapter(context)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        //change menu color based on theme
-        inflater.inflate(R.menu.plan_menu, menu)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_open_plan_settings)
-                .setIcon(R.drawable.ic_baseline_settings_black_24)
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_open_plan_settings)
-                .setIcon(R.drawable.ic_baseline_settings_white_24)
-        }
-    }
-
-    //clear collections menu
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_open_plan_settings) {
-            val intent = Intent(context, SettingsActivity::class.java)
-            startActivity(intent)
-            return true
-        } else if (item.itemId == R.id.action_plan_clear) {
-            viewModel.clearPlans()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-
     /*Function to set each Day's Recycler
     * and attach the adapters to it*/
     private fun setRecycler(
@@ -157,29 +139,8 @@ class PlanFragment : Fragment(), View.OnClickListener {
                     viewModel.getActiveDayRecipes(dayId)?.observe(
                         viewLifecycleOwner
                     ) { recipes ->
-                        Collections.sort(recipes, Comparator { o1, o2 ->
-                            if (o1.type == "breakfast") {
-                                if (o2.type == "lunch") {
-                                    return@Comparator -2
-                                } else if (o2.type == "dinner") {
-                                    return@Comparator -10
-                                }
-                            } else if (o1.type == "lunch") {
-                                if (o2.type == "breakfast") {
-                                    return@Comparator 12
-                                } else if (o2.type == "dinner") {
-                                    return@Comparator -8
-                                }
-                            } else {
-                                if (o2.type == "breakfast") {
-                                    return@Comparator 10
-                                } else if (o2.type == "lunch") {
-                                    return@Comparator 8
-                                }
-                            }
-                            0
-                        })
-                        adapter.setRecipes(recipes)
+                        val sortedList = sortRecipes(recipes)
+                        adapter.setRecipes(sortedList)
                     }
                 }
             }
@@ -213,7 +174,7 @@ class PlanFragment : Fragment(), View.OnClickListener {
                         ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT -> {
                             //Update swipe day with swipe recipe item
                             val temp: Recipe =
-                                adapter.getRecipeAt(viewHolder.adapterPosition) //shouldn't have called this inside an observer
+                                adapter.getRecipeAt(viewHolder.absoluteAdapterPosition) //shouldn't have called this inside an observer
                             val tempDay: Array<Day?> = arrayOfNulls(1)
                             viewModel.allDays.observe(
                                 viewLifecycleOwner
@@ -224,9 +185,11 @@ class PlanFragment : Fragment(), View.OnClickListener {
                                         day.breakfast -> {
                                             tempDay[0]?.breakfast = 0
                                         }
+
                                         day.lunch -> {
                                             tempDay[0]?.lunch = 1
                                         }
+
                                         day.dinner -> {
                                             tempDay[0]?.dinner = 2
                                         }
@@ -234,7 +197,7 @@ class PlanFragment : Fragment(), View.OnClickListener {
                                 }
                             }
                             viewModel.updateDay(tempDay[0]!!)
-                            adapter.notifyItemChanged(viewHolder.adapterPosition)
+                            adapter.notifyItemChanged(viewHolder.absoluteAdapterPosition)
                         }
                     }
                 }
@@ -323,8 +286,65 @@ class PlanFragment : Fragment(), View.OnClickListener {
     private fun showWelcomeToast() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_PLAN, true)) {
-            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_PLAN, false).apply();
+            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_PLAN, false).apply()
             Toast.makeText(requireContext(), R.string.str_swipe_delete, Toast.LENGTH_LONG).show()
         }
+    }
+
+    //Sort List to make sure the order of breakfast, lunch and dinner is correct
+    private fun sortRecipes(recipes: List<Recipe>): List<Recipe> {
+        val breakfast = recipes.filter { it.type == "breakfast" }
+        val missing0 = recipes.filter { it.type == "Missing Meal Plan" && it._id == 0 }
+        val lunch = recipes.filter { it.type == "lunch" }
+        val missing1 = recipes.filter { it.type == "Missing Meal Plan" && it._id == 1 }
+        val dinner = recipes.filter { it.type == "dinner" }
+        val missing2 = recipes.filter { it.type == "Missing Meal Plan" && it._id == 2 }
+        return breakfast.asSequence().plus(missing0).plus(lunch).plus(missing1).plus(dinner).plus(missing2).toList()
+    }
+
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        //change menu color based on theme
+        menuInflater.inflate(R.menu.plan_menu, menu)
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_open_plan_settings)
+                .setIcon(R.drawable.ic_baseline_settings_black_24)
+
+            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_open_plan_settings)
+                .setIcon(R.drawable.ic_baseline_settings_white_24)
+        }
+    }
+
+    //Open settings or clear all plans
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if (menuItem.itemId == R.id.action_open_plan_settings) {
+            val intent = Intent(context, SettingsActivity::class.java)
+            startActivity(intent)
+            return true
+        } else if (menuItem.itemId == R.id.action_plan_clear) {
+            onActionClearPlans()
+            return true
+        }
+        return false
+    }
+
+
+    private fun onActionClearPlans() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        val v: View = LayoutInflater.from(context).inflate(R.layout.clear_confirmation_dialog, null, false)
+        val textView = v.findViewById<TextView>(R.id.txt_clear_confirmation)
+        textView.text = getString(R.string.clear_all_plans)
+        builder.setView(v)
+        builder.setPositiveButton(R.string.ok) { _, _ ->
+            viewModel.clearPlans()
+            Toast.makeText(context, "All Plans cleared", Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton(R.string.cancel) { dialog, _ ->
+            Toast.makeText(context, "operation cancelled", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+        }
+        builder.show()
     }
 }

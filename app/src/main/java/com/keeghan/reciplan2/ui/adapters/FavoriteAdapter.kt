@@ -59,20 +59,20 @@ class FavoriteAdapter(var context: Context?) :
         val btnFavorite: Button = itemView.findViewById(R.id.btn_favorite_favorites)
         val textName: TextView = itemView.findViewById(R.id.collection_recipe_name)
         val recipeImg: ImageView = itemView.findViewById(R.id.collection_recipe_image)
-        var directions: TextView = itemView.findViewById(R.id.collection_view_directions)
+       // var directions: TextView = itemView.findViewById(R.id.collection_view_directions)
 
         init {
             val directions =
                 itemView.findViewById<View>(R.id.collection_view_directions) as TextView
             btnFavorite.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.doFavoriteOperation(position)
                 }
             }
             directions.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.onDirectionsClick(position)
                 }
             }

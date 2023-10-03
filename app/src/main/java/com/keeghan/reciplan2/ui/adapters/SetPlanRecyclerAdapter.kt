@@ -59,7 +59,7 @@ class SetPlanRecyclerAdapter(var context: Context?, private val bListener: Butto
 
         init {
             //view passed to viewHolder using adapter
-            itemView.setOnClickListener { bListener?.onAssignClick(adapterPosition) }
+            itemView.setOnClickListener { bListener?.onAssignClick(absoluteAdapterPosition) }
         }
     }
 

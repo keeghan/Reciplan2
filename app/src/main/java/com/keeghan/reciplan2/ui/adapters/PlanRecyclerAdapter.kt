@@ -14,19 +14,17 @@ import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import java.util.*
 
-class PlanRecyclerAdapter(var context: Context?) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var recipes: List<Recipe> = ArrayList<Recipe>()
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
-            val itemView: View = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recipe_plan_item, parent, false)
+            val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recipe_plan_item, parent, false)
             PlanItemHolder(itemView)
         } else {
-            val itemView: View = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recipe_plan_default_item, parent, false)
+            val itemView: View =
+                LayoutInflater.from(parent.context).inflate(R.layout.recipe_plan_default_item, parent, false)
             PlanDefaultHolder(itemView)
         }
     }
@@ -38,11 +36,8 @@ class PlanRecyclerAdapter(var context: Context?) :
             val holderDefault = holder as PlanDefaultHolder
             when (currentRecipe.name) {
                 "missing0" -> holderDefault.defaultText.text = context?.getString(R.string.not_set_breakfast)
-                   // Resources.getSystem().getString(R.string.breakfast_set_status)
                 "missing1" -> holderDefault.defaultText.text = context?.getString(R.string.not_set_lunch)
-                   // Resources.getSystem().getString(R.string.lunch_set_status)
                 "missing2" -> holderDefault.defaultText.text = context?.getString(R.string.not_set_dinner)
-                  //  Resources.getSystem().getString(R.string.dinner_set_status)
                 else -> holderDefault.defaultText.text = context?.getString(R.string.not_set_snack)
 
             }
@@ -58,12 +53,8 @@ class PlanRecyclerAdapter(var context: Context?) :
 
             //Glide Implementation
             if (context != null) {
-                Glide.with(context!!)
-                    .load(currentRecipe.imageUrl)
-                    .placeholder(R.drawable.ic_launcher_background)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .centerCrop()
-                    .into(holderItem.planImage)
+                Glide.with(context!!).load(currentRecipe.imageUrl).placeholder(R.drawable.ic_launcher_background)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().into(holderItem.planImage)
             }
         }
     }
@@ -75,8 +66,7 @@ class PlanRecyclerAdapter(var context: Context?) :
         val planImage: ImageView = itemView.findViewById(R.id.plan_item_image)
     }
 
-    internal class PlanDefaultHolder(itemView: View) :
-        RecyclerView.ViewHolder(itemView) {
+    internal class PlanDefaultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val defaultText: TextView = itemView.findViewById(R.id.default_item_text)
     }
 
@@ -95,10 +85,7 @@ class PlanRecyclerAdapter(var context: Context?) :
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (recipes[position]._id == 0 ||
-            recipes[position]._id == 1 ||
-            recipes[position]._id == 2
-        ) {
+        return if (recipes[position]._id == 0 || recipes[position]._id == 1 || recipes[position]._id == 2) {
             0
         } else {
             1

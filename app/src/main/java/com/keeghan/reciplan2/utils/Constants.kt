@@ -1,4 +1,4 @@
-package com.keeghan.reciplan2
+package com.keeghan.reciplan2.utils
 
 object Constants {
     const val SUNDAY_ID = 1

@@ -8,17 +8,14 @@ import com.keeghan.reciplan2.database.RecipeDatabase
 import com.keeghan.reciplan2.database.RecipeRepository
 import kotlinx.coroutines.launch
 
-class PlanViewModel(application: Application) :
-    AndroidViewModel(
-        application
-    ) {
+class PlanViewModel(application: Application) : AndroidViewModel(
+    application
+) {
     private var repository: RecipeRepository
-
 
     init {
         val recipeDao = RecipeDatabase.getDatabase(application, viewModelScope).recipeDao()
         repository = RecipeRepository(recipeDao)
-
     }
 
     val allDays: LiveData<List<Day>> = repository.getAllDays()
@@ -33,28 +30,14 @@ class PlanViewModel(application: Application) :
     private val tempRecipeArray7 = MutableLiveData<IntArray>()
 
 
-    //LiveData is observe after Transformation.SwitchMap
-    private var sundayRecipes = Transformations.switchMap(tempRecipeArray1)
-    { repository.getActiveDayRecipes(it) }
-
-    private var mondayRecipes = Transformations.switchMap(tempRecipeArray2)
-    { repository.getActiveDayRecipes(it) }
-
-    private var tuesdayRecipes = Transformations.switchMap(tempRecipeArray3)
-    { repository.getActiveDayRecipes(it) }
-
-    private var wednesdayRecipes = Transformations.switchMap(tempRecipeArray4)
-    { repository.getActiveDayRecipes(it) }
-
-    private var thursdayRecipes = Transformations.switchMap(tempRecipeArray5)
-    { repository.getActiveDayRecipes(it) }
-
-    private var fridayRecipes = Transformations.switchMap(tempRecipeArray6)
-    { repository.getActiveDayRecipes(it) }
-
-    private var saturdayRecipes = Transformations.switchMap(tempRecipeArray7)
-    { repository.getActiveDayRecipes(it) }
-
+    //LiveData is observed after Transformation.SwitchMap
+    private var sundayRecipes = tempRecipeArray1.switchMap { repository.getActiveDayRecipes(it) }
+    private var mondayRecipes = tempRecipeArray2.switchMap { repository.getActiveDayRecipes(it) }
+    private var tuesdayRecipes = tempRecipeArray3.switchMap { repository.getActiveDayRecipes(it) }
+    private var wednesdayRecipes = tempRecipeArray4.switchMap { repository.getActiveDayRecipes(it) }
+    private var thursdayRecipes = tempRecipeArray5.switchMap { repository.getActiveDayRecipes(it) }
+    private var fridayRecipes = tempRecipeArray6.switchMap { repository.getActiveDayRecipes(it) }
+    private var saturdayRecipes = tempRecipeArray7.switchMap { repository.getActiveDayRecipes(it) }
 
 
     //SetPlanActivity variables

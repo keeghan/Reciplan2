@@ -85,19 +85,19 @@ class RecipeAdapter(
         init {
             directions.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.onDirectionsClick(position)
                 }
             }
             addToCollection.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.addToCollection(position)
                 }
             }
             removeFromCollection.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.removeFromCollection(position)
                 }
             }

@@ -10,7 +10,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.keeghan.reciplan2.Constants
+import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.ActivityChooseRecipeBinding
@@ -36,7 +36,7 @@ class ChooseRecipeActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.exploreRecycler.setHasFixedSize(true)
 
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         recipeType = intent.getStringExtra(RECIPETYPE).toString()
         getIntentList()
 
@@ -47,6 +47,7 @@ class ChooseRecipeActivity : AppCompatActivity() {
                 intent.putExtra(DirectionsActivity.RECIPE_NAME, workingRecipe.name)
                 intent.putExtra(DirectionsActivity.RECIPE_DIRECTION, workingRecipe.direction)
                 intent.putExtra(DirectionsActivity.RECIPE_IMAGE, workingRecipe.imageUrl)
+                intent.putExtra(DirectionsActivity.RECIPE_ID, workingRecipe._id)
                 startActivity(intent)
             }
 
@@ -72,17 +73,16 @@ class ChooseRecipeActivity : AppCompatActivity() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
-                    ItemTouchHelper.RIGHT -> add2Collection(viewHolder.adapterPosition)
-                    ItemTouchHelper.LEFT -> remove4rmCollection(viewHolder.adapterPosition)
+                    ItemTouchHelper.RIGHT -> add2Collection(viewHolder.absoluteAdapterPosition)
+                    ItemTouchHelper.LEFT -> remove4rmCollection(viewHolder.absoluteAdapterPosition)
                 }
                 //reset position of card to prevent disappearance
-                adapter.notifyItemChanged(viewHolder.adapterPosition)
+                adapter.notifyItemChanged(viewHolder.absoluteAdapterPosition)
             }
         }).attachToRecyclerView(binding.exploreRecycler)
         showWelcomeToast()
         setContentView(view)
     }
-
 
 
     //function to get the correct list to build recycler
@@ -91,12 +91,15 @@ class ChooseRecipeActivity : AppCompatActivity() {
             "snack" -> viewModel.snackRecipes.observe(this@ChooseRecipeActivity) { recipes ->
                 adapter.setRecipes(recipes)
             }
+
             "breakfast" -> viewModel.breakfastRecipes.observe(this@ChooseRecipeActivity) { recipes ->
                 adapter.setRecipes(recipes)
             }
+
             "lunch" -> viewModel.lunchRecipes.observe(this@ChooseRecipeActivity) { recipes ->
                 adapter.setRecipes(recipes)
             }
+
             "dinner" -> viewModel.dinnerRecipes.observe(this@ChooseRecipeActivity) { recipes ->
                 adapter.setRecipes(recipes)
             }
@@ -147,8 +150,8 @@ class ChooseRecipeActivity : AppCompatActivity() {
     private fun showWelcomeToast() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
         if (prefs.getBoolean(Constants.IS_FIRST_RUN_EXPLORE, true)) {
-            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_EXPLORE, false).apply();
-            Toast.makeText(this@ChooseRecipeActivity,R.string.str_need_internet,Toast.LENGTH_LONG).show()
+            prefs.edit().putBoolean(Constants.IS_FIRST_RUN_EXPLORE, false).apply()
+            Toast.makeText(this@ChooseRecipeActivity, R.string.str_need_internet, Toast.LENGTH_LONG).show()
         }
     }
 

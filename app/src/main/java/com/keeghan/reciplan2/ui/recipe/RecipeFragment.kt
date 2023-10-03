@@ -6,7 +6,9 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -16,7 +18,7 @@ import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.databinding.FragmentRecipeBinding
 
-class RecipeFragment : Fragment() {
+class RecipeFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
@@ -45,7 +47,6 @@ class RecipeFragment : Fragment() {
                 2 -> tab.text = "Favorite"
             }
         }.attach()
-        setHasOptionsMenu(true)
         return view
     }
 
@@ -60,29 +61,8 @@ class RecipeFragment : Fragment() {
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
-    }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-
-        //change menu color based on theme
-        inflater.inflate(R.menu.main_menu, menu)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_open_settings)
-                .setIcon(R.drawable.ic_baseline_settings_black_24)
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_open_settings)
-                .setIcon(R.drawable.ic_baseline_settings_white_24)
-        }
-    }
-
-    //clear collections menu
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_open_settings) {
-            val intent = Intent(context, SettingsActivity::class.java)
-            startActivity(intent)
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
 
@@ -100,6 +80,28 @@ class RecipeFragment : Fragment() {
         override fun createFragment(position: Int): Fragment {
             return items[position]
         }
+    }
+
+    //New Implementation for Menus
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        //change menu color based on theme
+        menuInflater.inflate(R.menu.main_menu, menu)
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_open_settings)
+                .setIcon(R.drawable.ic_baseline_settings_black_24)
+
+            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_open_settings)
+                .setIcon(R.drawable.ic_baseline_settings_white_24)
+        }
+    }
+
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if (menuItem.itemId == R.id.action_open_settings) {
+            val intent = Intent(context, SettingsActivity::class.java)
+            startActivity(intent)
+            return true
+        }
+        return false
     }
 
 }

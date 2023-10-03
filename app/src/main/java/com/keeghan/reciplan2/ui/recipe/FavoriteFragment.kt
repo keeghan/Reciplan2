@@ -2,13 +2,19 @@ package com.keeghan.reciplan2.ui.recipe
 
 import android.content.Intent
 import android.content.res.Configuration
-import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.keeghan.reciplan2.R
@@ -18,7 +24,7 @@ import com.keeghan.reciplan2.ui.MainViewModel
 import com.keeghan.reciplan2.ui.adapters.FavoriteAdapter
 import com.keeghan.reciplan2.ui.adapters.FavoriteAdapter.ButtonClickListener
 
-class FavoriteFragment : Fragment() {
+class FavoriteFragment : Fragment(), MenuProvider {
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -34,7 +40,7 @@ class FavoriteFragment : Fragment() {
         val recyclerView = binding.favoriteRecycler
         val textView = binding.emptyListTxt
         adapter = FavoriteAdapter(context)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.favoriteRecipes.observe(
             viewLifecycleOwner
         ) {
@@ -60,6 +66,8 @@ class FavoriteFragment : Fragment() {
                 intent.putExtra(DirectionsActivity.RECIPE_NAME, workingRecipe.name)
                 intent.putExtra(DirectionsActivity.RECIPE_DIRECTION, workingRecipe.direction)
                 intent.putExtra(DirectionsActivity.RECIPE_IMAGE, workingRecipe.imageUrl)
+                intent.putExtra(DirectionsActivity.RECIPE_IMAGE, workingRecipe.imageUrl)
+                intent.putExtra(DirectionsActivity.RECIPE_ID, workingRecipe._id)
                 startActivity(intent)
             }
 
@@ -84,28 +92,12 @@ class FavoriteFragment : Fragment() {
 
         })
 
-        setHasOptionsMenu(true)
         return view
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.collections_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
-                .setIcon(R.drawable.ic_action_clear_black)
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
-                .setIcon(R.drawable.ic_action_clear)
-        }
-    }
-
-    //clear collections menu
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_clear) {
-            onActionClearFavorite()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     /*method to confirm clearing collections option*/
@@ -132,4 +124,32 @@ class FavoriteFragment : Fragment() {
         }
         builder.show()
     }
+
+    override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.collections_menu, menu)
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
+                .setIcon(R.drawable.ic_action_clear_black)
+
+            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
+                .setIcon(R.drawable.ic_action_clear)
+        }
+    }
+
+    //clear collections menu
+    override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+        if (menuItem.itemId == R.id.action_clear) {
+            onActionClearFavorite()
+            return true
+        }
+        return false
+    }
+
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
+
+

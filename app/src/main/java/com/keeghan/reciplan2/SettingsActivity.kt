@@ -74,6 +74,7 @@ class SettingsActivity : AppCompatActivity() {
                     val textView = v.findViewById<TextView>(R.id.disclaimer_txt)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         textView.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
+
                     }
                     builder.setView(v)
                     builder.setNegativeButton(

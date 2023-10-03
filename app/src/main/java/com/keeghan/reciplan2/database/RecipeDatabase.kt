@@ -36,7 +36,7 @@ abstract class RecipeDatabase: RoomDatabase() {
 
     private class WordDatabaseCallback(
         private val scope: CoroutineScope
-    ) : RoomDatabase.Callback() {
+    ) : Callback() {
         override fun onCreate(db: SupportSQLiteDatabase) {
             super.onCreate(db)
             INSTANCE?.let { database ->

@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -73,14 +72,14 @@ class CollectionAdapter(var context: Context?) :
             val directions = itemView.findViewById<TextView>(R.id.collection_view_directions)
             btnFavorite.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.doFavoriteOperation(position)
-                    btnFavorite.playAnimation();
+                    btnFavorite.playAnimation()
                 }
             }
             directions.setOnClickListener {
                 if (listener != null) {
-                    val position = adapterPosition
+                    val position = absoluteAdapterPosition
                     listener.onDirectionsClick(position)
                 }
             }

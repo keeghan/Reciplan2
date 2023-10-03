@@ -10,7 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.keeghan.reciplan2.Constants.DAY
+import com.keeghan.reciplan2.utils.Constants.DAY
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.ActivitySetPlanBinding
@@ -40,7 +40,7 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
 
         intentDay = intent.getIntExtra(DAY, 7)
-        viewModel = ViewModelProvider(this).get(PlanViewModel::class.java)
+        viewModel = ViewModelProvider(this)[PlanViewModel::class.java]
         val spinner = binding.daySpinner
         val spinnerAdapter = ArrayAdapter.createFromResource(
             this,
