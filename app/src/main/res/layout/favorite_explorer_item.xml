@@ -6,7 +6,7 @@
     android:layout_gravity="center|center_vertical">
 
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -62,9 +62,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
-                    android:maxLines="1"
-                    android:maxLength="15"
                     android:ellipsize="end"
+                    android:maxLength="15"
+                    android:maxLines="1"
                     android:text="@string/str_recipeName_placeholder"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -95,18 +95,24 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.69" />
 
-            <Button
+
+            <com.varunest.sparkbutton.SparkButton
                 android:id="@+id/btn_favorite_favorites"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@drawable/ic_favorite_border"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:sparkbutton_activeImage="@drawable/ic_favorite"
+                app:sparkbutton_iconSize="35dp"
+                app:sparkbutton_inActiveImage="@drawable/ic_favorite"
+                app:sparkbutton_primaryColor="@color/colorAccent"
+                app:sparkbutton_secondaryColor="@color/youtubeRed" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

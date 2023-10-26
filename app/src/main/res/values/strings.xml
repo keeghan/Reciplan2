@@ -99,13 +99,13 @@
     <string name="not_set_lunch">lunch not set</string>
     <string name="not_set_dinner">dinner not set</string>
     <string name="not_set_snack">snack not set</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="str_welcome_message">Welcome to Reciplan, You can explore various authentic Ghanaian recipes from this page.
         If you like a recipe you can add it to your collection by press the \u2713 button.\nBon appétit! </string>
     <string name="str_close_welcome_dialog">do show again</string>
     <string name="str_need_internet">Turn on internet access to load recipe images</string>
     <string name="str_swipe_delete">Swipe to delete Recipe</string>
-    <string name="ok">ok</string>
+    <string name="ok">OK</string>
 
     <string name="copyright_disclaimer">All images and recipes used in this app are the property of their respective owners. We do not claim ownership of any of the images or recipes. If you are the owner of an image or recipe and would like it to be removed from our app, please contact us and we will promptly remove it."
     </string>
@@ -114,5 +114,12 @@
     <string name="video">video</string>
     <string name="play_youtube_video">play youtube video</string>
     <string name="clear_all_plans">Clear all plans</string>
+    <string name="add">Add</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="choose_image">Choose Image</string>
+    <string name="save">Save</string>
+    <string name="recipe_description">Recipe Description</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="add_your_recipe">Add Your Recipe</string>
 
 </resources>

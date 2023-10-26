@@ -65,9 +65,7 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlanBinding.inflate(layoutInflater, container, false)
         val view = binding.root
@@ -122,9 +120,7 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
     /*Function to set each Day's Recycler
     * and attach the adapters to it*/
     private fun setRecycler(
-        dayId: Int,
-        recyclerView: RecyclerView,
-        adapter: PlanRecyclerAdapter
+        dayId: Int, recyclerView: RecyclerView, adapter: PlanRecyclerAdapter
     ) {
         val tempRecipeArray = IntArray(3)
         viewModel.allDays.observe(viewLifecycleOwner) { days ->
@@ -150,101 +146,78 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         //functions need to execute  inside main onViewCreated
-        recyclerView.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
 
 
         //Implementation of swiping to delete
-        val itemTouchHelper = ItemTouchHelper(
-            object : ItemTouchHelper.SimpleCallback(
-                0,
-                ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
-            ) {
-                override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
-                ): Boolean {
-                    return false
-                }
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+            0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
 
-                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    when (direction) {
-                        ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT -> {
-                            //Update swipe day with swipe recipe item
-                            val temp: Recipe =
-                                adapter.getRecipeAt(viewHolder.absoluteAdapterPosition) //shouldn't have called this inside an observer
-                            val tempDay: Array<Day?> = arrayOfNulls(1)
-                            viewModel.allDays.observe(
-                                viewLifecycleOwner
-                            ) { days ->
-                                for (day in days) if (day._id == dayId) {
-                                    tempDay[0] = day
-                                    when (temp._id) {
-                                        day.breakfast -> {
-                                            tempDay[0]?.breakfast = 0
-                                        }
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when (direction) {
+                    ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT -> {
+                        //Update swipe day with swipe recipe item
+                        val temp: Recipe =
+                            adapter.getRecipeAt(viewHolder.absoluteAdapterPosition) //shouldn't have called this inside an observer
+                        val tempDay: Array<Day?> = arrayOfNulls(1)
+                        viewModel.allDays.observe(
+                            viewLifecycleOwner
+                        ) { days ->
+                            for (day in days) if (day._id == dayId) {
+                                tempDay[0] = day
+                                when (temp._id) {
+                                    day.breakfast -> {
+                                        tempDay[0]?.breakfast = 0
+                                    }
 
-                                        day.lunch -> {
-                                            tempDay[0]?.lunch = 1
-                                        }
+                                    day.lunch -> {
+                                        tempDay[0]?.lunch = 1
+                                    }
 
-                                        day.dinner -> {
-                                            tempDay[0]?.dinner = 2
-                                        }
+                                    day.dinner -> {
+                                        tempDay[0]?.dinner = 2
                                     }
                                 }
                             }
-                            viewModel.updateDay(tempDay[0]!!)
-                            adapter.notifyItemChanged(viewHolder.absoluteAdapterPosition)
                         }
+                        viewModel.updateDay(tempDay[0]!!)
+                        adapter.notifyItemChanged(viewHolder.absoluteAdapterPosition)
                     }
                 }
+            }
 
-                override fun onChildDraw(
-                    c: Canvas,
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    dX: Float,
-                    dY: Float,
-                    actionState: Int,
-                    isCurrentlyActive: Boolean
-                ) {
-                    RecyclerViewSwipeDecorator.Builder(
-                        c,
-                        recyclerView,
-                        viewHolder,
-                        dX,
-                        dY,
-                        actionState,
-                        isCurrentlyActive
-                    )
-                        .addBackgroundColor(
-                            ContextCompat.getColor(context!!, R.color.colorAccent)
-                        )
-                        .addActionIcon(R.drawable.ic_baseline_delete_outline_24)
-                        .addSwipeLeftLabel(resources.getString(R.string.swipeRemove))
-                        .addSwipeRightLabel(resources.getString(R.string.swipeRemove))
-                        .setSwipeLeftLabelColor(
-                            ContextCompat.getColor(context!!, R.color.textSecondaryLight)
-                        )
-                        .setSwipeRightLabelColor(
-                            ContextCompat.getColor(context!!, R.color.textSecondaryLight)
-                        )
-                        .create()
-                        .decorate()
-                    super.onChildDraw(
-                        c,
-                        recyclerView,
-                        viewHolder,
-                        dX,
-                        dY,
-                        actionState,
-                        isCurrentlyActive
-                    )
-                }
-            }) //end of item touch helper
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                RecyclerViewSwipeDecorator.Builder(
+                    c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
+                ).addBackgroundColor(
+                        ContextCompat.getColor(context!!, R.color.colorAccent)
+                    ).addActionIcon(R.drawable.ic_baseline_delete_outline_24)
+                    .addSwipeLeftLabel(resources.getString(R.string.swipeRemove))
+                    .addSwipeRightLabel(resources.getString(R.string.swipeRemove)).setSwipeLeftLabelColor(
+                        ContextCompat.getColor(context!!, R.color.textSecondaryLight)
+                    ).setSwipeRightLabelColor(
+                        ContextCompat.getColor(context!!, R.color.textSecondaryLight)
+                    ).create().decorate()
+                super.onChildDraw(
+                    c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
+                )
+            }
+        }) //end of item touch helper
         itemTouchHelper.attachToRecyclerView(recyclerView)
         //end of setRecycler
     }

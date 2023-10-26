@@ -9,7 +9,7 @@
         android:id="@+id/navigation_recipe"
         android:name="com.keeghan.reciplan2.ui.recipe.RecipeFragment"
         android:label="Recipe"
-        tools:layout="@layout/fragment_recipe" >
+        tools:layout="@layout/fragment_recipe">
         <action
             android:id="@+id/action_navigation_recipe_to_navigation_plan"
             app:destination="@id/navigation_plan"
@@ -20,9 +20,20 @@
         android:id="@+id/navigation_plan"
         android:name="com.keeghan.reciplan2.ui.plan.PlanFragment"
         android:label="Meal Plan"
-        tools:layout="@layout/fragment_plan" >
+        tools:layout="@layout/fragment_plan">
         <action
-            android:id="@+id/action_navigation_plan_to_navigation_recipe"
+            android:id="@+id/action_navigation_plan_to_navigation_add"
+            app:destination="@id/navigation_add"
+            app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_add"
+        android:name="com.keeghan.reciplan2.ui.add.AddFragment"
+        android:label="Add Meal"
+        tools:layout="@layout/fragment_add">
+        <action
+            android:id="@+id/action_navigation_add_to_navigation_recipe"
             app:destination="@id/navigation_recipe"
             app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
     </fragment>

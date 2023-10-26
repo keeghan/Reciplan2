@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
+import com.varunest.sparkbutton.SparkButton
 import java.util.*
 
 class FavoriteAdapter(var context: Context?) :
@@ -37,11 +38,6 @@ class FavoriteAdapter(var context: Context?) :
 
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
         val currentRecipe: Recipe = recipes[position]
-        if (!currentRecipe.favorite) {
-            holder.btnFavorite.setBackgroundResource(R.drawable.ic_favorite_border)
-        } else {
-            holder.btnFavorite.setBackgroundResource(R.drawable.ic_favorite)
-        }
         holder.textName.text = currentRecipe.name
 
         //Glide Implementation
@@ -56,7 +52,7 @@ class FavoriteAdapter(var context: Context?) :
     //The separate ViewHolders
     class RecipeHolder(itemView: View, listener: ButtonClickListener?) :
         RecyclerView.ViewHolder(itemView) {
-        val btnFavorite: Button = itemView.findViewById(R.id.btn_favorite_favorites)
+        val btnFavorite: SparkButton = itemView.findViewById(R.id.btn_favorite_favorites)
         val textName: TextView = itemView.findViewById(R.id.collection_recipe_name)
         val recipeImg: ImageView = itemView.findViewById(R.id.collection_recipe_image)
        // var directions: TextView = itemView.findViewById(R.id.collection_view_directions)
