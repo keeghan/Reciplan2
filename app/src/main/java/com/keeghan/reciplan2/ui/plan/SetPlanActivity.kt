@@ -36,7 +36,9 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         val view = binding.root
         val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+       // supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(true)
+
 
 
         intentDay = intent.getIntExtra(DAY, 7)

@@ -16,7 +16,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="@string/add_your_recipe"
-            android:textFontWeight="700"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

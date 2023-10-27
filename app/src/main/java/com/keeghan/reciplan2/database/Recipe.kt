@@ -1,5 +1,6 @@
 package com.keeghan.reciplan2.database
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -15,8 +16,13 @@ data class Recipe(
     val imageUrl: String,
     var collection: Boolean,
     var favorite: Boolean,
-    val type: String
-) {
+    val type: String,
+    //new column migration 1_2
+    val userCreated: Boolean = false,
+    val userDirection: String = "",
+
+
+    ) {
     override fun toString(): String {
         return "Recipe(name='$name', type='$type')\n"
     }
