@@ -48,9 +48,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:autofillHints="text"
-            android:hint="@string/recipe_description"
+            android:maxHeight="200dp"
+            android:hint="@string/recipe_directions"
             android:inputType="textMultiLine"
-            android:minLines="3"
+            android:minLines="5"
             app:layout_constraintTop_toBottomOf="@+id/recipeTitleLayout"
             tools:layout_editor_absoluteX="16dp" />
 

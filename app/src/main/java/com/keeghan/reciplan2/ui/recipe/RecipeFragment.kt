@@ -84,15 +84,7 @@ class RecipeFragment : Fragment(), MenuProvider {
 
     //New Implementation for Menus
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        //change menu color based on theme
         menuInflater.inflate(R.menu.main_menu, menu)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_open_settings)
-                .setIcon(R.drawable.ic_baseline_settings_black_24)
-
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_open_settings)
-                .setIcon(R.drawable.ic_baseline_settings_white_24)
-        }
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {

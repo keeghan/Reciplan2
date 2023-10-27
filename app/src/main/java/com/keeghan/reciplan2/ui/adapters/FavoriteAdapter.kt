@@ -4,20 +4,17 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.varunest.sparkbutton.SparkButton
-import java.util.*
 
 class FavoriteAdapter(var context: Context?) :
     RecyclerView.Adapter<FavoriteAdapter.RecipeHolder>() {
-    private var recipes: List<Recipe> = ArrayList<Recipe>()
+    private var recipes: List<Recipe> = ArrayList()
     private var bListener: ButtonClickListener? = null
 
     //getAdapter position passed to implementations
@@ -43,19 +40,16 @@ class FavoriteAdapter(var context: Context?) :
         //Glide Implementation
         Glide.with(context!!)
             .load(currentRecipe.imageUrl)
-            .placeholder(R.drawable.ic_launcher_background)
-            .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
-            .centerCrop()
             .into(holder.recipeImg)
     }
 
     //The separate ViewHolders
     class RecipeHolder(itemView: View, listener: ButtonClickListener?) :
         RecyclerView.ViewHolder(itemView) {
-        val btnFavorite: SparkButton = itemView.findViewById(R.id.btn_favorite_favorites)
+        private val btnFavorite: SparkButton = itemView.findViewById(R.id.btn_favorite_favorites)
         val textName: TextView = itemView.findViewById(R.id.collection_recipe_name)
         val recipeImg: ImageView = itemView.findViewById(R.id.collection_recipe_image)
-       // var directions: TextView = itemView.findViewById(R.id.collection_view_directions)
+        // var directions: TextView = itemView.findViewById(R.id.collection_view_directions)
 
         init {
             val directions =

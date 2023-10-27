@@ -1,7 +1,5 @@
 package com.keeghan.reciplan2.ui.recipe
 
-import android.content.Intent
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -23,6 +21,7 @@ import com.keeghan.reciplan2.databinding.FragmentFavoriteBinding
 import com.keeghan.reciplan2.ui.MainViewModel
 import com.keeghan.reciplan2.ui.adapters.FavoriteAdapter
 import com.keeghan.reciplan2.ui.adapters.FavoriteAdapter.ButtonClickListener
+import com.keeghan.reciplan2.ui.recipe.ChooseRecipeActivity.Companion.encodeRecipeToDirectionsActivity
 
 class FavoriteFragment : Fragment(), MenuProvider {
     private lateinit var viewModel: MainViewModel
@@ -62,13 +61,7 @@ class FavoriteFragment : Fragment(), MenuProvider {
         adapter.setButtonClickListener(object : ButtonClickListener {
             override fun onDirectionsClick(position: Int) {
                 val workingRecipe: Recipe = adapter.getRecipeAt(position)
-                val intent = Intent(context, DirectionsActivity::class.java)
-                intent.putExtra(DirectionsActivity.RECIPE_NAME, workingRecipe.name)
-                intent.putExtra(DirectionsActivity.RECIPE_DIRECTION, workingRecipe.direction)
-                intent.putExtra(DirectionsActivity.RECIPE_IMAGE, workingRecipe.imageUrl)
-                intent.putExtra(DirectionsActivity.RECIPE_IMAGE, workingRecipe.imageUrl)
-                intent.putExtra(DirectionsActivity.RECIPE_ID, workingRecipe._id)
-                startActivity(intent)
+                encodeRecipeToDirectionsActivity(requireContext(), workingRecipe)
             }
 
             override fun doFavoriteOperation(position: Int) {
@@ -127,13 +120,6 @@ class FavoriteFragment : Fragment(), MenuProvider {
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.collections_menu, menu)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_clear)
-                .setIcon(R.drawable.ic_action_clear_black)
-
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_clear)
-                .setIcon(R.drawable.ic_action_clear)
-        }
     }
 
     //clear collections menu

@@ -1,5 +1,6 @@
 package com.keeghan.reciplan2.ui.recipe
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -10,13 +11,16 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.ActivityChooseRecipeBinding
 import com.keeghan.reciplan2.ui.MainViewModel
 import com.keeghan.reciplan2.ui.adapters.RecipeAdapter
 import com.keeghan.reciplan2.ui.adapters.RecipeAdapter.ButtonClickListener
+import com.keeghan.reciplan2.utils.Constants
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.net.URLEncoder
 
 class ChooseRecipeActivity : AppCompatActivity() {
     private lateinit var recipeType: String
@@ -32,23 +36,18 @@ class ChooseRecipeActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-        binding.exploreRecycler.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.exploreRecycler.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         binding.exploreRecycler.setHasFixedSize(true)
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         recipeType = intent.getStringExtra(RECIPETYPE).toString()
         getIntentList()
 
+        //Get Recipe clicked, serialize it and send it to [DirectionsActivity]
         adapter.setButtonClickListener(object : ButtonClickListener {
             override fun onDirectionsClick(position: Int) {
                 val workingRecipe: Recipe = adapter.getRecipeAt(position)
-                val intent = Intent(this@ChooseRecipeActivity, DirectionsActivity::class.java)
-                intent.putExtra(DirectionsActivity.RECIPE_NAME, workingRecipe.name)
-                intent.putExtra(DirectionsActivity.RECIPE_DIRECTION, workingRecipe.direction)
-                intent.putExtra(DirectionsActivity.RECIPE_IMAGE, workingRecipe.imageUrl)
-                intent.putExtra(DirectionsActivity.RECIPE_ID, workingRecipe._id)
-                startActivity(intent)
+                encodeRecipeToDirectionsActivity(this@ChooseRecipeActivity, workingRecipe)
             }
 
             override fun removeFromCollection(position: Int) {
@@ -61,12 +60,9 @@ class ChooseRecipeActivity : AppCompatActivity() {
         })
         binding.exploreRecycler.adapter = adapter
 
-        ItemTouchHelper(object :
-            ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
+        ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT) {
             override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
+                recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder
             ): Boolean {
                 return false
             }
@@ -115,16 +111,12 @@ class ChooseRecipeActivity : AppCompatActivity() {
             removeRecipe.favorite = false //You can't be part of favorite but not collection
             viewModel.updateRecipe(removeRecipe)
             Toast.makeText(
-                this@ChooseRecipeActivity,
-                removeRecipe.name + " removed from Collection",
-                Toast.LENGTH_SHORT
+                this@ChooseRecipeActivity, removeRecipe.name + " removed from Collection", Toast.LENGTH_SHORT
             ).show()
             return
         }
         Toast.makeText(
-            this@ChooseRecipeActivity,
-            removeRecipe.name + " not part of Collection",
-            Toast.LENGTH_SHORT
+            this@ChooseRecipeActivity, removeRecipe.name + " not part of Collection", Toast.LENGTH_SHORT
         ).show()
     }
 
@@ -132,17 +124,14 @@ class ChooseRecipeActivity : AppCompatActivity() {
         val workingRecipe = adapter.getRecipeAt(position)
         if (workingRecipe.collection) {
             Toast.makeText(
-                this@ChooseRecipeActivity,
-                workingRecipe.name + " already part of Collection",
-                Toast.LENGTH_SHORT
+                this@ChooseRecipeActivity, workingRecipe.name + " already part of Collection", Toast.LENGTH_SHORT
             ).show()
             return
         }
         workingRecipe.collection = true
         viewModel.updateRecipe(workingRecipe)
         Toast.makeText(
-            this@ChooseRecipeActivity, workingRecipe.name + " added to Collection",
-            Toast.LENGTH_SHORT
+            this@ChooseRecipeActivity, workingRecipe.name + " added to Collection", Toast.LENGTH_SHORT
         ).show()
     }
 
@@ -158,5 +147,13 @@ class ChooseRecipeActivity : AppCompatActivity() {
 
     companion object {
         const val RECIPETYPE = "com.keeghan.reciplan2.recipetype"
+
+
+        fun encodeRecipeToDirectionsActivity(context: Context, recipe: Recipe) {
+            val sRecipe = URLEncoder.encode(Json.encodeToString(recipe))
+            val intent = Intent(context, DirectionsActivity::class.java)
+            intent.putExtra(DirectionsActivity.RECIPE_JSON, sRecipe)
+            context.startActivity(intent)
+        }
     }
 }

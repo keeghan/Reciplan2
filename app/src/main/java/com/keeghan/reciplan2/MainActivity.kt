@@ -1,5 +1,7 @@
 package com.keeghan.reciplan2
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +11,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.keeghan.reciplan2.database.Recipe
+import com.keeghan.reciplan2.ui.recipe.DirectionsActivity
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,4 +56,12 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    fun encodeRecipeToDirectionsActivity(context: Context, recipe: Recipe) {
+        val sRecipe = URLEncoder.encode(Json.encodeToString(recipe))
+        val intent = Intent(context, DirectionsActivity::class.java)
+        intent.putExtra(DirectionsActivity.RECIPE_JSON, sRecipe)
+        startActivity(intent)
+    }
+
 }

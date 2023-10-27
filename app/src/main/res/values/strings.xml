@@ -118,8 +118,10 @@
     <string name="recipe_image">Recipe Image</string>
     <string name="choose_image">Choose Image</string>
     <string name="save">Save</string>
-    <string name="recipe_description">Recipe Description</string>
+    <string name="recipe_directions">Recipe Directions</string>
     <string name="recipe_title">Recipe Title</string>
     <string name="add_your_recipe">Add Your Recipe</string>
+    <string name="back">back</string>
+    <string name="set_meal_plan">Set Meal Plan</string>
 
 </resources>

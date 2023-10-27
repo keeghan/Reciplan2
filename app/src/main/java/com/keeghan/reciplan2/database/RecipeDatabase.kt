@@ -48,6 +48,8 @@ abstract class RecipeDatabase : RoomDatabase() {
                 db.execSQL("ALTER TABLE recipe_table ADD COLUMN userCreated INTEGER NOT NULL DEFAULT 0")
                 //Add a field to store user descriptions
                 db.execSQL("ALTER TABLE recipe_table ADD COLUMN userDirection TEXT NOT NULL DEFAULT ''")
+                //Add a field to store user Ingredients
+                db.execSQL("ALTER TABLE recipe_table ADD COLUMN userIngredient TEXT NOT NULL DEFAULT ''")
             }
         }
 

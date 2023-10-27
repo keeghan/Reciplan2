@@ -42,7 +42,7 @@
             <ImageView
                 android:id="@+id/collection_recipe_image"
                 android:layout_width="wrap_content"
-                android:layout_height="280dp"
+                android:layout_height="270dp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimaryDark"
                 android:contentDescription="@string/recipe_image_desc"
@@ -149,8 +149,8 @@
 
             <com.varunest.sparkbutton.SparkButton
                 android:id="@+id/btn_favorite_collection"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
                 app:layout_constraintEnd_toEndOf="parent"

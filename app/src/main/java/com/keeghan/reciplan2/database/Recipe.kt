@@ -3,11 +3,13 @@ package com.keeghan.reciplan2.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.serialization.Serializable
 
+@Serializable
 @Entity(tableName = "recipe_table")
 data class Recipe(
-    @PrimaryKey(autoGenerate = false)
-    val _id: Int,
+    @PrimaryKey(autoGenerate = true)  //"autoGenerate = true , = 0" migration 1_2
+    val _id: Int = 0,
 
     val name: String,
     val direction: Int,
@@ -20,6 +22,7 @@ data class Recipe(
     //new column migration 1_2
     val userCreated: Boolean = false,
     val userDirection: String = "",
+    val userIngredient: String = "",
 
 
     ) {

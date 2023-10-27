@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.varunest.sparkbutton.SparkButton
@@ -48,9 +47,6 @@ class CollectionAdapter(var context: Context?) :
         //Glide Implementation
         Glide.with(context!!)
             .load(currentRecipe.imageUrl)
-            .placeholder(R.drawable.ic_launcher_background)
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .centerCrop()
             .into(holder.recipeImg)
 
 

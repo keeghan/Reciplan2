@@ -11,6 +11,11 @@ import com.bumptech.glide.request.RequestOptions
 class GlideAppModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         super.applyOptions(context, builder)
-        builder.setDefaultRequestOptions(RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL))
+        builder.setDefaultRequestOptions(
+            RequestOptions()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .placeholder(R.drawable.ic_launcher_background)
+                .centerCrop()
+        )
     }
 }

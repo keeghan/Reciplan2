@@ -205,8 +205,8 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
                 RecyclerViewSwipeDecorator.Builder(
                     c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
                 ).addBackgroundColor(
-                        ContextCompat.getColor(context!!, R.color.colorAccent)
-                    ).addActionIcon(R.drawable.ic_baseline_delete_outline_24)
+                    ContextCompat.getColor(context!!, R.color.colorAccent)
+                ).addActionIcon(R.drawable.ic_baseline_delete_outline_24)
                     .addSwipeLeftLabel(resources.getString(R.string.swipeRemove))
                     .addSwipeRightLabel(resources.getString(R.string.swipeRemove)).setSwipeLeftLabelColor(
                         ContextCompat.getColor(context!!, R.color.textSecondaryLight)
@@ -277,15 +277,7 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
 
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-        //change menu color based on theme
         menuInflater.inflate(R.menu.plan_menu, menu)
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_NO -> menu.findItem(R.id.action_open_plan_settings)
-                .setIcon(R.drawable.ic_baseline_settings_black_24)
-
-            Configuration.UI_MODE_NIGHT_YES -> menu.findItem(R.id.action_open_plan_settings)
-                .setIcon(R.drawable.ic_baseline_settings_white_24)
-        }
     }
 
     //Open settings or clear all plans

@@ -34,12 +34,9 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
         binding = ActivitySetPlanBinding.inflate(layoutInflater)
         val view = binding.root
-        val toolbar = view.findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-       // supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(true)
-
-
+        binding.backBtn.setOnClickListener {
+            onBackPressed()
+        }
 
         intentDay = intent.getIntExtra(DAY, 7)
         viewModel = ViewModelProvider(this)[PlanViewModel::class.java]
@@ -57,6 +54,7 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         recyclerView.adapter = recyclerAdapter
         recyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
+
         setContentView(view)
     }
 
@@ -68,12 +66,14 @@ class SetPlanActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                     spinnerId = 1
                 }
             }
+
             "Lunch" -> {
                 viewModel.lunchCollection.observe(this) {
                     recyclerAdapter.setRecipes(it)
                     spinnerId = 2
                 }
             }
+
             "Dinner" -> {
                 viewModel.dinnerCollection.observe(this) {
                     recyclerAdapter.setRecipes(it)

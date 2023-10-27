@@ -14,18 +14,16 @@
 
         <activity
             android:name=".ui.plan.SetPlanActivity"
-            android:label="Plan Meals"
-            android:parentActivityName=".MainActivity"/>
+            android:label="Plan Meals" />
 
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity" />
 
         <activity
             android:name=".ui.recipe.DirectionsActivity"
-            android:label="Directions"
-            android:parentActivityName=".MainActivity" />
+            android:label="Directions" />
 
         <activity
             android:name=".ui.recipe.ChooseRecipeActivity"
@@ -43,10 +41,10 @@
             </intent-filter>
         </activity>
 
-    <activity
-        android:name="com.yalantis.ucrop.UCropActivity"
-        android:screenOrientation="portrait"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-</application>
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
+    </application>
 
 </manifest>

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.keeghan.reciplan2.R
+import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentAddBinding
 import com.yalantis.ucrop.UCrop
 import java.io.File
@@ -87,10 +88,12 @@ class AddFragment : Fragment() {
             val title = binding.recipeTitleEditText.text?.trim().toString()
             val description = binding.recipeDescriptionEditText.text.trim().toString()
             if (title.isNotBlank() && description.isNotBlank()) {
-                viewModel.compressImage(tempImageUri, webpCompressedImageFile)
-                binding.recipeDescriptionEditText.text.clear()
-                binding.recipeTitleEditText.text?.clear()
-                binding.recipeImageView.setImageDrawable(null)
+                val recipe = Recipe(
+                    name = "aaaaa", direction = 4, ingredients = 3, mins = 3, imageUrl = webpCompressedImageFile.path,
+                    favorite = true, userCreated = true, collection = false, type = "breakfast"
+                )
+                 viewModel.saveRecipe(tempImageUri, webpCompressedImageFile, recipe)
+                clearForm()
                 showToast("Recipe saved")
             } else {
                 showToast("Recipe name and description should not be empty")
@@ -104,6 +107,11 @@ class AddFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    private fun clearForm() {
+        binding.recipeDescriptionEditText.text.clear()
+        binding.recipeTitleEditText.text?.clear()
+        binding.recipeImageView.setImageDrawable(null)
+    }
 
 }
 
