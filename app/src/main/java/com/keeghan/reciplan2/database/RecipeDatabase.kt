@@ -32,6 +32,10 @@ import com.keeghan.reciplan2.database.RecipeUrls.Companion.rice_water
 import com.keeghan.reciplan2.database.RecipeUrls.Companion.tatale
 import com.keeghan.reciplan2.database.RecipeUrls.Companion.waakye
 import com.keeghan.reciplan2.database.RecipeUrls.Companion.yam_Balls
+import com.keeghan.reciplan2.utils.Constants.BREAKFAST
+import com.keeghan.reciplan2.utils.Constants.DINNER
+import com.keeghan.reciplan2.utils.Constants.LUNCH
+import com.keeghan.reciplan2.utils.Constants.SNACK
 
 @Database(entities = [Recipe::class, Day::class], version = 2, exportSchema = false)
 abstract class RecipeDatabase : RoomDatabase() {
@@ -131,7 +135,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     hausa_Kooko,
                     collection = false,
                     favorite = false,
-                    type = "breakfast",
+                    type = BREAKFAST,
                 )
             )
             recipeDao.insert(
@@ -144,7 +148,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     koose,
                     collection = false,
                     favorite = false,
-                    type = "breakfast",
+                    type = BREAKFAST,
                 )
             )
             recipeDao.insert(
@@ -157,7 +161,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     yam_Balls,
                     collection = false,
                     favorite = false,
-                    type = "snack",
+                    type = SNACK,
                 )
             )
             recipeDao.insert(
@@ -170,7 +174,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     kelewele,
                     collection = false,
                     favorite = false,
-                    type = "snack",
+                    type = SNACK,
                 )
             )
             recipeDao.insert(
@@ -183,7 +187,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     fish_Stew,
                     collection = false,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
             recipeDao.insert(
@@ -196,7 +200,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     omo_Tuo,
                     collection = false,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
             recipeDao.insert(
@@ -209,7 +213,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     bankye_kakro,
                     collection = false,
                     favorite = false,
-                    type = "snack",
+                    type = SNACK,
                 )
             )
             recipeDao.insert(
@@ -222,7 +226,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     nkatie_Cake,
                     collection = false,
                     favorite = false,
-                    type = "snack",
+                    type = SNACK,
                 )
             )
             recipeDao.insert(
@@ -235,7 +239,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     adaakwa,
                     collection = false,
                     favorite = false,
-                    type = "snack",
+                    type = SNACK,
                 )
             )
             recipeDao.insert(
@@ -248,7 +252,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     fante_fante,
                     collection = false,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
             recipeDao.insert(
@@ -261,7 +265,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     ga_kenkey,
                     collection = false,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
             recipeDao.insert(
@@ -274,7 +278,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     fried_Rice,
                     collection = false,
                     favorite = false,
-                    type = "lunch",
+                    type = LUNCH,
                 )
             )
             recipeDao.insert(
@@ -287,7 +291,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     jollof_Rice,
                     collection = false,
                     favorite = false,
-                    type = "lunch",
+                    type = LUNCH,
                 )
             )
             recipeDao.insert(
@@ -300,7 +304,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     waakye,
                     collection = false,
                     favorite = false,
-                    type = "lunch",
+                    type = LUNCH,
                 )
             )
             recipeDao.insert(
@@ -313,7 +317,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     rice_water,
                     collection = false,
                     favorite = false,
-                    type = "breakfast",
+                    type = BREAKFAST,
                 )
             )
             recipeDao.insert(
@@ -326,7 +330,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     tatale,
                     collection = false,
                     favorite = false,
-                    type = "snack",
+                    type = SNACK,
                 )
             )//no img
             recipeDao.insert(
@@ -339,7 +343,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     nkate_nkwan,
                     collection = true,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
             recipeDao.insert(
@@ -352,7 +356,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     banku,
                     collection = false,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
             recipeDao.insert(
@@ -365,7 +369,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     mputomputo,
                     collection = false,
                     favorite = false,
-                    type = "lunch",
+                    type = LUNCH,
                 )
             ) //no img
             recipeDao.insert(
@@ -378,7 +382,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     kontomire_stew,
                     collection = false,
                     favorite = false,
-                    type = "dinner",
+                    type = DINNER,
                 )
             )
 

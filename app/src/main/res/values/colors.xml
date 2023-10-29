@@ -19,5 +19,6 @@
     <color name="youtubeRed">#C4302B</color>
     <color name="youtubeRedVariation">#DB3731</color>
 
+    <color name="grey">#404040</color>
 
 </resources>

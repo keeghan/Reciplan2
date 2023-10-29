@@ -12,8 +12,8 @@ data class Recipe(
     val _id: Int = 0,
 
     val name: String,
-    val direction: Int,
-    val ingredients: Int,
+    val direction: Int = 0,
+    val ingredients: Int = 0,
     val mins: Int,
     val imageUrl: String,
     var collection: Boolean,

@@ -8,7 +8,7 @@
     <string name="recipe_title_placeholder">recipe_title</string>
     <string name="collection_alternate_text">No Recipe has been added to your collection\nGo to Explore to add Recipes by clicking on the  \u2713  button</string>
     <string name="favorite_alternate_text">No Recipe has been added to your Favorites\nGo to Collection to add Recipes by clicking on the  \u2764  button</string>
-    <string name="str_view_directions">DIRECTIONS</string>
+    <string name="str_view_directions">directions</string>
     <string name="str_minutes">mins</string>
     <string name="str_ingredients">Ingredients</string>
     <string name="str_20">20</string>
@@ -123,5 +123,12 @@
     <string name="add_your_recipe">Add Your Recipe</string>
     <string name="back">back</string>
     <string name="set_meal_plan">Set Meal Plan</string>
+    <string name="favorite">favorite</string>
+    <string name="collection">collection</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="ingredients_list">Ingredients list</string>
+    <string name="next">Next &gt;&gt;</string>
+    <string name="str_snack">Snack</string>
+    <string name="agushi_with_palava_sauce">Agushi with palava sauce</string>
 
 </resources>

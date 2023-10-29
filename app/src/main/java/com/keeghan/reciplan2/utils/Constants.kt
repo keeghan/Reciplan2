@@ -19,4 +19,10 @@ object Constants {
     //potential variables for updating recipes in different versions
     const val IS_VERSION_TWO_UPDATE = "com.keeghan.reciplan2.version2update"
     const val IS_VERSION_THREE_UPDATE = "com.keeghan.reciplan2.version3update"
+
+    const val BREAKFAST = "breakfast"
+    const val LUNCH = "lunch"
+    const val DINNER = "dinner"
+    const val SNACK = "snack"
+
 }

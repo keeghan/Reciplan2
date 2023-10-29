@@ -4,23 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center|center_vertical"
     android:clipChildren="false"
-    android:clipToPadding="false"
-    android:layout_gravity="center|center_vertical">
+    android:clipToPadding="false">
 
 
     <com.google.android.material.card.MaterialCardView
-        android:clipChildren="false"
-        android:clipToPadding="false"
         android:id="@+id/cardView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="32dp"
-        android:paddingStart="6dp"
-        android:paddingEnd="6dp"
-        android:paddingBottom="5dp"
-        app:cardCornerRadius="15dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/_8sdp"
+        android:paddingEnd="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,11 +30,11 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:clipChildren="false"
-            android:clipToPadding="false"
             android:id="@+id/img_details_constraint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             app:layout_constraintEnd_toStartOf="@+id/view_directions"
             app:layout_constraintStart_toStartOf="@+id/view_directions">
 
@@ -42,7 +42,7 @@
             <ImageView
                 android:id="@+id/collection_recipe_image"
                 android:layout_width="wrap_content"
-                android:layout_height="270dp"
+                android:layout_height="@dimen/_220sdp"
                 android:adjustViewBounds="true"
                 android:background="@color/colorPrimaryDark"
                 android:contentDescription="@string/recipe_image_desc"
@@ -58,7 +58,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/details_layout"
                 android:layout_width="0dp"
-                android:layout_height="110dp"
+                android:layout_height="@dimen/_95sdp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/collection_recipe_image">
@@ -67,16 +67,16 @@
                     android:id="@+id/collection_recipe_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="@string/str_recipeName_placeholder"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="@dimen/_17ssp"
                     app:layout_constraintBottom_toTopOf="@+id/collection_recipe_ingredients"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.518"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.96" />
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/collection_recipe_ingredients"
@@ -104,9 +104,10 @@
                     android:id="@+id/recipe_ingredients_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/_7sdp"
                     android:text="@string/str_ingredients"
                     android:textAlignment="center"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/recipe_min_txt"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -117,8 +118,9 @@
                     android:id="@+id/recipe_min_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="@dimen/_7sdp"
                     android:text="@string/str_minutes"
+                    android:textSize="@dimen/_12ssp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -132,19 +134,19 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/directions_corner_shape"
-                android:paddingStart="8dp"
-                android:paddingTop="8dp"
-                android:paddingEnd="8dp"
-                android:paddingBottom="8dp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_6sdp"
                 android:text="@string/str_view_directions"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                 android:textColor="@color/textSecondaryLight"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.83"
+                app:layout_constraintHorizontal_bias="0.85"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.74" />
+                app:layout_constraintVertical_bias="0.72" />
 
 
             <com.varunest.sparkbutton.SparkButton
@@ -160,18 +162,6 @@
                 app:sparkbutton_inActiveImage="@drawable/ic_favorite_border"
                 app:sparkbutton_primaryColor="@color/youtubeRed"
                 app:sparkbutton_secondaryColor="@color/colorAccent" />
-
-
-            <!--            <Button-->
-            <!--                android:id="@+id/btn_favorite_collection"-->
-            <!--                android:layout_width="48dp"-->
-            <!--                android:layout_height="48dp"-->
-            <!--                android:layout_marginTop="20dp"-->
-            <!--                android:layout_marginEnd="20dp"-->
-            <!--                android:background="@drawable/ic_favorite_border"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent"-->
-            <!--                tools:ignore="SpeakableTextPresentCheck" />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
