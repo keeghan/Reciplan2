@@ -23,6 +23,7 @@ import com.keeghan.reciplan2.utils.Constants.SNACK
 import com.yalantis.ucrop.UCrop
 import java.io.File
 
+//TODO: Add youtube links to saved Recipes
 
 class AddFragment : Fragment() {
 
@@ -32,8 +33,10 @@ class AddFragment : Fragment() {
     private lateinit var tempImageUri: Uri
     private lateinit var webpCompressedImageFile: File
 
+    //Bottom Dialog sheet bindings
     private var bottomSheet: BottomSheetDialog? = null
-    private var bottomSheetBinding: AddBottomSheetBinding? = null
+    private var _bottomSheetBinding: AddBottomSheetBinding? = null
+    private val bottomSheetBinding get() = _bottomSheetBinding!!
 
 
     override fun onCreateView(
@@ -46,14 +49,13 @@ class AddFragment : Fragment() {
         //Open bottomSheetDialog on pressing the next button
         fragmentAddBinding.nextButton.setOnClickListener {
             bottomSheet = BottomSheetDialog(requireContext())
-            bottomSheetBinding = AddBottomSheetBinding.inflate(bottomSheet!!.layoutInflater)
-            bottomSheet!!.setContentView(bottomSheetBinding!!.root)
+            _bottomSheetBinding = AddBottomSheetBinding.inflate(bottomSheet!!.layoutInflater)
+            bottomSheet!!.setContentView(bottomSheetBinding.root)
             bottomSheet!!.behavior.peekHeight = -1
             bottomSheet!!.show()
             //set on clickListeners for bottomSheet
             setButtonSheetOnClickListeners()
         }
-
 
         //Launch activity for result for image
         fragmentAddBinding.chooseImageButton.setOnClickListener {
@@ -91,53 +93,61 @@ class AddFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        bottomSheetBinding = null
+        _bottomSheetBinding = null
     }
 
     //Save Recipe and reset screen
     private fun saveRecipe() {
-        val checkedTypeID = bottomSheetBinding!!.radioGroup.checkedRadioButtonId
-        val radioButtonId = bottomSheetBinding!!.root.findViewById<MaterialRadioButton>(checkedTypeID).id
+        val checkedTypeID = bottomSheetBinding.radioGroup.checkedRadioButtonId
+        val radioButtonId = bottomSheetBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
         val type = typeOptionSelected(radioButtonId)
 
         val recipe = Recipe(
             name = fragmentAddBinding.recipeTitleEditText.text?.trim().toString(),
-            mins = 30,
+            mins = bottomSheetBinding.timePicker.value,
             imageUrl = webpCompressedImageFile.path,
-            favorite = bottomSheetBinding!!.switchFavBtn.isChecked,
+            favorite = bottomSheetBinding.switchFavBtn.isChecked,
             userCreated = true,
-            collection = bottomSheetBinding!!.switchColBtn.isChecked,
+            collection = bottomSheetBinding.switchColBtn.isChecked,
             userDirection = fragmentAddBinding.recipeDescEditText.text?.trim().toString(),
+            userIngredient = bottomSheetBinding.recipeIngredientEditText.text?.trim().toString(),
             type = type
         )
 
         viewModel.saveRecipe(tempImageUri, webpCompressedImageFile, recipe)
-        clearForm()
+        clearScreen()
+        bottomSheet!!.dismissWithAnimation = true
+        bottomSheet!!.dismiss()
         showToast("Recipe saved")
     }
 
     private fun setButtonSheetOnClickListeners() {
-        bottomSheetBinding!!.switchColBtn.setOnCheckedChangeListener { _, isChecked ->
+        bottomSheetBinding.switchColBtn.setOnCheckedChangeListener { _, isChecked ->
             if (!isChecked) {
-                bottomSheetBinding!!.switchFavBtn.isChecked = false
+                bottomSheetBinding.switchFavBtn.isChecked = false
             }
         }
 
-        bottomSheetBinding!!.switchFavBtn.setOnCheckedChangeListener { _, isChecked ->
+        bottomSheetBinding.switchFavBtn.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                bottomSheetBinding!!.switchColBtn.isChecked = true
+                bottomSheetBinding.switchColBtn.isChecked = true
             }
         }
         //Click on save button to save Recipe
-        bottomSheetBinding?.saveButton?.setOnClickListener {
+        bottomSheetBinding.saveButton.setOnClickListener {
             if (isRecipeValid()) saveRecipe()
         }
+
+        bottomSheetBinding.timePicker.maxValue = 300
+        bottomSheetBinding.timePicker.minValue = 15
+        bottomSheetBinding.timePicker.wrapSelectorWheel = true
     }
 
     //Validate if Recipe Title and Description are filled and Image is selected
     private fun isRecipeValid(): Boolean {
         val title = fragmentAddBinding.recipeTitleEditText.text?.trim().toString()
         val description = fragmentAddBinding.recipeDescEditText.text.trim().toString()
+        val ingredients = bottomSheetBinding.recipeIngredientEditText.text.trim().toString()
         return when {
             title.isBlank() -> {
                 fragmentAddBinding.recipeTitleEditText.error = "Empty"
@@ -153,32 +163,38 @@ class AddFragment : Fragment() {
                 showToast("Choose a recipe image")
                 false
             }
-            //TODO: "error check for bottom sheet"
+
+            ingredients.isBlank() -> {
+                bottomSheetBinding.recipeIngredientEditText.error = "Empty"
+                false
+            }
+
             else -> true
         }
     }
 
     private fun typeOptionSelected(radioBtnId: Int): String {
         return when (radioBtnId) {
-            bottomSheetBinding!!.optionBreakfast.id -> BREAKFAST
-            bottomSheetBinding!!.optionLunch.id -> LUNCH
-            bottomSheetBinding!!.optionDinner.id -> DINNER
-            bottomSheetBinding!!.optionSnack.id -> SNACK
+            bottomSheetBinding.optionBreakfast.id -> BREAKFAST
+            bottomSheetBinding.optionLunch.id -> LUNCH
+            bottomSheetBinding.optionDinner.id -> DINNER
+            bottomSheetBinding.optionSnack.id -> SNACK
             else -> SNACK
         }
     }
 
 
     //Clear all the fields after a recipe is saved
-    private fun clearForm() {
+    private fun clearScreen() {
         fragmentAddBinding.recipeDescEditText.text.clear()
         fragmentAddBinding.recipeTitleEditText.text?.clear()
         fragmentAddBinding.recipeImageView.setImageDrawable(null)
 
-        bottomSheetBinding!!.recipeIngredientEditText.text.clear()
-        bottomSheetBinding!!.switchColBtn.isChecked = false
-        bottomSheetBinding!!.switchFavBtn.isChecked = false
-
+        bottomSheetBinding.recipeIngredientEditText.text.clear()
+        bottomSheetBinding.switchColBtn.isChecked = false
+        bottomSheetBinding.switchFavBtn.isChecked = false
+        bottomSheetBinding.radioGroup.clearCheck()
+        bottomSheetBinding.timePicker.value = 15
     }
 
     private fun showToast(message: String) {

@@ -69,7 +69,7 @@
                     android:autofillHints="text"
                     android:hint="@string/recipe_directions"
                     android:inputType="textMultiLine"
-                    android:maxHeight="180dp"
+                    android:maxHeight="@dimen/_140sdp"
                     android:minLines="4"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -77,71 +77,71 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--SwitchGroup-->
-           <!-- <LinearLayout
-                android:id="@+id/swichgroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:gravity="center_vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/recipeDescLayout">
+            <!-- <LinearLayout
+                 android:id="@+id/swichgroup"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="4dp"
+                 android:gravity="center_vertical"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@id/recipeDescLayout">
 
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
+                 <Space
+                     android:layout_width="5dp"
+                     android:layout_height="0dp"
+                     android:layout_weight="1" />
 
-                &lt;!&ndash;Collection&ndash;&gt;
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:text="@string/collection"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/switchColBtn" />
+                 &lt;!&ndash;Collection&ndash;&gt;
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginEnd="4dp"
+                     android:text="@string/collection"
+                     android:textSize="15sp"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toTopOf="@id/switchColBtn" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switchColBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout" />
+                 <com.google.android.material.switchmaterial.SwitchMaterial
+                     android:id="@+id/switchColBtn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout" />
 
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="2" />
+                 <Space
+                     android:layout_width="5dp"
+                     android:layout_height="0dp"
+                     android:layout_weight="2" />
 
-                &lt;!&ndash;Favorite&ndash;&gt;
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="4dp"
-                    android:text="@string/favorite"
-                    android:textSize="15sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/switchColBtn" />
+                 &lt;!&ndash;Favorite&ndash;&gt;
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginEnd="4dp"
+                     android:text="@string/favorite"
+                     android:textSize="15sp"
+                     app:layout_constraintStart_toStartOf="parent"
+                     app:layout_constraintTop_toTopOf="@id/switchColBtn" />
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/switch_fav_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout" />
+                 <com.google.android.material.switchmaterial.SwitchMaterial
+                     android:id="@+id/switch_fav_btn"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     app:layout_constraintEnd_toEndOf="parent"
+                     app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout" />
 
-                <Space
-                    android:layout_width="5dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-            </LinearLayout>-->
+                 <Space
+                     android:layout_width="5dp"
+                     android:layout_height="0dp"
+                     android:layout_weight="1" />
+             </LinearLayout>-->
 
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/imageLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/_20sdp"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -152,16 +152,16 @@
                 <!--Image Card-->
                 <ImageView
                     android:id="@+id/recipeImageView"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="@dimen/_180sdp"
+                    android:layout_height="@dimen/_180sdp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/recipe_image" />
 
                 <!-- Button for Image Input -->
                 <ImageButton
                     android:id="@+id/chooseImageButton"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
                     android:background="@null"
                     android:contentDescription="@string/choose_image"
@@ -179,9 +179,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:textAllCaps="false"
                 android:layout_marginBottom="80dp"
                 android:text="@string/next"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

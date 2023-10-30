@@ -40,24 +40,18 @@ class DirectionsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        // Get information of Recipe from Intent
-//        val directionAddress = intent.getIntExtra(RECIPE_DIRECTION, R.string.default_recipe_txt)
-//        val imageUrl = intent.getStringExtra(RECIPE_IMAGE)
-//        val recipeId = intent.getIntExtra(RECIPE_ID, 200)
-
         val directionAddress = sRecipe.direction
         val imageUrl = sRecipe.imageUrl
         val recipeId = sRecipe._id
 
+        //Populate fields based on whether Recipe is created by user or prefilled
         if (sRecipe.userCreated) {
-            // set Recipe List and Recipe Directions
             binding.recipeDirectionTxt.text = sRecipe.userDirection
             binding.ingredientListTxt.text = sRecipe.userIngredient
             // binding.btnYoutube.setOnClickListener { setUserYtLink(sRecipe.YouTubeLInk) }
         } else {
             binding.btnYoutube.setOnClickListener { setYtLink(recipeId) }
 
-            // set Recipe List and Recipe Directions
             binding.recipeDirectionTxt.text = resources.getStringArray(directionAddress)[1]
             binding.ingredientListTxt.text = resources.getStringArray(directionAddress)[0]
         }

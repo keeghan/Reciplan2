@@ -1,10 +1,33 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/_6sdp"
     android:theme="@style/Theme.Reciplan2">
     <!--SwitchGroup-->
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/materialTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration"
+        app:layout_constraintEnd_toEndOf="@+id/time_picker"
+        app:layout_constraintStart_toStartOf="@+id/time_picker"
+        app:layout_constraintTop_toTopOf="@id/recipeIngredientLayout"
+        tools:layout_editor_absoluteY="10dp" />
+
+    <NumberPicker
+        android:id="@+id/time_picker"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_110sdp"
+        android:layout_marginEnd="@dimen/_8sdp"
+        android:scaleX="0.85"
+        android:scaleY="0.85"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recipeIngredientLayout" />
+
 
     <!-- Recipe Description (Multiline) -->
     <com.google.android.material.textfield.TextInputLayout
@@ -12,8 +35,10 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        app:layout_constraintEnd_toStartOf="@+id/time_picker"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_max="488dp">
@@ -38,7 +63,7 @@
         android:id="@+id/switchGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,7 +125,7 @@
         android:id="@+id/radioGroup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:orientation="horizontal"
         android:paddingStart="4dp"
         android:paddingEnd="4dp"
@@ -112,7 +137,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/optionBreakfast"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/my_radio_button_height"
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@null"
@@ -121,7 +146,7 @@
             android:gravity="center"
             android:text="@string/str_breakfast"
             android:textColor="@drawable/radio_text_color"
-            android:textSize="@dimen/radio_button_text_size" />
+            android:textSize="@dimen/_11ssp" />
 
         <View
             android:layout_width="0dp"
@@ -131,7 +156,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/optionLunch"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/my_radio_button_height"
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@null"
@@ -149,7 +174,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/optionDinner"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/my_radio_button_height"
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@null"
@@ -167,7 +192,7 @@
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/optionSnack"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/my_radio_button_height"
             android:layout_weight="1"
             android:background="@drawable/radio_selector"
             android:button="@null"
@@ -193,12 +218,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchGroup" />
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
+        app:layout_constraintTop_toBottomOf="@+id/time_picker" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
