@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="radio_button_text_size">@dimen/_12ssp</dimen>
     <dimen name="explore_card_size">@dimen/_140sdp</dimen>
+    <dimen name="explore_card_size_sw600">@dimen/_140sdp</dimen>
     <dimen name="explore_card_corner">@dimen/_10sdp</dimen>
     <dimen name="my_radio_button_height">@dimen/_40sdp</dimen>
    <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->

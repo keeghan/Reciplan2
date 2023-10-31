@@ -107,6 +107,7 @@ class AddFragment : Fragment() {
             mins = bottomSheetBinding.timePicker.value,
             imageUrl = webpCompressedImageFile.path,
             favorite = bottomSheetBinding.switchFavBtn.isChecked,
+            ingredients = fragmentAddBinding.recipeDescEditText.text?.trim()?.lines()!!.size,
             userCreated = true,
             collection = bottomSheetBinding.switchColBtn.isChecked,
             userDirection = fragmentAddBinding.recipeDescEditText.text?.trim().toString(),

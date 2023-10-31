@@ -5,6 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -26,6 +27,7 @@ class RecipeAdapter(
         fun onDirectionsClick(position: Int)
         fun removeFromCollection(position: Int)
         fun addToCollection(position: Int)
+        fun onDeleteClick(position: Int)
     }
 
     fun setButtonClickListener(listener: ButtonClickListener?) {
@@ -43,12 +45,12 @@ class RecipeAdapter(
         holder.textName.text = currentRecipe.name
         holder.textIngredients.text = currentRecipe.ingredients.toString()
         holder.textMin.text = currentRecipe.mins.toString()
+        if (!currentRecipe.userCreated) holder.deleteBtn.visibility = View.GONE
 
         //Glide Implementation
         Glide.with(context!!)
             .load(currentRecipe.imageUrl)
             .into(holder.recipeImg)
-
     }
 
     override fun getItemCount(): Int {
@@ -59,7 +61,6 @@ class RecipeAdapter(
         return recipes[position]
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun setRecipes(recipes: List<Recipe>) {
         this.recipes = recipes
         notifyDataSetChanged()
@@ -71,15 +72,14 @@ class RecipeAdapter(
         val textMin: TextView = itemView.findViewById(R.id.collection_recipe_min)
         val textIngredients: TextView = itemView.findViewById(R.id.collection_recipe_ingredients)
         val recipeImg: ImageView = itemView.findViewById(R.id.collection_recipe_image)
-        private val directions: TextView = itemView.findViewById(R.id.view_directions)
+        private val directionsBtn: TextView = itemView.findViewById(R.id.view_directions)
 
-        private val addToCollection: FloatingActionButton =
-            itemView.findViewById(R.id.btn_add_to_collection)
-        private val removeFromCollection: FloatingActionButton =
-            itemView.findViewById(R.id.btn_remove_from_collection)
+        private val addToCollection: FloatingActionButton = itemView.findViewById(R.id.btn_add_to_collection)
+        private val removeFromCollection: FloatingActionButton = itemView.findViewById(R.id.btn_remove_from_collection)
+        val deleteBtn: ImageButton = itemView.findViewById(R.id.delete_btn)
 
         init {
-            directions.setOnClickListener {
+            directionsBtn.setOnClickListener {
                 if (listener != null) {
                     val position = absoluteAdapterPosition
                     listener.onDirectionsClick(position)
@@ -95,6 +95,12 @@ class RecipeAdapter(
                 if (listener != null) {
                     val position = absoluteAdapterPosition
                     listener.removeFromCollection(position)
+                }
+            }
+            deleteBtn.setOnClickListener {
+                if (listener != null) {
+                    val position = absoluteAdapterPosition
+                    listener.onDeleteClick(position)
                 }
             }
         }

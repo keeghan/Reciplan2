@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -11,6 +12,7 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.ActivityChooseRecipeBinding
@@ -57,6 +59,12 @@ class ChooseRecipeActivity : AppCompatActivity() {
             override fun addToCollection(position: Int) {
                 add2Collection(position)
             }
+
+            override fun onDeleteClick(position: Int) {
+                deleteUserRecipe(position)
+            }
+
+
         })
         binding.exploreRecycler.adapter = adapter
 
@@ -133,6 +141,26 @@ class ChooseRecipeActivity : AppCompatActivity() {
         Toast.makeText(
             this@ChooseRecipeActivity, workingRecipe.name + " added to Collection", Toast.LENGTH_SHORT
         ).show()
+    }
+
+    //Delete Recipe created by user from Database
+    fun deleteUserRecipe(position: Int) {
+        val workingRecipe = adapter.getRecipeAt(position)
+
+        MaterialAlertDialogBuilder(this@ChooseRecipeActivity)
+            .setTitle("Confirm Deletion").setIcon(R.drawable.outline_delete_24)
+            .setPositiveButton("Yes") { dialog, _ ->
+                // Delete the recipe
+                viewModel.deleteRecipe(workingRecipe)
+                dialog.dismiss()
+                Toast.makeText(
+                    this@ChooseRecipeActivity, "${workingRecipe.name} deleted", Toast.LENGTH_SHORT
+                ).show()
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
 

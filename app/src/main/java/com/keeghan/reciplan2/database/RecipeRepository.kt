@@ -12,6 +12,9 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         recipeDao.insert(recipe)
     }
 
+    suspend fun delete(recipe: Recipe) {
+        recipeDao.delete(recipe)
+    }
 
     //Getting types of recipes
     fun getSnackRecipes(): LiveData<List<Recipe>> {

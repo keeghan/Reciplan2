@@ -41,6 +41,12 @@ class MainViewModel(application: Application) :
         }
     }
 
+    //delete methods
+    fun deleteRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.delete(recipe)
+        }
+    }
 
     //update methods
     fun insertRecipe(recipe: Recipe) {
