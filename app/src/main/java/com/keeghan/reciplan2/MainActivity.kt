@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration.Builder(
-            R.id.navigation_recipe, R.id.navigation_plan
+            R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add
         ).build()
 
         val navHostFragment =
@@ -56,12 +56,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-    fun encodeRecipeToDirectionsActivity(context: Context, recipe: Recipe) {
-        val sRecipe = URLEncoder.encode(Json.encodeToString(recipe))
-        val intent = Intent(context, DirectionsActivity::class.java)
-        intent.putExtra(DirectionsActivity.RECIPE_JSON, sRecipe)
-        startActivity(intent)
-    }
-
 }

@@ -76,14 +76,7 @@ class DirectionsActivity : AppCompatActivity() {
     recipes to present*/
     companion object {
         const val RECIPE_JSON = "com.keeghan.reciplan2.DirectionsActivity.recipeJson"
-        const val RECIPE_NAME = "com.keeghan.reciplan2.DirectionsActivity.recipeName"
-        const val RECIPE_DIRECTION = "com.keeghan.reciplan2.DirectionsActivity.recipeDirections"
-        const val RECIPE_IMAGE = "com.keeghan.reciplan2.DirectionsActivity.recipeImage"
-        const val RECIPE_ID = "com.keeghan.reciplan2.DirectionsActivity.recipeId"
-        const val RECIPE_USER_CREATED = "com.keeghan.reciplan2.DirectionsActivity.recipeUserCreated"  //Mig1_2
-        const val RECIPE_USER_DIRECTION = "com.keeghan.reciplan2.DirectionsActivity.recipeUserCreated"  //Mig1_2
     }
-
 
     /* Method to set intent for youtube button
     * [LINKS] */

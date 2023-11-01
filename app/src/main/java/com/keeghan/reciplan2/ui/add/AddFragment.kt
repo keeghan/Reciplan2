@@ -107,7 +107,7 @@ class AddFragment : Fragment() {
             mins = bottomSheetBinding.timePicker.value,
             imageUrl = webpCompressedImageFile.path,
             favorite = bottomSheetBinding.switchFavBtn.isChecked,
-            ingredients = fragmentAddBinding.recipeDescEditText.text?.trim()?.lines()!!.size,
+            ingredients = bottomSheetBinding.recipeIngredientEditText.text?.trim()?.lines()!!.size,
             userCreated = true,
             collection = bottomSheetBinding.switchColBtn.isChecked,
             userDirection = fragmentAddBinding.recipeDescEditText.text?.trim().toString(),
@@ -203,6 +203,7 @@ class AddFragment : Fragment() {
     }
 
     companion object {
+        const val RECIPE_EDIT_JSON = "com.keeghan.reciplan2.AddFragment.recipe_edit_json"
         const val ADD_RECIPE_IMAGE_LOC = "image/*"
     }
 

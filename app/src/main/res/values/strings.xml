@@ -130,5 +130,7 @@
     <string name="next">Next &gt;&gt;</string>
     <string name="str_snack">Snack</string>
     <string name="agushi_with_palava_sauce">Agushi with palava sauce</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
 
 </resources>

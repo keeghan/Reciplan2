@@ -1,6 +1,5 @@
 package com.keeghan.reciplan2.ui.adapters
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +26,7 @@ class RecipeAdapter(
         fun onDirectionsClick(position: Int)
         fun removeFromCollection(position: Int)
         fun addToCollection(position: Int)
-        fun onDeleteClick(position: Int)
+        fun onMenuClick(position: Int)
     }
 
     fun setButtonClickListener(listener: ButtonClickListener?) {
@@ -45,7 +44,7 @@ class RecipeAdapter(
         holder.textName.text = currentRecipe.name
         holder.textIngredients.text = currentRecipe.ingredients.toString()
         holder.textMin.text = currentRecipe.mins.toString()
-        if (!currentRecipe.userCreated) holder.deleteBtn.visibility = View.GONE
+        if (!currentRecipe.userCreated) holder.menuBtn.visibility = View.GONE
 
         //Glide Implementation
         Glide.with(context!!)
@@ -76,7 +75,7 @@ class RecipeAdapter(
 
         private val addToCollection: FloatingActionButton = itemView.findViewById(R.id.btn_add_to_collection)
         private val removeFromCollection: FloatingActionButton = itemView.findViewById(R.id.btn_remove_from_collection)
-        val deleteBtn: ImageButton = itemView.findViewById(R.id.delete_btn)
+        val menuBtn: ImageButton = itemView.findViewById(R.id.menu_btn)
 
         init {
             directionsBtn.setOnClickListener {
@@ -97,10 +96,10 @@ class RecipeAdapter(
                     listener.removeFromCollection(position)
                 }
             }
-            deleteBtn.setOnClickListener {
+            menuBtn.setOnClickListener {
                 if (listener != null) {
                     val position = absoluteAdapterPosition
-                    listener.onDeleteClick(position)
+                    listener.onMenuClick(position)
                 }
             }
         }

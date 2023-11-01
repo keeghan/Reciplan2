@@ -110,16 +110,16 @@
 
             <!-- Button for Image Input -->
             <ImageButton
-                android:id="@+id/delete_btn"
-                android:layout_width="@dimen/_45sdp"
-                android:layout_height="@dimen/_45sdp"
+                android:id="@+id/menu_btn"
+                android:layout_width="@dimen/_50sdp"
+                android:layout_height="@dimen/_50sdp"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/_25sdp"
-                android:layout_marginEnd="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_14sdp"
                 android:background="@drawable/delete_button_background"
                 android:contentDescription="@string/choose_image"
                 android:elevation="@dimen/_4sdp"
-                android:src="@drawable/outline_delete_24"
+                android:src="@drawable/baseline_more_vert_24"
                 android:text="@string/choose_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -127,7 +127,7 @@
             <TextView
                 android:id="@+id/view_directions"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/_205sdp"
                 android:layout_marginEnd="@dimen/_25sdp"

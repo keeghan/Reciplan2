@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.ViewModelProvider
@@ -12,13 +11,16 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.ActivityChooseRecipeBinding
+import com.keeghan.reciplan2.databinding.ExplorerBottomMenuBinding
 import com.keeghan.reciplan2.ui.MainViewModel
 import com.keeghan.reciplan2.ui.adapters.RecipeAdapter
 import com.keeghan.reciplan2.ui.adapters.RecipeAdapter.ButtonClickListener
+import com.keeghan.reciplan2.ui.add.AddFragment
 import com.keeghan.reciplan2.utils.Constants
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
@@ -29,6 +31,11 @@ class ChooseRecipeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChooseRecipeBinding
     private lateinit var viewModel: MainViewModel
     private val adapter = RecipeAdapter(this)
+
+    //Bottom Dialog sheet bindings
+    private var bottomSheet: BottomSheetDialog? = null
+    private var _bottomMenuBinding: ExplorerBottomMenuBinding? = null
+    private val bottomMenuBinding get() = _bottomMenuBinding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,8 +52,10 @@ class ChooseRecipeActivity : AppCompatActivity() {
         recipeType = intent.getStringExtra(RECIPETYPE).toString()
         getIntentList()
 
-        //Get Recipe clicked, serialize it and send it to [DirectionsActivity]
+
+        //Set onclickListener for All RecyclerItem buttons
         adapter.setButtonClickListener(object : ButtonClickListener {
+            //Get Recipe clicked, serialize it and send it to [DirectionsActivity]
             override fun onDirectionsClick(position: Int) {
                 val workingRecipe: Recipe = adapter.getRecipeAt(position)
                 encodeRecipeToDirectionsActivity(this@ChooseRecipeActivity, workingRecipe)
@@ -60,10 +69,10 @@ class ChooseRecipeActivity : AppCompatActivity() {
                 add2Collection(position)
             }
 
-            override fun onDeleteClick(position: Int) {
-                deleteUserRecipe(position)
+            //Open bottom dialog Menu
+            override fun onMenuClick(position: Int) {
+                openBottomMenu(position)
             }
-
 
         })
         binding.exploreRecycler.adapter = adapter
@@ -86,6 +95,25 @@ class ChooseRecipeActivity : AppCompatActivity() {
         }).attachToRecyclerView(binding.exploreRecycler)
         showWelcomeToast()
         setContentView(view)
+    }
+
+    private fun openBottomMenu(clickedRecipePosition: Int) {
+        bottomSheet = BottomSheetDialog(this)
+        _bottomMenuBinding = ExplorerBottomMenuBinding.inflate(bottomSheet!!.layoutInflater)
+        bottomSheet!!.setContentView(bottomMenuBinding.root)
+        bottomSheet!!.behavior.peekHeight = -1
+        bottomSheet!!.show()
+
+        //Populate Bottom Dialog
+        bottomMenuBinding.recipeName.text = adapter.getRecipeAt(clickedRecipePosition).name
+        bottomMenuBinding.deleteGrp.setOnClickListener { deleteUserRecipe(clickedRecipePosition) }
+
+        bottomMenuBinding.editGrp.setOnClickListener {
+            val sRecipe = URLEncoder.encode(Json.encodeToString(adapter.getRecipeAt(clickedRecipePosition)))
+            val intent = Intent(this, AddFragment::class.java)
+            intent.putExtra(AddFragment.RECIPE_EDIT_JSON, sRecipe)
+            startActivity(intent)
+        }
     }
 
 
@@ -144,7 +172,7 @@ class ChooseRecipeActivity : AppCompatActivity() {
     }
 
     //Delete Recipe created by user from Database
-    fun deleteUserRecipe(position: Int) {
+    private fun deleteUserRecipe(position: Int) {
         val workingRecipe = adapter.getRecipeAt(position)
 
         MaterialAlertDialogBuilder(this@ChooseRecipeActivity)
@@ -176,12 +204,16 @@ class ChooseRecipeActivity : AppCompatActivity() {
     companion object {
         const val RECIPETYPE = "com.keeghan.reciplan2.recipetype"
 
-
         fun encodeRecipeToDirectionsActivity(context: Context, recipe: Recipe) {
             val sRecipe = URLEncoder.encode(Json.encodeToString(recipe))
             val intent = Intent(context, DirectionsActivity::class.java)
             intent.putExtra(DirectionsActivity.RECIPE_JSON, sRecipe)
             context.startActivity(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _bottomMenuBinding = null
     }
 }
