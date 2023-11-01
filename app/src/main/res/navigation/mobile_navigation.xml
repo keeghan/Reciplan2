@@ -14,6 +14,13 @@
             android:id="@+id/action_navigation_recipe_to_navigation_plan"
             app:destination="@id/navigation_plan"
             app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
+        <action
+            android:id="@+id/action_navigation_recipe_to_manageCollectionFragment"
+            app:destination="@id/manageCollectionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
 
     <fragment
@@ -36,5 +43,38 @@
             android:id="@+id/action_navigation_add_to_navigation_recipe"
             app:destination="@id/navigation_recipe"
             app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
+        <argument
+            android:name="recipeEdit"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/directionsFragment"
+        android:name="com.keeghan.reciplan2.ui.recipe.DirectionsFragment"
+        android:label="DirectionsFragment">
+        <argument
+            android:name="recipe"
+            app:argType="string" />
+    </fragment>
+
+
+    <action
+        android:id="@+id/action_global_directionsFragment"
+        app:destination="@id/directionsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/manageCollectionFragment"
+        android:name="com.keeghan.reciplan2.ui.recipe.ManageCollectionFragment"
+        android:label="ManageCollectionFragment">
+        <argument
+            android:name="mealType"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_manageCollectionFragment_to_navigation_add"
+            app:destination="@id/navigation_add" />
     </fragment>
 </navigation>

@@ -2,6 +2,7 @@ package com.keeghan.reciplan2.ui.recipe
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -11,14 +12,21 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentCollectionBinding
 import com.keeghan.reciplan2.ui.adapters.CollectionAdapter
 import com.keeghan.reciplan2.ui.MainViewModel
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
+import java.util.Base64
 
-class CollectionFragment : Fragment(), MenuProvider {
+class CollectionFragment() : Fragment(), MenuProvider {
     private var _binding: FragmentCollectionBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: CollectionAdapter  //Adapter declared after binding in onCreateView to provide context
@@ -52,8 +60,11 @@ class CollectionFragment : Fragment(), MenuProvider {
 
         adapter.setButtonClickListener(object : CollectionAdapter.ButtonClickListener {
             override fun onDirectionsClick(position: Int) {
-                val workingRecipe: Recipe = adapter.getRecipeAt(position)
-                ChooseRecipeActivity.encodeRecipeToDirectionsActivity(requireContext(), workingRecipe)
+                val clickedRecipe = adapter.getRecipeAt(position)
+                val sRecipe = Uri.encode(Json.encodeToString(clickedRecipe), StandardCharsets.UTF_8.toString())
+                val directionsAction =
+                    DirectionsFragmentDirections.actionGlobalDirectionsFragment(sRecipe)
+                findNavController().navigate(directionsAction)
             }
 
             override fun doFavoriteOperation(position: Int) {

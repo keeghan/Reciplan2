@@ -1,5 +1,6 @@
 package com.keeghan.reciplan2.ui.recipe
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -14,6 +15,8 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
@@ -21,9 +24,11 @@ import com.keeghan.reciplan2.databinding.FragmentFavoriteBinding
 import com.keeghan.reciplan2.ui.MainViewModel
 import com.keeghan.reciplan2.ui.adapters.FavoriteAdapter
 import com.keeghan.reciplan2.ui.adapters.FavoriteAdapter.ButtonClickListener
-import com.keeghan.reciplan2.ui.recipe.ChooseRecipeActivity.Companion.encodeRecipeToDirectionsActivity
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.nio.charset.StandardCharsets
 
-class FavoriteFragment : Fragment(), MenuProvider {
+class FavoriteFragment() : Fragment(), MenuProvider {
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -61,7 +66,10 @@ class FavoriteFragment : Fragment(), MenuProvider {
         adapter.setButtonClickListener(object : ButtonClickListener {
             override fun onDirectionsClick(position: Int) {
                 val workingRecipe: Recipe = adapter.getRecipeAt(position)
-                encodeRecipeToDirectionsActivity(requireContext(), workingRecipe)
+
+                val sRecipe = Uri.encode(Json.encodeToString(workingRecipe), StandardCharsets.UTF_8.toString())
+                val directionsAction = DirectionsFragmentDirections.actionGlobalDirectionsFragment(sRecipe)
+                findNavController().navigate(directionsAction)
             }
 
             override fun doFavoriteOperation(position: Int) {

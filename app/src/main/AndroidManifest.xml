@@ -22,10 +22,6 @@
             android:parentActivityName=".MainActivity" />
 
         <activity
-            android:name=".ui.recipe.DirectionsActivity"
-            android:label="Directions" />
-
-        <activity
             android:name=".ui.recipe.ChooseRecipeActivity"
             android:label="Add to Collection"
             android:parentActivityName=".MainActivity"
