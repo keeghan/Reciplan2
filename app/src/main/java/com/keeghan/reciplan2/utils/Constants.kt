@@ -24,5 +24,10 @@ object Constants {
     const val LUNCH = "lunch"
     const val DINNER = "dinner"
     const val SNACK = "snack"
+    const val MISSING_MEAL_PLAN = "Missing Meal Plan"
+
+    const val NO_BREAKFAST = 0
+    const val NO_LUNCH = 1
+    const val NO_DINNER = 2
 
 }

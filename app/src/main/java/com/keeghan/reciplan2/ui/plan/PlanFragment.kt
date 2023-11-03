@@ -6,7 +6,6 @@
 package com.keeghan.reciplan2.ui.plan
 
 import android.content.Intent
-import android.content.res.Configuration
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,13 +16,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -31,22 +30,32 @@ import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.SettingsActivity
-import com.keeghan.reciplan2.database.Day
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentPlanBinding
 import com.keeghan.reciplan2.ui.adapters.PlanRecyclerAdapter
 import com.keeghan.reciplan2.utils.Constants
+import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DAY
+import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.FRIDAY_ID
+import com.keeghan.reciplan2.utils.Constants.LUNCH
+import com.keeghan.reciplan2.utils.Constants.MISSING_MEAL_PLAN
 import com.keeghan.reciplan2.utils.Constants.MONDAY_ID
+import com.keeghan.reciplan2.utils.Constants.NO_BREAKFAST
+import com.keeghan.reciplan2.utils.Constants.NO_DINNER
+import com.keeghan.reciplan2.utils.Constants.NO_LUNCH
 import com.keeghan.reciplan2.utils.Constants.SATURDAY_ID
 import com.keeghan.reciplan2.utils.Constants.SUNDAY_ID
 import com.keeghan.reciplan2.utils.Constants.THURSDAY_ID
 import com.keeghan.reciplan2.utils.Constants.TUESDAY_ID
 import com.keeghan.reciplan2.utils.Constants.WEDNESDAY_ID
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
@@ -55,48 +64,23 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
     private val binding get() = _binding!!
     private lateinit var viewModel: PlanViewModel
 
-    private lateinit var mondayAdapter: PlanRecyclerAdapter
-    private lateinit var tuesdayAdapter: PlanRecyclerAdapter
-    private lateinit var wednesdayAdapter: PlanRecyclerAdapter
-    private lateinit var thursdayAdapter: PlanRecyclerAdapter
-    private lateinit var fridayAdapter: PlanRecyclerAdapter
-    private lateinit var saturdayAdapter: PlanRecyclerAdapter
-    private lateinit var sundayAdapter: PlanRecyclerAdapter
-
+    private val days = arrayOf(SUNDAY_ID, MONDAY_ID, TUESDAY_ID, WEDNESDAY_ID, THURSDAY_ID, FRIDAY_ID, SATURDAY_ID)
+    var adapters: Array<PlanRecyclerAdapter>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentPlanBinding.inflate(layoutInflater, container, false)
-        val view = binding.root
         viewModel = ViewModelProvider(this)[PlanViewModel::class.java]
 
-
-        //initialize all adapters with context
-        setAdapters()
-
-        setRecycler(SUNDAY_ID, binding.sundayRecycler, sundayAdapter)
-        setRecycler(MONDAY_ID, binding.mondayRecycler, mondayAdapter)
-        setRecycler(TUESDAY_ID, binding.tuesdayRecycler, tuesdayAdapter)
-        setRecycler(WEDNESDAY_ID, binding.wednesdayRecycler, wednesdayAdapter)
-        setRecycler(THURSDAY_ID, binding.thursdayRecycler, thursdayAdapter)
-        setRecycler(FRIDAY_ID, binding.fridayRecycler, fridayAdapter)
-        setRecycler(SATURDAY_ID, binding.saturdayRecycler, saturdayAdapter)
-
-        setEditButtonOnclickListener()
-        showWelcomeToast()
-
         requireActivity().addMenuProvider(this, viewLifecycleOwner)
+        adapters = Array(7) { PlanRecyclerAdapter(requireContext()) }
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        //initialize all adapter with context
-        setAdapters()
-
         val toolbar: Toolbar = view.findViewById(R.id.toolbar_plan)
         val navController = Navigation.findNavController(view)
         val appBarConfiguration = AppBarConfiguration.Builder(
@@ -105,52 +89,52 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
+
+
+        val recyclers = arrayOf(
+            binding.sundayRecycler,
+            binding.mondayRecycler,
+            binding.tuesdayRecycler,
+            binding.wednesdayRecycler,
+            binding.thursdayRecycler,
+            binding.fridayRecycler,
+            binding.saturdayRecycler
+        )
+
+        //Join adapters with Recycler views
+        for (i in days.indices) {
+            setRecycler(days[i], recyclers[i], adapters!![i])
+        }
+
+        setEditButtonOnclickListener()
+        showWelcomeToast()
     }
 
-    private fun setAdapters() {
-        mondayAdapter = PlanRecyclerAdapter(context)
-        tuesdayAdapter = PlanRecyclerAdapter(context)
-        wednesdayAdapter = PlanRecyclerAdapter(context)
-        thursdayAdapter = PlanRecyclerAdapter(context)
-        fridayAdapter = PlanRecyclerAdapter(context)
-        saturdayAdapter = PlanRecyclerAdapter(context)
-        sundayAdapter = PlanRecyclerAdapter(context)
-    }
 
-    /*Function to set each Day's Recycler
-    * and attach the adapters to it*/
     private fun setRecycler(
         dayId: Int, recyclerView: RecyclerView, adapter: PlanRecyclerAdapter
     ) {
-        val tempRecipeArray = IntArray(3)
-        viewModel.allDays.observe(viewLifecycleOwner) { days ->
-            for (day in days) {
-                if (day._id == dayId) {
-                    tempRecipeArray[0] = day.breakfast
-                    tempRecipeArray[1] = day.lunch
-                    tempRecipeArray[2] = day.dinner
-                    viewModel.setRecipeArray(tempRecipeArray, dayId)
-
-                    //Retrieve recipes for day after setting them above
-                    viewModel.getActiveDayRecipes(dayId)?.observe(
-                        viewLifecycleOwner
-                    ) { recipes ->
-                        val sortedList = sortRecipes(recipes)
-                        adapter.setRecipes(sortedList)
-                    }
-                }
-            }
+        val recipes = when (dayId) {
+            1 -> viewModel.recipesForSunday
+            2 -> viewModel.recipesForMonday
+            3 -> viewModel.recipesForTuesday
+            4 -> viewModel.recipesForWednesday
+            5 -> viewModel.recipesForThursday
+            6 -> viewModel.recipesForFriday
+            7 -> viewModel.recipesForSaturday
+            else -> throw IllegalArgumentException("Invalid dayId")
         }
 
-        //pass array holding id to each viewModels switchMap
+        recipes.observe(viewLifecycleOwner) { adapter.setRecipes(sortRecipes(it)) }
+
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
-        //functions need to execute  inside main onViewCreated
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        recyclerView.setHasFixedSize(true)
+        attachItemTouchHelper(adapter, dayId, recyclerView)
+    }
 
-
-        //Implementation of swiping to delete
+    private fun attachItemTouchHelper(adapter: PlanRecyclerAdapter, dayId: Int, recyclerView: RecyclerView) {
+        //        //Implementation of swiping to delete
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
             0, ItemTouchHelper.RIGHT or ItemTouchHelper.LEFT
         ) {
@@ -164,31 +148,19 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
                 when (direction) {
                     ItemTouchHelper.RIGHT, ItemTouchHelper.LEFT -> {
                         //Update swipe day with swipe recipe item
-                        val temp: Recipe =
-                            adapter.getRecipeAt(viewHolder.absoluteAdapterPosition) //shouldn't have called this inside an observer
-                        val tempDay: Array<Day?> = arrayOfNulls(1)
-                        viewModel.allDays.observe(
-                            viewLifecycleOwner
-                        ) { days ->
-                            for (day in days) if (day._id == dayId) {
-                                tempDay[0] = day
-                                when (temp._id) {
-                                    day.breakfast -> {
-                                        tempDay[0]?.breakfast = 0
-                                    }
-
-                                    day.lunch -> {
-                                        tempDay[0]?.lunch = 1
-                                    }
-
-                                    day.dinner -> {
-                                        tempDay[0]?.dinner = 2
-                                    }
-                                }
+                        val temp = adapter.getRecipeAt(viewHolder.absoluteAdapterPosition)
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            val day = withContext(Dispatchers.IO) { viewModel.getDay(dayId) }
+                            val updatedDay = when (temp.type) {
+                                MISSING_MEAL_PLAN -> day
+                                BREAKFAST -> day.copy(breakfast = NO_BREAKFAST)
+                                LUNCH -> day.copy(lunch = NO_LUNCH)
+                                DINNER -> day.copy(dinner = NO_DINNER)
+                                else -> throw Exception("day type doesn't exist")
                             }
+                            viewModel.updateDay(updatedDay)  //deletion by replacement
+                            adapter.notifyItemChanged(viewHolder.absoluteAdapterPosition)
                         }
-                        viewModel.updateDay(tempDay[0]!!)
-                        adapter.notifyItemChanged(viewHolder.absoluteAdapterPosition)
                     }
                 }
             }
@@ -217,9 +189,8 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
                     c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive
                 )
             }
-        }) //end of item touch helper
+        })
         itemTouchHelper.attachToRecyclerView(recyclerView)
-        //end of setRecycler
     }
 
 
@@ -266,12 +237,12 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
     //Sort List to make sure the order of breakfast, lunch and dinner is correct
     private fun sortRecipes(recipes: List<Recipe>): List<Recipe> {
-        val breakfast = recipes.filter { it.type == "breakfast" }
-        val missing0 = recipes.filter { it.type == "Missing Meal Plan" && it._id == 0 }
-        val lunch = recipes.filter { it.type == "lunch" }
-        val missing1 = recipes.filter { it.type == "Missing Meal Plan" && it._id == 1 }
-        val dinner = recipes.filter { it.type == "dinner" }
-        val missing2 = recipes.filter { it.type == "Missing Meal Plan" && it._id == 2 }
+        val breakfast = recipes.filter { it.type == BREAKFAST }
+        val missing0 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_BREAKFAST }
+        val lunch = recipes.filter { it.type == LUNCH }
+        val missing1 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_LUNCH }
+        val dinner = recipes.filter { it.type == DINNER }
+        val missing2 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_DINNER }
         return breakfast.asSequence().plus(missing0).plus(lunch).plus(missing1).plus(dinner).plus(missing2).toList()
     }
 
@@ -295,7 +266,7 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
 
     private fun onActionClearPlans() {
-        val builder = AlertDialog.Builder(requireContext())
+        val builder = MaterialAlertDialogBuilder(requireContext())
 
         val v: View = LayoutInflater.from(context).inflate(R.layout.clear_confirmation_dialog, null, false)
         val textView = v.findViewById<TextView>(R.id.txt_clear_confirmation)

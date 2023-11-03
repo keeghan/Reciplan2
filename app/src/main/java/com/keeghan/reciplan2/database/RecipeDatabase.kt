@@ -35,6 +35,7 @@ import com.keeghan.reciplan2.database.RecipeUrls.Companion.yam_Balls
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH
+import com.keeghan.reciplan2.utils.Constants.MISSING_MEAL_PLAN
 import com.keeghan.reciplan2.utils.Constants.SNACK
 
 @Database(entities = [Recipe::class, Day::class], version = 2, exportSchema = false)
@@ -96,7 +97,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     missing0,
                     collection = false,
                     favorite = false,
-                    type = "Missing Meal Plan",
+                    type = MISSING_MEAL_PLAN,
                 )
             ) //make invisible
             recipeDao.insert(
@@ -109,7 +110,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     missing1,
                     collection = false,
                     favorite = false,
-                    type = "Missing Meal Plan",
+                    type = MISSING_MEAL_PLAN,
                 )
             ) //make invisible
             recipeDao.insert(
@@ -122,7 +123,7 @@ abstract class RecipeDatabase : RoomDatabase() {
                     missing2,
                     collection = false,
                     favorite = false,
-                    type = "Missing Meal Plan",
+                    type = MISSING_MEAL_PLAN,
                 )
             ) //make invisible
             recipeDao.insert(

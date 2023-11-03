@@ -23,7 +23,6 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
-    private lateinit var prefs: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -31,7 +30,7 @@ class ExploreFragment : Fragment() {
         _binding = FragmentExploreBinding.inflate(inflater, container, false)
         val view = binding.root
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
 
         binding.snackCardView.setOnClickListener { startChooseRecipeActivity("snack") }
         binding.breakfastCardView.setOnClickListener { startChooseRecipeActivity("breakfast") }
@@ -39,29 +38,10 @@ class ExploreFragment : Fragment() {
         binding.dinnerCardView.setOnClickListener { startChooseRecipeActivity("dinner") }
 
         //updateVersion2()
-        showWelcomeDialog()
         return view
     }
 
-    //Show One Time Welcome message
-    private fun showWelcomeDialog() {
-        if (prefs.getBoolean(Constants.IS_FIRST_RUN, true)) {
 
-            val builder = AlertDialog.Builder(requireContext())
-            val v: View = LayoutInflater.from(context).inflate(R.layout.welcome_dialog, null, false)
-
-            val textView = v.findViewById<TextView>(R.id.welcome_txt)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-            }
-            builder.setView(v)
-            builder.setNegativeButton(R.string.str_close_welcome_dialog) { dialog, _ ->
-                prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply()
-                dialog?.dismiss()
-            }
-            builder.show()
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
