@@ -11,6 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
+import com.keeghan.reciplan2.utils.Constants.BREAKFAST
+import com.keeghan.reciplan2.utils.Constants.DINNER
+import com.keeghan.reciplan2.utils.Constants.LUNCH
+import com.keeghan.reciplan2.utils.Constants.MISSING_MEAL_PLAN
+import com.keeghan.reciplan2.utils.Constants.NO_BREAKFAST
+import com.keeghan.reciplan2.utils.Constants.NO_DINNER
+import com.keeghan.reciplan2.utils.Constants.NO_LUNCH
 import java.util.*
 
 class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -31,23 +38,22 @@ class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<Recycler
     //Multiple layouts to show default recipe
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val currentRecipe: Recipe = recipes[position]
-        if (recipes[position]._id == 0 || recipes[position]._id == 1 || recipes[position]._id == 2) {
+        if (recipes[position].type == MISSING_MEAL_PLAN) {
             val holderDefault = holder as PlanDefaultHolder
             when (currentRecipe.name) {
                 "missing0" -> holderDefault.defaultText.text = context?.getString(R.string.not_set_breakfast)
                 "missing1" -> holderDefault.defaultText.text = context?.getString(R.string.not_set_lunch)
                 "missing2" -> holderDefault.defaultText.text = context?.getString(R.string.not_set_dinner)
                 else -> holderDefault.defaultText.text = context?.getString(R.string.not_set_snack)
-
             }
         } else {
             val holderItem = holder as PlanItemHolder
             holderItem.recipeName.text = currentRecipe.name
             //Convert MealType to Sentence case
             when (currentRecipe.type) {
-                "breakfast" -> holderItem.mealType.setText(R.string.str_breakfast)
-                "lunch" -> holderItem.mealType.setText(R.string.str_lunch)
-                "dinner" -> holderItem.mealType.setText(R.string.str_dinner)
+                BREAKFAST -> holderItem.mealType.setText(R.string.str_breakfast)
+                LUNCH -> holderItem.mealType.setText(R.string.str_lunch)
+                DINNER -> holderItem.mealType.setText(R.string.str_dinner)
             }
 
             //Glide Implementation
@@ -84,8 +90,9 @@ class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<Recycler
         return recipes.size
     }
 
+    //check if recipe type is mean not set
     override fun getItemViewType(position: Int): Int {
-        return if (recipes[position]._id == 0 || recipes[position]._id == 1 || recipes[position]._id == 2) {
+        return if (recipes[position].type == MISSING_MEAL_PLAN) {
             0
         } else {
             1

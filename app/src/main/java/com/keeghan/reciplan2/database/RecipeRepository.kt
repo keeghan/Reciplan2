@@ -85,4 +85,11 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.getActiveDayRecipes(recipeInt)
     }
 
+    fun getRecipesForDay(dayId: Int): LiveData<List<Recipe>> {
+        return recipeDao.getRecipesForDay(dayId)
+    }
+
+    fun getDay(dayId: Int): Day {
+        return recipeDao.getDay(dayId)
+    }
 }

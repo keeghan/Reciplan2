@@ -1,14 +1,14 @@
 package com.keeghan.reciplan2.database
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
+import kotlin.math.abs
 
 @Serializable
 @Entity(tableName = "recipe_table")
 data class Recipe(
-    @PrimaryKey(autoGenerate = true)  //"autoGenerate = true , = 0" migration 1_2
+    @PrimaryKey(autoGenerate = false)  //"autoGenerate = true , = 0" migration 1_2
     val _id: Int = 0,
 
     val name: String,

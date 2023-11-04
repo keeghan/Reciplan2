@@ -104,4 +104,17 @@ interface RecipeDao {
 
     @Query("SELECT * from  day_table")
     fun getAllDays(): LiveData<List<Day>>
+
+    @Query(
+        """ SELECT * FROM recipe_table   WHERE _id IN (
+        SELECT breakfast FROM day_table WHERE _id = :dayId
+        UNION ALL
+        SELECT lunch FROM day_table WHERE _id = :dayId
+        UNION ALL
+        SELECT dinner FROM day_table WHERE _id = :dayId ) """
+    )
+    fun getRecipesForDay(dayId: Int): LiveData<List<Recipe>>
+
+    @Query("SELECT * from  day_table WHERE _id = :dayID")
+    fun getDay(dayID: Int): Day
 }

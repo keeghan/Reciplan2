@@ -22,6 +22,8 @@ import com.keeghan.reciplan2.utils.Constants.LUNCH
 import com.keeghan.reciplan2.utils.Constants.SNACK
 import com.yalantis.ucrop.UCrop
 import java.io.File
+import java.lang.Math.abs
+import java.util.UUID
 
 //TODO: Add youtube links to saved Recipes
 
@@ -103,6 +105,7 @@ class AddFragment : Fragment() {
         val type = typeOptionSelected(radioButtonId)
 
         val recipe = Recipe(
+            _id = generateUniqueId(),
             name = fragmentAddBinding.recipeTitleEditText.text?.trim().toString(),
             mins = bottomSheetBinding.timePicker.value,
             imageUrl = webpCompressedImageFile.path,
@@ -207,6 +210,9 @@ class AddFragment : Fragment() {
         const val ADD_RECIPE_IMAGE_LOC = "image/*"
     }
 
+    private fun generateUniqueId(): Int {
+        return kotlin.math.abs(UUID.randomUUID().toString().hashCode())
+    }
 }
 
 

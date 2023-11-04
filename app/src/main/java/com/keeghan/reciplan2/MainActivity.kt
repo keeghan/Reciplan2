@@ -3,7 +3,6 @@ package com.keeghan.reciplan2
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -27,19 +26,5 @@ class MainActivity : AppCompatActivity() {
 
         // val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         NavigationUI.setupWithNavController(bottomNavView, navController)
-
-        /*Dark mode implementation on app startup*/
-        val prefs = PreferenceManager.getDefaultSharedPreferences(
-            applicationContext
-        )
-
-
-        //check user settings for theme
-        if (prefs.getBoolean("pref_theme", true)) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        }
-
     }
 }
