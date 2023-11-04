@@ -39,30 +39,28 @@ class SetPlanFragment : Fragment(), SetPlanRecyclerAdapter.ButtonClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val radioGroup = binding.radioGroup
-        radioGroup.check(binding.optionBreakfast.id)
-
         val recyclerView = binding.setPlanRecycler
         recyclerView.adapter = recyclerAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerView.setHasFixedSize(true)
 
         //Select whether to display breakfast, lunch or dinner lists
-        radioGroup.setOnCheckedChangeListener { _, editId ->
+        binding.radioGroup.setOnCheckedChangeListener { _, editId ->
             when (editId) {
                 binding.optionBreakfast.id -> viewModel.breakfastCollection.observe(viewLifecycleOwner) {
                     recyclerAdapter?.setRecipes(it)
                 }
 
-                binding.optionLunch.id -> viewModel.breakfastCollection.observe(viewLifecycleOwner) {
+                binding.optionLunch.id -> viewModel.lunchCollection.observe(viewLifecycleOwner) {
                     recyclerAdapter?.setRecipes(it)
                 }
 
-                binding.optionDinner.id -> viewModel.breakfastCollection.observe(viewLifecycleOwner) {
+                binding.optionDinner.id -> viewModel.dinnerCollection.observe(viewLifecycleOwner) {
                     recyclerAdapter?.setRecipes(it)
                 }
             }
         }
+        binding.radioGroup.check(binding.optionBreakfast.id)  //set breakfast as default option
 
         binding.backBtn.setOnClickListener {
             findNavController().popBackStack()
@@ -75,7 +73,7 @@ class SetPlanFragment : Fragment(), SetPlanRecyclerAdapter.ButtonClickListener {
     override fun onAssignClick(position: Int) {
         val temp = recyclerAdapter?.getRecipeAt(position)
         viewLifecycleOwner.lifecycleScope.launch {
-            val day: Day = withContext(Dispatchers.IO) { viewModel.getDay(dayId) }
+            val day: Day = withContext(Dispatchers.IO) { viewModel.getDay(args.dayId) }
             val updatedDay = when (temp?.type) {
                 BREAKFAST -> day.copy(breakfast = temp._id)
                 LUNCH -> day.copy(lunch = temp._id)
