@@ -25,6 +25,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
@@ -37,6 +38,7 @@ import com.keeghan.reciplan2.database.Day
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentPlanBinding
 import com.keeghan.reciplan2.ui.adapters.PlanRecyclerAdapter
+import com.keeghan.reciplan2.ui.recipe.RecipeFragmentDirections
 import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.DAY
 import com.keeghan.reciplan2.utils.Constants.FRIDAY_ID
@@ -240,19 +242,19 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
     //btn implementations
     override fun onClick(v: View?) {
-        val intent = Intent(context, SetPlanActivity::class.java)
-        var value: Int? = null
-        when (v!!.id) {
-            R.id.btn_sunday_edit -> value = SUNDAY_ID
-            R.id.btn_monday_edit -> value = MONDAY_ID
-            R.id.btn_tuesday_edit -> value = TUESDAY_ID
-            R.id.btn_wednesday_edit -> value = WEDNESDAY_ID
-            R.id.btn_thursday_edit -> value = THURSDAY_ID
-            R.id.btn_friday_edit -> value = FRIDAY_ID
-            R.id.btn_saturday_edit -> value = SATURDAY_ID
+        val dayId = when (v?.id) {
+            R.id.btn_sunday_edit -> SUNDAY_ID
+            R.id.btn_monday_edit -> MONDAY_ID
+            R.id.btn_tuesday_edit -> TUESDAY_ID
+            R.id.btn_wednesday_edit -> WEDNESDAY_ID
+            R.id.btn_thursday_edit -> THURSDAY_ID
+            R.id.btn_friday_edit -> FRIDAY_ID
+            R.id.btn_saturday_edit -> SATURDAY_ID
+            else -> throw Exception("Button clicked not part of editGroup")
         }
-        intent.putExtra(DAY, value)
-        startActivity(intent)
+        val direction =
+            PlanFragmentDirections.actionNavigationPlanToSetPlanFragment(dayId)
+        findNavController().navigate(direction)
     }
 
 
