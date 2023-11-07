@@ -1,6 +1,8 @@
 package com.keeghan.reciplan2.database
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import java.io.File
 
 class RecipeRepository(private val recipeDao: RecipeDao) {
 
@@ -12,8 +14,10 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         recipeDao.insert(recipe)
     }
 
-    suspend fun delete(recipe: Recipe) {
-        recipeDao.delete(recipe)
+    suspend fun deleteRecipe(recipe: Recipe) {
+        val imageUrl = recipe.imageUrl
+        recipeDao.deleteRecipe(recipe)
+        deleteImageUrl(imageUrl)
     }
 
     //Getting types of recipes
@@ -91,5 +95,13 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
 
     fun getDay(dayId: Int): Day {
         return recipeDao.getDay(dayId)
+    }
+
+    fun deleteImageUrl(imageUrl: String): Boolean {
+        val file = File(imageUrl)
+        if (file.exists()) {
+            return file.delete()
+        }
+        return false
     }
 }

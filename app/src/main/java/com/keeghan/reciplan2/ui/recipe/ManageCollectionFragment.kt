@@ -51,8 +51,6 @@ class ManageCollectionFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         getIntentList()
 
-
-
         return binding.root
     }
 
@@ -145,7 +143,7 @@ class ManageCollectionFragment : Fragment() {
     }
 
 
-    //Delete Recipe created by user from Database
+    //Delete Recipe created by user from Database [from day_table and recipe_table]
     private fun deleteUserRecipe(position: Int) {
         val workingRecipe = adapter.getRecipeAt(position)
 
@@ -179,13 +177,14 @@ class ManageCollectionFragment : Fragment() {
             deleteUserRecipe(clickedRecipePosition)
         }
 
-        bottomMenuBinding.editGrp.setOnClickListener {
-            bottomSheet.dismiss()
-            val sRecipe = Uri.encode(Json.encodeToString(menuRecipe), StandardCharsets.UTF_8.toString())
-            val directionsAction =
-                ManageCollectionFragmentDirections.actionManageCollectionFragmentToNavigationAdd(sRecipe)
-            findNavController().navigate(directionsAction)
-        }
+        //Todo: Introduce edit recipe
+//        bottomMenuBinding.editGrp.setOnClickListener {
+//            bottomSheet.dismiss()
+//            val sRecipe = Uri.encode(Json.encodeToString(menuRecipe), StandardCharsets.UTF_8.toString())
+//            val directionsAction =
+//                ManageCollectionFragmentDirections.actionManageCollectionFragmentToNavigationAdd(sRecipe)
+//            findNavController().navigate(directionsAction)
+//        }
 
         bottomSheet.show()
     }

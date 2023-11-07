@@ -2,6 +2,10 @@ package com.keeghan.reciplan2.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.keeghan.reciplan2.utils.Constants.BREAKFAST
+import com.keeghan.reciplan2.utils.Constants.DINNER
+import com.keeghan.reciplan2.utils.Constants.LUNCH
+import com.keeghan.reciplan2.utils.Constants.MISSING_MEAL_PLAN
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -15,6 +19,27 @@ interface RecipeDao {
 
     @Delete
     suspend fun delete(recipe: Recipe)
+
+    //Handle clearing recipe from plans to avoid breaking app
+    @Query("UPDATE day_table SET breakfast = 0 WHERE breakfast = :recipeId")
+    suspend fun clearRecipe4rmBreakfast(recipeId: Int)
+
+    @Query("UPDATE day_table SET lunch = 1 WHERE lunch = :recipeId")
+    suspend fun clearRecipe4rmLunch(recipeId: Int)
+
+    @Query("UPDATE day_table SET dinner = 2 WHERE dinner = :recipeId")
+    suspend fun clearRecipe4rmDinner(recipeId: Int)
+
+    @Transaction
+    suspend fun deleteRecipe(recipe: Recipe) {
+        when (recipe.type) {
+            BREAKFAST -> clearRecipe4rmBreakfast(recipe._id)
+            LUNCH -> clearRecipe4rmLunch(recipe._id)
+            DINNER -> clearRecipe4rmDinner(recipe._id)
+            MISSING_MEAL_PLAN -> throw Exception("default recipe being deleted")
+        }
+        delete(recipe)
+    }
 
     //getting Recipe data in a list form
     @Query("SELECT * FROM recipe_table ORDER By _id DESC")

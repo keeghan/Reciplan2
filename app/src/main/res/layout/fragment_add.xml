@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:autofillHints="text"
-                    android:hint="@string/recipe_directions"
+                    android:hint="@string/directions"
                     android:inputType="textMultiLine"
                     android:maxHeight="@dimen/_140sdp"
                     android:minLines="4"

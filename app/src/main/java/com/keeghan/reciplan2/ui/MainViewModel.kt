@@ -44,7 +44,7 @@ class MainViewModel(application: Application) :
     //delete methods
     fun deleteRecipe(recipe: Recipe) {
         viewModelScope.launch {
-            repository.delete(recipe)
+            repository.deleteRecipe(recipe)
         }
     }
 

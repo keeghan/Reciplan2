@@ -44,7 +44,8 @@ class RecipeAdapter(
         holder.textName.text = currentRecipe.name
         holder.textIngredients.text = currentRecipe.ingredients.toString()
         holder.textMin.text = currentRecipe.mins.toString()
-        if (!currentRecipe.userCreated) holder.menuBtn.visibility = View.GONE
+        holder.menuBtn.visibility = if (currentRecipe.userCreated) View.VISIBLE else View.GONE
+
 
         //Glide Implementation
         Glide.with(context!!)

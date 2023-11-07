@@ -133,5 +133,6 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="manage_recipes">Manage Recipe</string>
+    <string name="directions">directions</string>
 
 </resources>

@@ -8,7 +8,7 @@
     <!--SwitchGroup-->
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView"
+        android:id="@+id/durationTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Duration"
@@ -26,7 +26,8 @@
         android:scaleY="0.85"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/recipeIngredientLayout" />
+        app:layout_constraintStart_toEndOf="@+id/recipeIngredientLayout"
+        app:layout_constraintTop_toBottomOf="@id/durationTxt" />
 
 
     <!-- Recipe Description (Multiline) -->

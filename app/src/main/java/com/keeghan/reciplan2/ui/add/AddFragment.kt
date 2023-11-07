@@ -211,7 +211,7 @@ class AddFragment : Fragment() {
     }
 
     private fun generateUniqueId(): Int {
-        return kotlin.math.abs(UUID.randomUUID().toString().hashCode())
+        return kotlin.math.abs(System.currentTimeMillis().toInt())
     }
 }
 
