@@ -177,14 +177,14 @@ class ManageCollectionFragment : Fragment() {
             deleteUserRecipe(clickedRecipePosition)
         }
 
-        //Todo: Introduce edit recipe
-//        bottomMenuBinding.editGrp.setOnClickListener {
-//            bottomSheet.dismiss()
-//            val sRecipe = Uri.encode(Json.encodeToString(menuRecipe), StandardCharsets.UTF_8.toString())
-//            val directionsAction =
-//                ManageCollectionFragmentDirections.actionManageCollectionFragmentToNavigationAdd(sRecipe)
-//            findNavController().navigate(directionsAction)
-//        }
+        //Send Recipe to be edited to AddFragment
+        bottomMenuBinding.editGrp.setOnClickListener {
+            bottomSheet.dismiss()
+            val sRecipe = Uri.encode(Json.encodeToString(menuRecipe), StandardCharsets.UTF_8.toString())
+            val directionsAction =
+                ManageCollectionFragmentDirections.actionManageCollectionFragmentToNavigationAdd(sRecipe)
+            findNavController().navigate(directionsAction)
+        }
 
         bottomSheet.show()
     }

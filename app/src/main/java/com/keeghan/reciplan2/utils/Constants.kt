@@ -35,4 +35,7 @@ object Constants {
     const val NO_LUNCH = 1
     const val NO_DINNER = 2
 
+    const val NOT_EDIT = "not_edit"
+    const val SUCCESS = "success"
+
 }

@@ -134,5 +134,6 @@
     <string name="edit">Edit</string>
     <string name="manage_recipes">Manage Recipe</string>
     <string name="directions">directions</string>
+    <string name="editRecipe">Edit your recipe</string>
 
 </resources>

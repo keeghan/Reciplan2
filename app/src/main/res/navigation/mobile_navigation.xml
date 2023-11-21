@@ -48,6 +48,7 @@
             app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
         <argument
             android:name="recipeEdit"
+            android:defaultValue="not_edit"
             app:argType="string" />
     </fragment>
 
@@ -78,9 +79,12 @@
             app:argType="string" />
         <action
             android:id="@+id/action_manageCollectionFragment_to_navigation_add"
-            app:destination="@id/navigation_add" />
+            app:destination="@id/navigation_add"
+            />
     </fragment>
-
+<!--    app:launchSingleTop="true"-->
+<!--    app:popUpTo="@id/navigation_recipe"-->
+<!--    app:popUpToInclusive="true"-->
     <fragment
         android:id="@+id/setPlanFragment"
         android:name="com.keeghan.reciplan2.ui.plan.SetPlanFragment"

@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.database.RecipeDatabase
 import com.keeghan.reciplan2.database.RecipeRepository
+import com.keeghan.reciplan2.utils.Constants
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
@@ -35,7 +36,29 @@ class AddViewModel(application: Application) : AndroidViewModel(application) {
             viewModelScope.launch {
                 repository.insert(recipe)
                 File(imageUri.path!!).delete()
+                _errorMsg.postValue(Constants.SUCCESS)
             }
+        }
+    }
+
+    fun updateRecipe(imageUri: Uri, compressedImage: File, recipe: Recipe, oldUri: String) {
+        val comp = compressImage(imageUri, compressedImage)
+        if (comp) {
+            viewModelScope.launch {
+                repository.update(recipe)
+                File(imageUri.path!!).delete()
+                File(oldUri).delete()
+                _errorMsg.postValue(Constants.SUCCESS)
+            }
+        }
+    }
+
+
+
+    fun updateRecipe(recipe: Recipe) {
+        viewModelScope.launch {
+            repository.update(recipe)
+            _errorMsg.postValue(Constants.SUCCESS)
         }
     }
 
@@ -50,10 +73,12 @@ class AddViewModel(application: Application) : AndroidViewModel(application) {
                 )
             true
         } catch (e: Exception) {
-            Log.i("====>", "onCreateView: ${e.message}")
             _errorMsg.value = e.message
             false
         }
     }
 
+    fun msgReset(){
+        _errorMsg.value = ""
+    }
 }
