@@ -135,5 +135,11 @@
     <string name="manage_recipes">Manage Recipe</string>
     <string name="directions">directions</string>
     <string name="editRecipe">Edit your recipe</string>
+    <string name="quit_confirmation">Are you sure you want to quit?</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="duration">duration</string>
+    <string name="empty">Empty</string>
+    <string name="recipe_updated">Recipe Updated</string>
 
 </resources>

@@ -38,4 +38,8 @@ object Constants {
     const val NOT_EDIT = "not_edit"
     const val SUCCESS = "success"
 
+    const val EXPLORE = "Explore"
+    const val COLLECTION = "Collection"
+    const val FAVORTIE = "Favorite"
+
 }

@@ -35,13 +35,8 @@ class AddFragment : Fragment() {
     private lateinit var viewModel: AddViewModel
     private val mainBinding by lazy { FragmentAddBinding.inflate(layoutInflater) }
 
-    //Receive nav argument from fragment navigating to here (editing Recipes)
-    private val args: AddFragmentArgs by navArgs()
-
     private lateinit var tempImageUri: Uri
     private lateinit var webpCompressedImageFile: File
-    private lateinit var editRecipe: Recipe
-    private var isEdit = false  //default value for whether fragment was opened from edit Command
 
     //Bottom Dialog sheet bindings
     private var bottomSheet: BottomSheetDialog? = null
@@ -50,7 +45,6 @@ class AddFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        isEdit = args.recipeEdit != NOT_EDIT
     }
 
     override fun onCreateView(
@@ -59,17 +53,8 @@ class AddFragment : Fragment() {
         val view = mainBinding.root
         viewModel = ViewModelProvider(this)[AddViewModel::class.java]
 
-        //if navigated to from edit command populate
-        if (isEdit) {
-            editRecipe = Json.decodeFromString(Uri.decode(args.recipeEdit))
-            populateWithEditRecipe()
-        }
-
         //Open bottomSheetDialog on pressing the next button
-        mainBinding.nextButton.setOnClickListener {
-            inflateBottomLayout()
-            if (isEdit) populateBottomSheet()
-        }
+        mainBinding.nextButton.setOnClickListener { inflateBottomLayout() }
 
         //Launch activity for result for image
         mainBinding.chooseImageButton.setOnClickListener { getContent.launch(ADD_RECIPE_IMAGE_LOC) }
@@ -103,36 +88,6 @@ class AddFragment : Fragment() {
 //            .into(mainBinding.recipeImageView)
     }
 
-    //populate fields from recipe passed from edit command
-    private fun populateWithEditRecipe() {
-        mainBinding.textView.text = getString(R.string.editRecipe)
-        mainBinding.recipeTitleEditText.setText(editRecipe.name)
-        mainBinding.recipeDescEditText.setText(editRecipe.userDirection)
-        Glide.with(this).load(editRecipe.imageUrl).into(mainBinding.recipeImageView)
-
-        //populate bottom sheet
-        inflateBottomLayout()
-        populateBottomSheet()
-    }
-
-    private fun populateBottomSheet() {
-        with(bottomSheetBinding) {
-            timePicker.value = editRecipe.mins
-            recipeIngredientEditText.setText(editRecipe.userIngredient)
-            switchColBtn.isChecked = editRecipe.collection
-            switchFavBtn.isChecked = editRecipe.favorite
-            radioGroup.check(
-                when (editRecipe.type) {
-                    BREAKFAST -> optionBreakfast.id
-                    LUNCH -> optionLunch.id
-                    DINNER -> optionDinner.id
-                    SNACK -> optionSnack.id
-                    else -> throw IllegalStateException("Recipe Type invalid")
-                }
-            )
-        }
-    }
-
     //Inflate bottom sheet  and show with no data
     private fun inflateBottomLayout() {
         bottomSheet = BottomSheetDialog(requireContext())
@@ -148,14 +103,12 @@ class AddFragment : Fragment() {
     private fun saveOrUpdateRecipe() {
         val checkedTypeID = bottomSheetBinding.radioGroup.checkedRadioButtonId
         val radioButtonId = bottomSheetBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
-        val imageUrl =
-            if (isEdit && !::tempImageUri.isInitialized) editRecipe.imageUrl else webpCompressedImageFile.path
 
         val recipe = Recipe(
-            _id = if (isEdit) editRecipe._id else generateUniqueId(),
+            _id = generateUniqueId(),
             name = mainBinding.recipeTitleEditText.text?.trim().toString(),
             mins = bottomSheetBinding.timePicker.value,
-            imageUrl = imageUrl,
+            imageUrl = webpCompressedImageFile.path,
             favorite = bottomSheetBinding.switchFavBtn.isChecked,
             ingredients = bottomSheetBinding.recipeIngredientEditText.text?.trim()?.lines()!!.size,
             userCreated = true,
@@ -164,22 +117,14 @@ class AddFragment : Fragment() {
             userIngredient = bottomSheetBinding.recipeIngredientEditText.text?.trim().toString(),
             type = typeOptionSelected(radioButtonId)
         )
-
-        //if editing update or Else save new recipe
-        //if new recipe image is selected compress or else just update
-        if (isEdit) {
-            if (::tempImageUri.isInitialized)
-                viewModel.updateRecipe(tempImageUri, webpCompressedImageFile, recipe, editRecipe.imageUrl)
-            else viewModel.updateRecipe(recipe)
-        } else viewModel.saveRecipe(tempImageUri, webpCompressedImageFile, recipe)
+        viewModel.saveRecipe(tempImageUri, webpCompressedImageFile, recipe)
 
         clearScreen()
         bottomSheet!!.dismissWithAnimation = true
         bottomSheet!!.dismiss()
         viewModel.errorMsg.observe(viewLifecycleOwner) {
             if (it == SUCCESS) {
-                if (isEdit) showToast("Recipe Updated") else showToast("Recipe saved")
-                parentFragmentManager.popBackStack()   //todo: work on proper backstack navigation
+                showToast("Recipe Updated")
             }
         }
     }
@@ -222,10 +167,8 @@ class AddFragment : Fragment() {
 
             //check if an image is selected, if editing recipe with no image pass true
             !::tempImageUri.isInitialized -> {
-                if (isEdit) true else {
-                    showToast("Choose a recipe image")
-                    false
-                }
+                showToast("Choose a recipe image")
+                false
             }
 
             ingredients.isBlank() -> {

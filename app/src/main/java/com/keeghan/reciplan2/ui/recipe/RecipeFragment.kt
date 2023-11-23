@@ -8,6 +8,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
@@ -17,15 +19,35 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.databinding.FragmentRecipeBinding
+import com.keeghan.reciplan2.utils.Constants.COLLECTION
+import com.keeghan.reciplan2.utils.Constants.EXPLORE
+import com.keeghan.reciplan2.utils.Constants.FAVORTIE
 
 class RecipeFragment : Fragment(), MenuProvider {
 
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+              MaterialAlertDialogBuilder(requireContext(), R.style.RoundedAlertDialog)
+                    .setMessage(getString(R.string.quit_confirmation))
+                    .setPositiveButton(getString(R.string.yes)) { _, _ -> requireActivity().finish() }
+                    .setNegativeButton(getString(R.string.no), null)
+                    .show()
+            }
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,9 +68,9 @@ class RecipeFragment : Fragment(), MenuProvider {
         binding.viewpager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabsRecipe, binding.viewpager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Explore"
-                1 -> tab.text = "Collection"
-                2 -> tab.text = "Favorite"
+                0 -> tab.text = EXPLORE
+                1 -> tab.text = COLLECTION
+                2 -> tab.text = FAVORTIE
             }
         }.attach()
         return view

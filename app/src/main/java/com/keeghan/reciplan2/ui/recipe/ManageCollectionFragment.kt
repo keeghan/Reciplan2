@@ -19,6 +19,7 @@ import com.keeghan.reciplan2.databinding.ExplorerBottomMenuBinding
 import com.keeghan.reciplan2.databinding.FragmentManageCollectionBinding
 import com.keeghan.reciplan2.ui.MainViewModel
 import com.keeghan.reciplan2.ui.adapters.RecipeAdapter
+import com.keeghan.reciplan2.ui.add.AddDialogFragment
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH
@@ -91,9 +92,6 @@ class ManageCollectionFragment : Fragment() {
 
         binding.exploreRecycler.adapter = adapter
     }
-
-    //todo: investigate why menu icons are dissappering
-
 
     private fun getIntentList() {
         when (args.mealType) {
@@ -177,13 +175,11 @@ class ManageCollectionFragment : Fragment() {
             deleteUserRecipe(clickedRecipePosition)
         }
 
-        //Send Recipe to be edited to AddFragment
+        //Open editfragment
         bottomMenuBinding.editGrp.setOnClickListener {
             bottomSheet.dismiss()
-            val sRecipe = Uri.encode(Json.encodeToString(menuRecipe), StandardCharsets.UTF_8.toString())
-            val directionsAction =
-                ManageCollectionFragmentDirections.actionManageCollectionFragmentToNavigationAdd(sRecipe)
-            findNavController().navigate(directionsAction)
+            val dialogFragment = AddDialogFragment(menuRecipe)
+            dialogFragment.show(parentFragmentManager, "my_dialog_tag")
         }
 
         bottomSheet.show()

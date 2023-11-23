@@ -46,10 +46,6 @@
             android:id="@+id/action_navigation_add_to_navigation_recipe"
             app:destination="@id/navigation_recipe"
             app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
-        <argument
-            android:name="recipeEdit"
-            android:defaultValue="not_edit"
-            app:argType="string" />
     </fragment>
 
     <fragment
@@ -77,10 +73,6 @@
         <argument
             android:name="mealType"
             app:argType="string" />
-        <action
-            android:id="@+id/action_manageCollectionFragment_to_navigation_add"
-            app:destination="@id/navigation_add"
-            />
     </fragment>
 <!--    app:launchSingleTop="true"-->
 <!--    app:popUpTo="@id/navigation_recipe"-->

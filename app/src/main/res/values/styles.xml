@@ -36,4 +36,24 @@
         <item name="cornerSizeBottomRight">0dp</item>
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
+
+    <style name="RoundedAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    </style>
+
+    <style name="DialogTheme_transparent" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="shapeAppearanceOverlay">@style/DialogCorners</item>
+    </style>
+
+    <style name="DialogCorners">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/_6sdp</item>
+    </style>
+
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/nav_default_pop_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/nav_default_pop_exit_anim</item>
+    </style>
+
 </resources>

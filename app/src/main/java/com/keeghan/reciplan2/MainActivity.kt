@@ -6,25 +6,26 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.preference.PreferenceManager
+import androidx.navigation.ui.NavigationUiSaveStateControl
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.keeghan.reciplan2.ui.recipe.ManageCollectionFragmentDirections
 
 class MainActivity : AppCompatActivity() {
 
+    @OptIn(NavigationUiSaveStateControl::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val bottomNavView = findViewById<View>(R.id.nav_view) as BottomNavigationView
 
-        AppBarConfiguration.Builder(
-            R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add
-        ).build()
+        AppBarConfiguration.Builder(R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add).build()
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
 
         // val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        NavigationUI.setupWithNavController(bottomNavView, navController)
+        NavigationUI.setupWithNavController(bottomNavView, navController, true)
+
     }
 }
