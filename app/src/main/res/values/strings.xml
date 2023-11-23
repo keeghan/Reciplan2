@@ -141,5 +141,16 @@
     <string name="duration">duration</string>
     <string name="empty">Empty</string>
     <string name="recipe_updated">Recipe Updated</string>
+    <string name="contact_developer">Contact Developer</string>
+    <string name="tap_to_read">Tap to read</string>
+    <string name="copyright_disclaimer_str">Copyright Disclaimer</string>
+    <string name="build_version">Build Version</string>
+    <string name="enable_haptics">Enable haptics</string>
+    <string name="sound_haptics"><![CDATA[Sound & Haptics]]></string>
+    <string name="enable_dark_mode">Enable Dark Mode</string>
+    <string name="developer_info">Developer Info</string>
+    <string name="tap_for_info">Tap for info</string>
+    <string name="disable_haptics">Disable Haptics</string>
+    <string name="disable_darkmode">Disable DarkMode</string>
 
 </resources>

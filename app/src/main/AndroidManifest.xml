@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".ReciplanApplication"
@@ -14,19 +14,9 @@
         android:theme="@style/Theme.Reciplan2">
 
         <activity
-            android:name=".ui.plan.SetPlanActivity"
-            android:label="Plan Meals" />
-
-        <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".MainActivity" />
-
-        <activity
-            android:name=".ui.recipe.ChooseRecipeActivity"
-            android:label="Add to Collection"
-            android:parentActivityName=".MainActivity"
-            android:screenOrientation="portrait" />
 
         <activity
             android:name=".MainActivity"

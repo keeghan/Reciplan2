@@ -9,9 +9,7 @@ class ReciplanApplication : Application() {
         super.onCreate()
 
         //check user settings for theme
-        val prefs = PreferenceManager.getDefaultSharedPreferences(
-            applicationContext
-        )
+        val prefs = PreferenceManager.getDefaultSharedPreferences(applicationContext)
 
         if (prefs.getBoolean("pref_theme", true)) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)

@@ -1,6 +1,9 @@
 package com.keeghan.reciplan2.ui.recipe
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.text.LineBreaker
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,23 +21,30 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.preference.PreferenceManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.databinding.FragmentRecipeBinding
+import com.keeghan.reciplan2.databinding.WelcomeDialogBinding
+import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.COLLECTION
 import com.keeghan.reciplan2.utils.Constants.EXPLORE
 import com.keeghan.reciplan2.utils.Constants.FAVORTIE
 
 class RecipeFragment : Fragment(), MenuProvider {
+    private lateinit var prefs: SharedPreferences
+
 
     private var _binding: FragmentRecipeBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
+
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -88,9 +98,30 @@ class RecipeFragment : Fragment(), MenuProvider {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
 
+        showWelcomeDialog()
+
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
+    //Show One Time Welcome message
+    private fun showWelcomeDialog() {
+        if (prefs.getBoolean(Constants.IS_FIRST_RUN, true)) {
+
+            val builder = AlertDialog.Builder(requireContext())
+            val alertDialogBinding by lazy { WelcomeDialogBinding.inflate(LayoutInflater.from(context)) }
+
+            val textView = alertDialogBinding.welcomeTxt
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+            }
+            builder.setView(alertDialogBinding.root)
+            builder.setNegativeButton(R.string.str_close_welcome_dialog) { dialog, _ ->
+                prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply()
+                dialog?.dismiss()
+            }
+            builder.show()
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

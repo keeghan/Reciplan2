@@ -67,7 +67,6 @@ class DirectionsFragment : Fragment() {
         binding.btnYoutube.setOnClickListener { setYtLink(recipe) }
         binding.backBtn.setOnClickListener {
             it.findNavController().popBackStack()
-            //requireActivity().supportFragmentManager.popBackStack()
         }
 
         // Load Toolbar Image

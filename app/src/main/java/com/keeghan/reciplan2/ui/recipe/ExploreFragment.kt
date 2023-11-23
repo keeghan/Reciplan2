@@ -26,13 +26,11 @@ class ExploreFragment : Fragment() {
     private val binding by lazy { FragmentExploreBinding.inflate(layoutInflater) }
 
     private lateinit var viewModel: MainViewModel
-    private lateinit var prefs: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
         binding.snackCardView.setOnClickListener { navigateToManageCollectionFragment(SNACK) }
         binding.breakfastCardView.setOnClickListener { navigateToManageCollectionFragment(BREAKFAST) }
@@ -42,30 +40,6 @@ class ExploreFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        showWelcomeDialog()
-    }
-
-    //Show One Time Welcome message
-    private fun showWelcomeDialog() {
-        if (prefs.getBoolean(Constants.IS_FIRST_RUN, true)) {
-
-            val builder = AlertDialog.Builder(requireContext())
-            val alertDialogBinding by lazy { WelcomeDialogBinding.inflate(LayoutInflater.from(context)) }
-
-            val textView = alertDialogBinding.welcomeTxt
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-            }
-            builder.setView(alertDialogBinding.root)
-            builder.setNegativeButton(R.string.str_close_welcome_dialog) { dialog, _ ->
-                prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply()
-                dialog?.dismiss()
-            }
-            builder.show()
-        }
-    }
 
     //Create Intent and send string to ChooseRecipeActivity with the type of meals to display
     private fun navigateToManageCollectionFragment(recipeType: String) {
