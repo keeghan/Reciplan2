@@ -1,11 +1,10 @@
 package com.keeghan.reciplan2
 
 import android.content.Intent
-import android.content.SharedPreferences
+import android.graphics.text.LineBreaker
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.text.Layout
 import android.text.method.LinkMovementMethod
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import androidx.preference.PreferenceManager.OnPreferenceTreeClickListener
 import androidx.preference.SwitchPreference
 import com.keeghan.reciplan2.utils.PreferenceConstants.PREF_BUILD_VERSION
@@ -93,9 +91,8 @@ class SettingsActivity : AppCompatActivity() {
                     val v: View =
                         LayoutInflater.from(context).inflate(R.layout.copyright_disclaimer_dialog, null, false)
                     val textView = v.findViewById<TextView>(R.id.disclaimer_txt)
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        textView.justificationMode = Layout.JUSTIFICATION_MODE_INTER_WORD
-
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                        textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
                     }
                     builder.setView(v)
                     builder.setNegativeButton(

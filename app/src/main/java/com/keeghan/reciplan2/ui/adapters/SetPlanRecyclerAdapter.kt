@@ -17,7 +17,7 @@ import java.util.*
 class SetPlanRecyclerAdapter(var context: Context?, private val bListener: ButtonClickListener?) :
     RecyclerView.Adapter<SetPlanRecyclerAdapter.VH>() {
     private var recipes: List<Recipe> = ArrayList<Recipe>()
-    var selectedPosition = -1 //implement singeChoice
+    private var selectedPosition = -1 //implement singeChoice
 
     //getAdapter position passed to implementations
     interface ButtonClickListener {

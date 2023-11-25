@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -65,6 +64,7 @@ class AddViewModel(application: Application) : AndroidViewModel(application) {
     //retrieve tempImage and compress it
     private fun compressImage(imageUri: Uri, compressedImage: File): Boolean {
         return try {
+            @Suppress("DEPRECATION")
             BitmapFactory.decodeFile(imageUri.encodedPath)
                 ?.compress(
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

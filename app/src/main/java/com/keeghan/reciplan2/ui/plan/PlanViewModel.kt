@@ -23,8 +23,6 @@ class PlanViewModel(application: Application) : AndroidViewModel(
     val recipesForFriday: LiveData<List<Recipe>> = repository.getRecipesForDay(6)
     val recipesForSaturday: LiveData<List<Recipe>> = repository.getRecipesForDay(7)
 
-    val allDays: LiveData<List<Day>> = repository.getAllDays()
-
     //SetPlanActivity variables
     val breakfastCollection = repository.getBreakfastCollectionRecipes()
     val lunchCollection = repository.getLunchCollectionRecipes()

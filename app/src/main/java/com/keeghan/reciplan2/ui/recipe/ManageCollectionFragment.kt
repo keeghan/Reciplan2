@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -31,7 +32,6 @@ import java.nio.charset.StandardCharsets
 class ManageCollectionFragment : Fragment() {
     private val binding by lazy { FragmentManageCollectionBinding.inflate(layoutInflater) }
     private val args: ManageCollectionFragmentArgs by navArgs()
-    //  private lateinit var recipe: String
 
     private lateinit var viewModel: MainViewModel
     private lateinit var adapter: RecipeAdapter
@@ -87,7 +87,9 @@ class ManageCollectionFragment : Fragment() {
             }
 
         })
-        val layoutManager = LinearLayoutManager(requireContext())
+        val isSw600dp = requireContext().resources.configuration.smallestScreenWidthDp >= 600
+        val layoutManager = if (isSw600dp) GridLayoutManager(context, 2) else
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         binding.exploreRecycler.layoutManager = layoutManager
 
         binding.exploreRecycler.adapter = adapter
@@ -175,7 +177,7 @@ class ManageCollectionFragment : Fragment() {
             deleteUserRecipe(clickedRecipePosition)
         }
 
-        //Open editfragment
+        //Open editFragment
         bottomMenuBinding.editGrp.setOnClickListener {
             bottomSheet.dismiss()
             val dialogFragment = AddDialogFragment(menuRecipe)

@@ -15,7 +15,6 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.keeghan.reciplan2.R
@@ -28,7 +27,7 @@ import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.nio.charset.StandardCharsets
 
-class FavoriteFragment() : Fragment(), MenuProvider {
+class FavoriteFragment : Fragment(), MenuProvider {
     private lateinit var viewModel: MainViewModel
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -60,7 +59,8 @@ class FavoriteFragment() : Fragment(), MenuProvider {
         }
 
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = GridLayoutManager(context, 2)
+        val isSw600dp = requireContext().resources.configuration.smallestScreenWidthDp >= 600
+        recyclerView.layoutManager = GridLayoutManager(context, if (isSw600dp) 3 else 2)
         recyclerView.setHasFixedSize(true)
 
         adapter.setButtonClickListener(object : ButtonClickListener {

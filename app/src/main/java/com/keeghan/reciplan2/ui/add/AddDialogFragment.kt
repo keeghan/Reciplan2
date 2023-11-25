@@ -29,7 +29,7 @@ class AddDialogFragment(private val editRecipe: Recipe) : DialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[AddViewModel::class.java]
-        setStyle(STYLE_NO_TITLE, R.style.DialogTheme_transparent);
+        setStyle(STYLE_NO_TITLE, R.style.DialogTheme_transparent)
     }
 
     override fun onCreateView(
@@ -135,7 +135,12 @@ class AddDialogFragment(private val editRecipe: Recipe) : DialogFragment() {
             viewModel.updateRecipe(tempImageUri, webpCompressedImageFile, recipe, editRecipe.imageUrl)
         else viewModel.updateRecipe(recipe)
 
-        viewModel.errorMsg.observe(viewLifecycleOwner) { if (it == Constants.SUCCESS) showToast(getString(R.string.recipe_updated)) }
+        viewModel.errorMsg.observe(viewLifecycleOwner) {
+            if (it != "") {
+                if (it == Constants.SUCCESS) showToast("Recipe Updated") else showToast(it)
+                viewModel.msgReset()
+            }
+        }
 
         dismiss()
     }

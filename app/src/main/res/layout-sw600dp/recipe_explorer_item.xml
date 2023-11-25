@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center|center_vertical">
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="7dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/img_details_constraint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/view_directions"
+            app:layout_constraintStart_toStartOf="@+id/view_directions">
+
+            <ImageView
+                android:id="@+id/collection_recipe_image"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_120sdp"
+                android:adjustViewBounds="true"
+                android:background="@color/colorPrimaryDark"
+                android:contentDescription="@string/recipe_image_desc"
+                android:scaleType="fitXY"
+                android:src="@drawable/afro"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/recipe_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:ellipsize="end"
+                android:maxLength="15"
+                android:maxLines="1"
+                android:text="@string/placeholder_recipe_name"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.518"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_directions" />
+
+            <TextView
+                android:textSize="@dimen/_8ssp"
+                android:id="@+id/collection_recipe_ingredients"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_ingredient_placeholder"
+                android:textAlignment="center"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_ingredients_txt"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="@+id/recipe_ingredients_txt"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_name" />
+
+            <TextView
+                android:textSize="@dimen/_8ssp"
+                android:id="@+id/collection_recipe_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_20"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                app:layout_constraintEnd_toEndOf="@+id/recipe_min_txt"
+                app:layout_constraintStart_toStartOf="@+id/recipe_min_txt"
+                app:layout_constraintTop_toBottomOf="@+id/recipe_name" />
+
+            <TextView
+                android:textSize="@dimen/_8ssp"
+                android:id="@+id/recipe_ingredients_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/str_ingredients"
+                android:textAlignment="center"
+                app:layout_constraintEnd_toStartOf="@+id/recipe_min_txt"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/collection_recipe_ingredients" />
+
+            <TextView
+                android:textSize="@dimen/_8ssp"
+                android:id="@+id/recipe_min_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/_6sdp"
+                android:text="@string/str_minutes"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/recipe_ingredients_txt"
+                app:layout_constraintTop_toBottomOf="@+id/collection_recipe_min" />
+
+
+            <!-- Button for Image Input -->
+            <ImageButton
+                android:id="@+id/menu_btn"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:layout_marginEnd="@dimen/_6sdp"
+                android:background="@drawable/delete_button_background"
+                android:contentDescription="@string/choose_image"
+                android:elevation="@dimen/_4sdp"
+                android:src="@drawable/baseline_more_vert_24"
+                android:text="@string/choose_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/view_directions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_110sdp"
+                android:layout_marginEnd="@dimen/_20sdp"
+                android:background="@drawable/directions_corner_shape"
+                android:elevation="@dimen/_4sdp"
+                android:paddingStart="@dimen/_6sdp"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_6sdp"
+                android:paddingBottom="@dimen/_4sdp"
+                android:text="@string/str_view_directions"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="#FFFFFF"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_remove_from_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="1dp"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="@string/recipe_ignore_desc"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_add_to_collection"
+        app:layout_constraintEnd_toStartOf="@+id/btn_add_to_collection"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toTopOf="@+id/btn_add_to_collection"
+        tools:ignore="ImageContrastCheck" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_add_to_collection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="@dimen/_18sdp"
+        android:backgroundTint="@color/colorAccent"
+        android:contentDescription="@string/recipe_accept_desc"
+        android:src="@drawable/ic_check"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toEndOf="@+id/btn_remove_from_collection"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="ImageContrastCheck" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

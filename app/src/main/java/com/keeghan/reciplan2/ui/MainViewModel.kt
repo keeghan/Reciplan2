@@ -49,11 +49,11 @@ class MainViewModel(application: Application) :
     }
 
     //update methods
-    fun insertRecipe(recipe: Recipe) {
-        viewModelScope.launch {
-            repository.insert(recipe)
-        }
-    }
+//    fun insertRecipe(recipe: Recipe) {
+//        viewModelScope.launch {
+//            repository.insert(recipe)
+//        }
+//    }
 
     //Menu commands
     fun clearCollection() {

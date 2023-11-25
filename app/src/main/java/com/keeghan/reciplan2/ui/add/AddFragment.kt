@@ -7,26 +7,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.radiobutton.MaterialRadioButton
-import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.AddBottomSheetBinding
 import com.keeghan.reciplan2.databinding.FragmentAddBinding
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH
-import com.keeghan.reciplan2.utils.Constants.NOT_EDIT
 import com.keeghan.reciplan2.utils.Constants.SNACK
 import com.keeghan.reciplan2.utils.Constants.SUCCESS
 import com.yalantis.ucrop.UCrop
-import kotlinx.serialization.json.Json
 import java.io.File
+import kotlin.properties.Delegates
 
 //TODO: Add youtube links to saved Recipes
 
@@ -43,21 +39,25 @@ class AddFragment : Fragment() {
     private var _bottomSheetBinding: AddBottomSheetBinding? = null
     private val bottomSheetBinding get() = _bottomSheetBinding!!
 
+    private var isSw600dp by Delegates.notNull<Boolean>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this)[AddViewModel::class.java]
+        isSw600dp = requireContext().resources.configuration.smallestScreenWidthDp >= 600
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         val view = mainBinding.root
-        viewModel = ViewModelProvider(this)[AddViewModel::class.java]
 
         //Open bottomSheetDialog on pressing the next button
-        mainBinding.nextButton.setOnClickListener { inflateBottomLayout() }
+        if (!isSw600dp) mainBinding.nextButton?.setOnClickListener { inflateBottomLayout() }
 
         //Launch activity for result for image
         mainBinding.chooseImageButton.setOnClickListener { getContent.launch(ADD_RECIPE_IMAGE_LOC) }
+        if (isSw600dp) setUpSw600dpLayout() //tablet layout support
 
         return view
     }
@@ -101,49 +101,75 @@ class AddFragment : Fragment() {
 
     //Save or Update Recipe and reset screen
     private fun saveOrUpdateRecipe() {
-        val checkedTypeID = bottomSheetBinding.radioGroup.checkedRadioButtonId
-        val radioButtonId = bottomSheetBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
+        val checkedTypeID = if (isSw600dp) mainBinding.radioGroup!!.checkedRadioButtonId
+        else bottomSheetBinding.radioGroup.checkedRadioButtonId
+        val radioButtonId = if (isSw600dp) mainBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
+        else bottomSheetBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
+        val mins = if (isSw600dp) mainBinding.timePicker!!.value else bottomSheetBinding.timePicker.value
+        val favorite =
+            if (isSw600dp) mainBinding.switchFavBtn!!.isChecked else bottomSheetBinding.switchFavBtn.isChecked
+        val ingredients = if (isSw600dp) mainBinding.recipeIngredientEditText?.text?.trim()?.lines()!!.size
+        else bottomSheetBinding.recipeIngredientEditText.text?.trim()?.lines()!!.size
+        val collection = if (isSw600dp) mainBinding.switchColBtn!!.isChecked
+        else bottomSheetBinding.switchColBtn.isChecked
+        val userIngredient = if (isSw600dp) mainBinding.recipeIngredientEditText?.text?.trim().toString()
+        else bottomSheetBinding.recipeIngredientEditText.text?.trim().toString()
 
         val recipe = Recipe(
             _id = generateUniqueId(),
             name = mainBinding.recipeTitleEditText.text?.trim().toString(),
-            mins = bottomSheetBinding.timePicker.value,
+            mins = mins,
             imageUrl = webpCompressedImageFile.path,
-            favorite = bottomSheetBinding.switchFavBtn.isChecked,
-            ingredients = bottomSheetBinding.recipeIngredientEditText.text?.trim()?.lines()!!.size,
+            favorite = favorite,
+            ingredients = ingredients,
             userCreated = true,
-            collection = bottomSheetBinding.switchColBtn.isChecked,
+            collection = collection,
             userDirection = mainBinding.recipeDescEditText.text?.trim().toString(),
-            userIngredient = bottomSheetBinding.recipeIngredientEditText.text?.trim().toString(),
-            type = typeOptionSelected(radioButtonId)
+            userIngredient = userIngredient,
+            type = if (isSw600dp) typeOptionSelectedSw600dp(radioButtonId) else typeOptionSelected(radioButtonId)
         )
         viewModel.saveRecipe(tempImageUri, webpCompressedImageFile, recipe)
 
         clearScreen()
-        bottomSheet!!.dismissWithAnimation = true
-        bottomSheet!!.dismiss()
+        if (!isSw600dp) {
+            bottomSheet!!.dismissWithAnimation = true
+            bottomSheet!!.dismiss()
+        }
         viewModel.errorMsg.observe(viewLifecycleOwner) {
-            if (it == SUCCESS) {
-                showToast("Recipe Updated")
+            if (it != "") {
+                if (it == SUCCESS) showToast("Recipe Added") else showToast(it)
+                viewModel.msgReset()
             }
+        }
+    }
+
+    private fun setUpSw600dpLayout() {
+        with(mainBinding) {
+            switchColBtn?.setOnCheckedChangeListener { _, isChecked ->
+                if (!isChecked) switchFavBtn?.isChecked = false
+            }
+
+            switchFavBtn?.setOnCheckedChangeListener { _, isChecked ->
+                if (isChecked) switchColBtn?.isChecked = true
+            }
+            //Click on save button to save Recipe
+            saveButton?.setOnClickListener { if (isRecipeValid()) saveOrUpdateRecipe() }
+            timePicker?.maxValue = 300
+            timePicker?.minValue = 15
+            timePicker?.wrapSelectorWheel = true
         }
     }
 
     private fun setButtonSheetOnClickListeners() {
         bottomSheetBinding.switchColBtn.setOnCheckedChangeListener { _, isChecked ->
-            if (!isChecked) {
-                bottomSheetBinding.switchFavBtn.isChecked = false
-            }
+            if (!isChecked) bottomSheetBinding.switchFavBtn.isChecked = false
         }
 
         bottomSheetBinding.switchFavBtn.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                bottomSheetBinding.switchColBtn.isChecked = true
-            }
+            if (isChecked) bottomSheetBinding.switchColBtn.isChecked = true
         }
         //Click on save button to save Recipe
         bottomSheetBinding.saveButton.setOnClickListener { if (isRecipeValid()) saveOrUpdateRecipe() }
-
         bottomSheetBinding.timePicker.maxValue = 300
         bottomSheetBinding.timePicker.minValue = 15
         bottomSheetBinding.timePicker.wrapSelectorWheel = true
@@ -153,7 +179,9 @@ class AddFragment : Fragment() {
     private fun isRecipeValid(): Boolean {
         val title = mainBinding.recipeTitleEditText.text?.trim().toString()
         val description = mainBinding.recipeDescEditText.text.trim().toString()
-        val ingredients = bottomSheetBinding.recipeIngredientEditText.text.trim().toString()
+        val ingredients = if (isSw600dp) mainBinding.recipeIngredientEditText
+        else bottomSheetBinding.recipeIngredientEditText
+
         return when {
             title.isBlank() -> {
                 mainBinding.recipeTitleEditText.error = "Empty"
@@ -171,8 +199,8 @@ class AddFragment : Fragment() {
                 false
             }
 
-            ingredients.isBlank() -> {
-                bottomSheetBinding.recipeIngredientEditText.error = "Empty"
+            ingredients?.text?.trim().toString().isBlank() -> {
+                ingredients?.error = "Empty"
                 false
             }
 
@@ -190,18 +218,35 @@ class AddFragment : Fragment() {
         }
     }
 
+    private fun typeOptionSelectedSw600dp(radioBtnId: Int): String {
+        return when (radioBtnId) {
+            mainBinding.optionBreakfast!!.id -> BREAKFAST
+            mainBinding.optionLunch!!.id -> LUNCH
+            mainBinding.optionDinner!!.id -> DINNER
+            mainBinding.optionSnack!!.id -> SNACK
+            else -> SNACK
+        }
+    }
+
 
     //Clear all the fields after a recipe is saved
     private fun clearScreen() {
         mainBinding.recipeDescEditText.text.clear()
         mainBinding.recipeTitleEditText.text?.clear()
         mainBinding.recipeImageView.setImageDrawable(null)
-
-        bottomSheetBinding.recipeIngredientEditText.text.clear()
-        bottomSheetBinding.switchColBtn.isChecked = false
-        bottomSheetBinding.switchFavBtn.isChecked = false
-        bottomSheetBinding.radioGroup.clearCheck()
-        bottomSheetBinding.timePicker.value = 15
+        if (isSw600dp) {
+            mainBinding.recipeIngredientEditText?.text?.clear()
+            mainBinding.switchColBtn?.isChecked = false
+            mainBinding.switchFavBtn?.isChecked = false
+            mainBinding.radioGroup?.clearCheck()
+            mainBinding.timePicker?.value = 15
+        } else {
+            bottomSheetBinding.recipeIngredientEditText.text.clear()
+            bottomSheetBinding.switchColBtn.isChecked = false
+            bottomSheetBinding.switchFavBtn.isChecked = false
+            bottomSheetBinding.radioGroup.clearCheck()
+            bottomSheetBinding.timePicker.value = 15
+        }
     }
 
     private fun showToast(message: String) {
@@ -209,7 +254,6 @@ class AddFragment : Fragment() {
     }
 
     companion object {
-        const val RECIPE_EDIT_JSON = "com.keeghan.reciplan2.AddFragment.recipe_edit_json"
         const val ADD_RECIPE_IMAGE_LOC = "image/*"
     }
 

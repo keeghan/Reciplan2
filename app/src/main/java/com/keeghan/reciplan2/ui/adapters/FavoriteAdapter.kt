@@ -1,5 +1,6 @@
 package com.keeghan.reciplan2.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -73,13 +74,10 @@ class FavoriteAdapter(var context: Context?) :
         return recipes[position]
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setRecipes(recipes: List<Recipe>) {
         this.recipes = recipes
         notifyDataSetChanged()
-    }
-
-    fun getRecipes(): List<Recipe> {
-        return recipes
     }
 
     override fun getItemCount(): Int {

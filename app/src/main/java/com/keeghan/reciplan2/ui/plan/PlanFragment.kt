@@ -37,10 +37,8 @@ import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentPlanBinding
 import com.keeghan.reciplan2.ui.adapters.PlanRecyclerAdapter
-import com.keeghan.reciplan2.ui.recipe.RecipeFragmentDirections
 import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
-import com.keeghan.reciplan2.utils.Constants.DAY
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.FRIDAY_ID
 import com.keeghan.reciplan2.utils.Constants.LUNCH
@@ -104,9 +102,7 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
         )
 
         //Join adapters with Recycler views
-        for (i in days.indices) {
-            setRecycler(days[i], recyclers[i], adapters!![i])
-        }
+        for (i in days.indices) setRecycler(days[i], recyclers[i], adapters!![i])
 
         setEditButtonOnclickListener()
         showWelcomeToast()

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_2sdp"
+    android:layout_marginBottom="1dp"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/set_plan_item_image"
-            android:layout_width="@dimen/_46sdp"
-            android:layout_height="@dimen/_46sdp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:contentDescription="@string/recipe_image_desc"
             android:scaleType="fitXY"
             android:src="@drawable/afro"
@@ -31,7 +31,7 @@
             android:layout_marginStart="@dimen/_8sdp"
             android:text="@string/agushi_with_palava_sauce"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textSize="@dimen/_13ssp"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/set_plan_item_image"
             app:layout_constraintTop_toTopOf="parent" />

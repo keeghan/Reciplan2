@@ -1,0 +1,11 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="radio_button_text_size">@dimen/_8ssp</dimen>
+    <dimen name="explore_card_size">@dimen/_100sdp</dimen>
+    <dimen name="explore_card_size_sw600">@dimen/_140sdp</dimen>
+    <dimen name="explore_card_corner">@dimen/_10sdp</dimen>
+    <dimen name="my_radio_button_height">@dimen/_20sdp</dimen>
+   <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->
+</resources>

@@ -1,22 +1,14 @@
 package com.keeghan.reciplan2.ui.recipe
 
-import android.content.SharedPreferences
-import android.graphics.text.LineBreaker
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.preference.PreferenceManager
-import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.databinding.FragmentExploreBinding
-import com.keeghan.reciplan2.databinding.WelcomeDialogBinding
 import com.keeghan.reciplan2.ui.MainViewModel
-import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH

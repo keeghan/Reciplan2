@@ -1,5 +1,6 @@
 package com.keeghan.reciplan2.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -61,6 +62,7 @@ class RecipeAdapter(
         return recipes[position]
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setRecipes(recipes: List<Recipe>) {
         this.recipes = recipes
         notifyDataSetChanged()
