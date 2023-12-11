@@ -33,10 +33,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keeghan.reciplan2.R
-import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentPlanBinding
 import com.keeghan.reciplan2.ui.adapters.PlanRecyclerAdapter
+import com.keeghan.reciplan2.ui.recipe.RecipeFragmentDirections
 import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
@@ -252,8 +252,8 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
     //Open settings or clear all plans
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == R.id.action_open_plan_settings) {
-            val intent = Intent(context, SettingsActivity::class.java)
-            startActivity(intent)
+            val directionsAction = PlanFragmentDirections.actionGlobalSettingsFragment()
+            findNavController().navigate(directionsAction)
             return true
         } else if (menuItem.itemId == R.id.action_plan_clear) {
             onActionClearPlans()

@@ -74,9 +74,9 @@
             android:name="mealType"
             app:argType="string" />
     </fragment>
-<!--    app:launchSingleTop="true"-->
-<!--    app:popUpTo="@id/navigation_recipe"-->
-<!--    app:popUpToInclusive="true"-->
+    <!--    app:launchSingleTop="true"-->
+    <!--    app:popUpTo="@id/navigation_recipe"-->
+    <!--    app:popUpToInclusive="true"-->
     <fragment
         android:id="@+id/setPlanFragment"
         android:name="com.keeghan.reciplan2.ui.plan.SetPlanFragment"
@@ -85,4 +85,17 @@
             android:name="dayId"
             app:argType="integer" />
     </fragment>
+
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@id/settingsFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.keeghan.reciplan2.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

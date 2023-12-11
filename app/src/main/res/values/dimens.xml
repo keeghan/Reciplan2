@@ -6,6 +6,11 @@
     <dimen name="explore_card_size">@dimen/_140sdp</dimen>
     <dimen name="explore_card_size_sw600">@dimen/_140sdp</dimen>
     <dimen name="explore_card_corner">@dimen/_10sdp</dimen>
-    <dimen name="my_radio_button_height">@dimen/_35sdp</dimen>
+    <dimen name="my_radio_button_height">@dimen/_30sdp</dimen>
+    <dimen name="pref_category_top_margin">@dimen/_16sdp</dimen>
+    <dimen name="pref_textSize">@dimen/_14ssp</dimen>
+    <dimen name="pref_sub_textSize">@dimen/_11ssp</dimen>
+    <dimen name="pref_divider_margin">@dimen/_8sdp</dimen>
+    <dimen name="pref_category_start_margin">@dimen/_35sdp</dimen>
    <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->
 </resources>

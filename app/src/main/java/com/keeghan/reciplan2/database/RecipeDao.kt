@@ -142,4 +142,7 @@ interface RecipeDao {
 
     @Query("SELECT * from  day_table WHERE _id = :dayID")
     fun getDay(dayID: Int): Day
+
+    @Query("SELECT * FROM recipe_table WHERE userCreated = 1")
+    fun getAllUserCreatedRecipes(): List<Recipe>
 }

@@ -1,6 +1,5 @@
 package com.keeghan.reciplan2.database
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import java.io.File
 
@@ -80,15 +79,6 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         recipeDao.update(day)
     }
 
-
-    fun getAllDays(): LiveData<List<Day>> {
-        return recipeDao.getAllDays()
-    }
-
-    fun getActiveDayRecipes(recipeInt: IntArray): LiveData<List<Recipe>> {
-        return recipeDao.getActiveDayRecipes(recipeInt)
-    }
-
     fun getRecipesForDay(dayId: Int): LiveData<List<Recipe>> {
         return recipeDao.getRecipesForDay(dayId)
     }
@@ -97,11 +87,15 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return recipeDao.getDay(dayId)
     }
 
-    fun deleteImageUrl(imageUrl: String): Boolean {
+    private fun deleteImageUrl(imageUrl: String): Boolean {
         val file = File(imageUrl)
         if (file.exists()) {
             return file.delete()
         }
         return false
+    }
+
+    fun getAllUserCreatedRecipes(): List<Recipe> {
+        return recipeDao.getAllUserCreatedRecipes()
     }
 }

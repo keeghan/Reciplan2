@@ -152,5 +152,13 @@
     <string name="tap_for_info">Tap for info</string>
     <string name="disable_haptics">Disable Haptics</string>
     <string name="disable_darkmode">Disable DarkMode</string>
+    <string name="import_export_recipes">Import/Export Recipes</string>
+    <string name="import_recipes_from_file">Import recipes from file</string>
+    <string name="import_recipes">Import Recipes</string>
+    <string name="export_your_recipes_to_file">Export your recipes to file</string>
+    <string name="export_recipes">Export Recipes</string>
+    <string name="_13">13</string>
+    <string name="k33gh4n">K33GH4N</string>
+    <string name="str_theme">Theme</string>
 
 </resources>

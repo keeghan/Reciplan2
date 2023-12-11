@@ -3,7 +3,6 @@ package com.keeghan.reciplan2.database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
-import kotlin.math.abs
 
 @Serializable
 @Entity(tableName = "recipe_table")

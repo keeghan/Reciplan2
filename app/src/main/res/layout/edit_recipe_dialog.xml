@@ -80,7 +80,9 @@
             android:layout_marginTop="@dimen/_20sdp"
             app:cardCornerRadius="10dp"
             app:cardElevation="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/time_picker"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout">
 
@@ -115,32 +117,30 @@
             android:text="@string/duration"
             app:layout_constraintEnd_toEndOf="@+id/time_picker"
             app:layout_constraintStart_toStartOf="@+id/time_picker"
-            app:layout_constraintTop_toTopOf="@id/recipeIngredientLayout"
-            tools:layout_editor_absoluteY="10dp" />
-
-        <NumberPicker
-            android:id="@+id/time_picker"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_110sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:scaleX="0.85"
-            android:scaleY="0.85"
-            app:layout_constraintBottom_toTopOf="@+id/radioGroup"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/recipeIngredientLayout"
-            app:layout_constraintTop_toBottomOf="@id/durationTxt" />
+            app:layout_constraintTop_toTopOf="@+id/imageLayout" />
 
 
         <!-- Recipe Description (Multiline) -->
+        <NumberPicker
+            android:id="@+id/time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="0.85"
+            android:scaleY="0.85"
+            app:layout_constraintBottom_toBottomOf="@+id/imageLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imageLayout"
+            app:layout_constraintTop_toBottomOf="@+id/durationTxt"
+            app:layout_constraintVertical_bias="0.22000003" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/recipeIngredientLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_20sdp"
-            android:layout_marginEnd="@dimen/_15sdp"
-            app:layout_constraintEnd_toStartOf="@+id/time_picker"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageLayout"
             app:layout_constraintWidth_max="488dp">
@@ -189,7 +189,7 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchColBtn"
                 android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout" />
 
@@ -211,7 +211,7 @@
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_fav_btn"
                 android:layout_width="@dimen/_48sdp"
-                android:layout_height="@dimen/_48sdp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recipeDescLayout" />
 
@@ -266,7 +266,8 @@
                 android:gravity="center"
                 android:text="@string/str_lunch"
                 android:textColor="@drawable/radio_text_color"
-                android:textSize="@dimen/radio_button_text_size" />
+                android:textSize="@dimen/radio_button_text_size"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <View
                 android:layout_width="0dp"
@@ -313,9 +314,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="16dp"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/edit"
             android:textAllCaps="false"
-            android:backgroundTint="@color/colorPrimary"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,5 @@
 package com.keeghan.reciplan2.ui.recipe
 
-import android.content.Intent
 import android.content.SharedPreferences
 import android.graphics.text.LineBreaker
 import android.os.Build
@@ -19,6 +18,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
@@ -26,7 +26,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keeghan.reciplan2.R
-import com.keeghan.reciplan2.SettingsActivity
 import com.keeghan.reciplan2.databinding.FragmentRecipeBinding
 import com.keeghan.reciplan2.databinding.WelcomeDialogBinding
 import com.keeghan.reciplan2.utils.Constants
@@ -146,8 +145,10 @@ class RecipeFragment : Fragment(), MenuProvider {
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
         if (menuItem.itemId == R.id.action_open_settings) {
-            val intent = Intent(context, SettingsActivity::class.java)
-            startActivity(intent)
+//            val intent = Intent(context, SettingsActivity::class.java)
+//            startActivity(intent)
+            val directionsAction = RecipeFragmentDirections.actionGlobalSettingsFragment()
+            findNavController().navigate(directionsAction)
             return true
         }
         return false
