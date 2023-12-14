@@ -48,7 +48,7 @@
 
     <style name="DialogCorners">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">@dimen/_6sdp</item>
+        <item name="cornerSize">@dimen/_10sdp</item>
     </style>
 
     <style name="DialogAnimation">
@@ -56,4 +56,38 @@
         <item name="android:windowExitAnimation">@anim/nav_default_pop_exit_anim</item>
     </style>
 
+    <!--Settings Pref Item-->
+    <style name="PrefTitleStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/pref_category_top_margin</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:textSize">@dimen/pref_textSize</item>
+    </style>
+
+    <!--Settings Pref SubItem-->
+    <style name="PrefSubStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">@dimen/pref_sub_textSize</item>
+        <item name="android:textColor">@color/lightGrey</item>
+    </style>
+
+    <!--Settings Pref Item-->
+    <style name="PrefCategoryStyle" parent="TextAppearance.AppCompat">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/pref_category_top_margin</item>
+        <item name="android:layout_marginStart">@dimen/pref_category_start_margin</item>
+        <item name="android:textColor">@color/colorSecondaryAccent</item>
+    </style>
+
+    <!--Settings Pref Item-->
+    <style name="SettingsDividerStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginTop">@dimen/pref_category_top_margin</item>
+        <item name="android:background">?android:attr/listDivider</item>
+    </style>
 </resources>
+

@@ -20,6 +20,7 @@ import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH
 import com.keeghan.reciplan2.utils.Constants.SNACK
 import com.keeghan.reciplan2.utils.Constants.SUCCESS
+import com.keeghan.reciplan2.utils.Constants.generateUniqueId
 import com.yalantis.ucrop.UCrop
 import java.io.File
 import kotlin.properties.Delegates
@@ -99,8 +100,8 @@ class AddFragment : Fragment() {
         setButtonSheetOnClickListeners()
     }
 
-    //Save or Update Recipe and reset screen
-    private fun saveOrUpdateRecipe() {
+    //Receive values bottomSheet (mobile) or mainScreen(tablet) and save Recipe
+    private fun saveRecipe() {
         val checkedTypeID = if (isSw600dp) mainBinding.radioGroup!!.checkedRadioButtonId
         else bottomSheetBinding.radioGroup.checkedRadioButtonId
         val radioButtonId = if (isSw600dp) mainBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
@@ -153,7 +154,7 @@ class AddFragment : Fragment() {
                 if (isChecked) switchColBtn?.isChecked = true
             }
             //Click on save button to save Recipe
-            saveButton?.setOnClickListener { if (isRecipeValid()) saveOrUpdateRecipe() }
+            saveButton?.setOnClickListener { if (isRecipeValid()) saveRecipe() }
             timePicker?.maxValue = 300
             timePicker?.minValue = 15
             timePicker?.wrapSelectorWheel = true
@@ -169,7 +170,7 @@ class AddFragment : Fragment() {
             if (isChecked) bottomSheetBinding.switchColBtn.isChecked = true
         }
         //Click on save button to save Recipe
-        bottomSheetBinding.saveButton.setOnClickListener { if (isRecipeValid()) saveOrUpdateRecipe() }
+        bottomSheetBinding.saveButton.setOnClickListener { if (isRecipeValid()) saveRecipe() }
         bottomSheetBinding.timePicker.maxValue = 300
         bottomSheetBinding.timePicker.minValue = 15
         bottomSheetBinding.timePicker.wrapSelectorWheel = true
@@ -255,10 +256,6 @@ class AddFragment : Fragment() {
 
     companion object {
         const val ADD_RECIPE_IMAGE_LOC = "image/*"
-    }
-
-    private fun generateUniqueId(): Int {
-        return kotlin.math.abs(System.currentTimeMillis().toInt())
     }
 
     override fun onDestroyView() {

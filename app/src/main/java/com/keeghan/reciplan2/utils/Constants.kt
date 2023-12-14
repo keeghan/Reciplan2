@@ -12,12 +12,13 @@ object Constants {
 
     //Variable to check if application is run the first time
     const val IS_FIRST_RUN = "com.keeghan.reciplan2.firstrun"
-  //  const val IS_FIRST_RUN_EXPLORE = "com.keeghan.reciplan2.firstrun_explore"
+
+    //  const val IS_FIRST_RUN_EXPLORE = "com.keeghan.reciplan2.firstrun_explore"
     const val IS_FIRST_RUN_PLAN = "com.keeghan.reciplan2.firstrun_plan"
 
     //potential variables for updating recipes in different versions
- //   const val IS_VERSION_TWO_UPDATE = "com.keeghan.reciplan2.version2update"
-  //  const val IS_VERSION_THREE_UPDATE = "com.keeghan.reciplan2.version3update"
+    //   const val IS_VERSION_TWO_UPDATE = "com.keeghan.reciplan2.version2update"
+    //  const val IS_VERSION_THREE_UPDATE = "com.keeghan.reciplan2.version3update"
 
     const val BREAKFAST = "breakfast"
     const val LUNCH = "lunch"
@@ -35,4 +36,7 @@ object Constants {
     const val COLLECTION = "Collection"
     const val FAVORTIE = "Favorite"
 
+    fun generateUniqueId(): Int {
+        return kotlin.math.abs(System.currentTimeMillis().toInt())
+    }
 }

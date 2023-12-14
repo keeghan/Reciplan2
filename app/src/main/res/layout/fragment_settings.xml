@@ -11,22 +11,15 @@
 
         <TextView
             android:id="@+id/ThemeCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pref_category_start_margin"
+            style="@style/PrefCategoryStyle"
             android:text="@string/str_theme"
-            android:textColor="@color/colorSecondaryAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/themePref"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/disable_darkmode"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toStartOf="@+id/prefThemeSwitch"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -46,33 +39,23 @@
 
         <View
             android:id="@+id/themeDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/pref_divider_margin"
-            android:background="@color/lightGrey"
+            style="@style/SettingsDividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prefThemeSwitch" />
 
         <!--SOUND AND HAPTICS-->
 
         <TextView
             android:id="@+id/SoundCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pref_category_start_margin"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefCategoryStyle"
             android:text="@string/sound_haptics"
-            android:textColor="@color/colorSecondaryAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/themeDivider" />
 
         <TextView
             android:id="@+id/hapticsPref"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/enable_haptics"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toStartOf="@+id/prefHapticsSwitch"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -92,59 +75,44 @@
 
         <View
             android:id="@+id/SoundDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/pref_divider_margin"
-            android:background="@color/lightGrey"
+            style="@style/SettingsDividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/prefHapticsSwitch" />
 
         <!--IMPORT AND EXPORT-->
 
         <TextView
             android:id="@+id/ImportExportCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pref_category_start_margin"
-            android:layout_marginTop="20dp"
+            style="@style/PrefCategoryStyle"
             android:text="@string/import_export_recipes"
-            android:textColor="@color/colorSecondaryAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/SoundDivider" />
 
         <TextView
             android:id="@+id/ExportPref"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/export_recipes"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
             app:layout_constraintTop_toBottomOf="@id/ImportExportCategory" />
 
+        <!--Import Pref-->
+
         <TextView
             android:id="@+id/ExportPrefSub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/PrefSubStyle"
             android:text="@string/export_your_recipes_to_file"
-            android:textSize="@dimen/pref_sub_textSize"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
             app:layout_constraintTop_toBottomOf="@id/ExportPref" />
 
-        <!--Import Pref-->
-
         <TextView
             android:id="@+id/ImportPref"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/import_recipes"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
@@ -152,10 +120,8 @@
 
         <TextView
             android:id="@+id/ImportPrefSub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/PrefSubStyle"
             android:text="@string/import_recipes_from_file"
-            android:textSize="@dimen/pref_sub_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
@@ -164,32 +130,22 @@
 
         <View
             android:id="@+id/ImportExportDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/pref_divider_margin"
-            android:background="@color/lightGrey"
+            style="@style/SettingsDividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ImportPrefSub" />
 
         <!--Other-->
         <TextView
             android:id="@+id/OtherCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pref_category_start_margin"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefCategoryStyle"
             android:text="@string/other_header"
-            android:textColor="@color/colorSecondaryAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ImportExportDivider" />
 
         <TextView
             android:id="@+id/BuildInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/build_version"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/OtherCategory"
@@ -197,10 +153,8 @@
 
         <TextView
             android:id="@+id/BuildInfoSub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/PrefSubStyle"
             android:text="@string/_13"
-            android:textSize="@dimen/pref_sub_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/OtherCategory"
@@ -208,12 +162,8 @@
 
         <TextView
             android:id="@+id/copyRightDisclaimer"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/copyright_disclaimer_str"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/OtherCategory"
@@ -221,10 +171,8 @@
 
         <TextView
             android:id="@+id/copyRightDisclaimerSub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/PrefSubStyle"
             android:text="@string/tap_to_read"
-            android:textSize="@dimen/pref_sub_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/OtherCategory"
@@ -233,33 +181,22 @@
 
         <View
             android:id="@+id/OtherDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/pref_divider_margin"
-            android:background="@color/lightGrey"
+            style="@style/SettingsDividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/copyRightDisclaimerSub" />
 
         <!--Developer-->
         <TextView
             android:id="@+id/DeveloperCategory"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/pref_category_start_margin"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefCategoryStyle"
             android:text="@string/developer"
-            android:textColor="@color/colorSecondaryAccent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/OtherDivider" />
 
         <TextView
-
             android:id="@+id/DeveloperInfo"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/developer_info"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
@@ -267,10 +204,8 @@
 
         <TextView
             android:id="@+id/DeveloperInfoSub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/PrefSubStyle"
             android:text="@string/tap_for_info"
-            android:textSize="@dimen/pref_sub_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
@@ -278,12 +213,8 @@
 
         <TextView
             android:id="@+id/contactDeveloper"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/pref_category_top_margin"
+            style="@style/PrefTitleStyle"
             android:text="@string/contact_developer"
-            android:textColor="?attr/colorOnBackground"
-            android:textSize="@dimen/pref_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
@@ -291,22 +222,17 @@
 
         <TextView
             android:id="@+id/contactDeveloperSub"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            style="@style/PrefSubStyle"
             android:text="@string/k33gh4n"
-            android:textSize="@dimen/pref_sub_textSize"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
             app:layout_constraintTop_toBottomOf="@+id/contactDeveloper" />
 
-
         <View
             android:id="@+id/DeveloperDivider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="@dimen/pref_divider_margin"
-            android:background="@color/lightGrey"
+            style="@style/SettingsDividerStyle"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/contactDeveloperSub" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

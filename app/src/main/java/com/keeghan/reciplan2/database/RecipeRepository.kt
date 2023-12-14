@@ -95,7 +95,7 @@ class RecipeRepository(private val recipeDao: RecipeDao) {
         return false
     }
 
-    fun getAllUserCreatedRecipes(): List<Recipe> {
+     fun getAllUserCreatedRecipes(): List<Recipe> {
         return recipeDao.getAllUserCreatedRecipes()
     }
 }

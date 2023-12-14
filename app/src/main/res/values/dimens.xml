@@ -12,5 +12,6 @@
     <dimen name="pref_sub_textSize">@dimen/_11ssp</dimen>
     <dimen name="pref_divider_margin">@dimen/_8sdp</dimen>
     <dimen name="pref_category_start_margin">@dimen/_35sdp</dimen>
+    <dimen name="bottom_menu_text_size">@dimen/_12ssp</dimen>
    <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->
 </resources>

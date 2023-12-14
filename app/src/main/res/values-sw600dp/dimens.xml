@@ -8,4 +8,13 @@
     <dimen name="explore_card_corner">@dimen/_10sdp</dimen>
     <dimen name="my_radio_button_height">@dimen/_20sdp</dimen>
    <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->
+
+    <dimen name="pref_category_top_margin">@dimen/_10sdp</dimen>
+    <dimen name="pref_textSize">@dimen/_10ssp</dimen>
+    <dimen name="pref_sub_textSize">@dimen/_7ssp</dimen>
+    <dimen name="pref_divider_margin">@dimen/_6sdp</dimen>
+    <dimen name="pref_category_start_margin">@dimen/_35sdp</dimen>
+
+    <dimen name="bottom_menu_text_size">@dimen/_10ssp</dimen>
+
 </resources>
