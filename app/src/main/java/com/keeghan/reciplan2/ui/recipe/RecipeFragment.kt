@@ -1,8 +1,6 @@
 package com.keeghan.reciplan2.ui.recipe
 
 import android.content.SharedPreferences
-import android.graphics.text.LineBreaker
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,7 +9,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.MenuProvider
@@ -27,7 +24,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.tabs.TabLayoutMediator
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.databinding.FragmentRecipeBinding
-import com.keeghan.reciplan2.databinding.WelcomeDialogBinding
 import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.COLLECTION
 import com.keeghan.reciplan2.utils.Constants.EXPLORE
@@ -47,7 +43,7 @@ class RecipeFragment : Fragment(), MenuProvider {
 
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-              MaterialAlertDialogBuilder(requireContext(), R.style.RoundedAlertDialog)
+                MaterialAlertDialogBuilder(requireContext(), R.style.RoundedAlertDialog)
                     .setMessage(getString(R.string.quit_confirmation))
                     .setPositiveButton(getString(R.string.yes)) { _, _ -> requireActivity().finish() }
                     .setNegativeButton(getString(R.string.no), null)
@@ -105,20 +101,12 @@ class RecipeFragment : Fragment(), MenuProvider {
     //Show One Time Welcome message
     private fun showWelcomeDialog() {
         if (prefs.getBoolean(Constants.IS_FIRST_RUN, true)) {
-
-            val builder = AlertDialog.Builder(requireContext())
-            val alertDialogBinding by lazy { WelcomeDialogBinding.inflate(LayoutInflater.from(context)) }
-
-            val textView = alertDialogBinding.welcomeTxt
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
-            }
-            builder.setView(alertDialogBinding.root)
-            builder.setNegativeButton(R.string.str_close_welcome_dialog) { dialog, _ ->
-                prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply()
-                dialog?.dismiss()
-            }
-            builder.show()
+            MaterialAlertDialogBuilder(requireContext(), R.style.RoundedAlertDialog)
+                .setMessage(getString(R.string.str_welcome_message))
+                .setPositiveButton(getString(R.string.dont_show_again)) { _, _ ->
+                    prefs.edit().putBoolean(Constants.IS_FIRST_RUN, false).apply()
+                }
+                .show()
         }
     }
 

@@ -40,13 +40,9 @@
                 android:src="@drawable/snacks" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExploreTextStyleSw600dp"
                 android:layout_gravity="bottom"
-                android:layout_margin="15dp"
-                android:text="@string/str_snack"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:text="@string/str_snack" />
 
         </androidx.cardview.widget.CardView>
 
@@ -72,13 +68,9 @@
                 android:src="@drawable/breakfast" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExploreTextStyleSw600dp"
                 android:layout_gravity="bottom"
-                android:layout_margin="15dp"
-                android:text="@string/str_breakfast"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:text="@string/str_breakfast" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -101,13 +93,9 @@
                 android:src="@drawable/lunch" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExploreTextStyleSw600dp"
                 android:layout_gravity="bottom"
-                android:layout_margin="15dp"
-                android:text="@string/str_lunch"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:text="@string/str_lunch" />
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -130,13 +118,9 @@
                 android:src="@drawable/dinner" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/ExploreTextStyleSw600dp"
                 android:layout_gravity="bottom"
-                android:layout_margin="15dp"
-                android:text="@string/str_dinner"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp" />
+                android:text="@string/str_dinner" />
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

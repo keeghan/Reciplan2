@@ -1,238 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/_20sdp">
+        android:layout_height="?attr/actionBarSize"
+        android:gravity="center_vertical"
+        android:padding="@dimen/_4sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_marginStart="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_18sdp"
+            android:background="@null"
+            android:contentDescription="@string/back"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:tint="@color/white" />
 
         <TextView
-            android:id="@+id/ThemeCategory"
-            style="@style/PrefCategoryStyle"
-            android:text="@string/str_theme"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/themePref"
-            style="@style/PrefTitleStyle"
-            android:text="@string/disable_darkmode"
-            app:layout_constraintEnd_toStartOf="@+id/prefThemeSwitch"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/ThemeCategory"
-            app:layout_constraintTop_toBottomOf="@id/ThemeCategory" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/prefThemeSwitch"
+            android:id="@+id/titleText"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/themePref"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/themePref"
-            app:layout_constraintTop_toTopOf="@+id/themePref" />
+            android:layout_height="wrap_content"
+            android:text="@string/settings"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
 
-        <View
-            android:id="@+id/themeDivider"
-            style="@style/SettingsDividerStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prefThemeSwitch" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-        <!--SOUND AND HAPTICS-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/_1sdp"
+            android:paddingEnd="@dimen/_5sdp">
 
-        <TextView
-            android:id="@+id/SoundCategory"
-            style="@style/PrefCategoryStyle"
-            android:text="@string/sound_haptics"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/themeDivider" />
+            <TextView
+                android:id="@+id/ThemeCategory"
+                style="@style/PrefCategoryStyle"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:text="@string/str_theme"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/hapticsPref"
-            style="@style/PrefTitleStyle"
-            android:text="@string/enable_haptics"
-            app:layout_constraintEnd_toStartOf="@+id/prefHapticsSwitch"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/SoundCategory"
-            app:layout_constraintTop_toBottomOf="@id/SoundCategory" />
+            <TextView
+                android:id="@+id/themePref"
+                style="@style/PrefTitleStyle"
+                android:text="@string/disable_darkmode"
+                app:layout_constraintEnd_toStartOf="@+id/prefThemeSwitch"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/ThemeCategory"
+                app:layout_constraintTop_toBottomOf="@id/ThemeCategory" />
 
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/prefHapticsSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/hapticsPref"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/hapticsPref"
-            app:layout_constraintTop_toTopOf="@+id/hapticsPref" />
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/prefThemeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/themePref"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/themePref"
+                app:layout_constraintTop_toTopOf="@+id/themePref" />
 
-        <View
-            android:id="@+id/SoundDivider"
-            style="@style/SettingsDividerStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/prefHapticsSwitch" />
+            <View
+                android:id="@+id/themeDivider"
+                style="@style/SettingsDividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prefThemeSwitch" />
 
-        <!--IMPORT AND EXPORT-->
+            <!--SOUND AND HAPTICS-->
 
-        <TextView
-            android:id="@+id/ImportExportCategory"
-            style="@style/PrefCategoryStyle"
-            android:text="@string/import_export_recipes"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/SoundDivider" />
+            <TextView
+                android:id="@+id/SoundCategory"
+                style="@style/PrefCategoryStyle"
+                android:text="@string/sound_haptics"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/themeDivider" />
 
-        <TextView
-            android:id="@+id/ExportPref"
-            style="@style/PrefTitleStyle"
-            android:text="@string/export_recipes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
-            app:layout_constraintTop_toBottomOf="@id/ImportExportCategory" />
+            <TextView
+                android:id="@+id/hapticsPref"
+                style="@style/PrefTitleStyle"
+                android:text="@string/enable_haptics"
+                app:layout_constraintEnd_toStartOf="@+id/prefHapticsSwitch"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/SoundCategory"
+                app:layout_constraintTop_toBottomOf="@id/SoundCategory" />
 
-        <!--Import Pref-->
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/prefHapticsSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/hapticsPref"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/hapticsPref"
+                app:layout_constraintTop_toTopOf="@+id/hapticsPref" />
 
-        <TextView
-            android:id="@+id/ExportPrefSub"
-            style="@style/PrefSubStyle"
-            android:text="@string/export_your_recipes_to_file"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
-            app:layout_constraintTop_toBottomOf="@id/ExportPref" />
+            <View
+                android:id="@+id/SoundDivider"
+                style="@style/SettingsDividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/prefHapticsSwitch" />
 
-        <TextView
-            android:id="@+id/ImportPref"
-            style="@style/PrefTitleStyle"
-            android:text="@string/import_recipes"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
-            app:layout_constraintTop_toBottomOf="@id/ExportPrefSub" />
+            <!--IMPORT AND EXPORT-->
 
-        <TextView
-            android:id="@+id/ImportPrefSub"
-            style="@style/PrefSubStyle"
-            android:text="@string/import_recipes_from_file"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
-            app:layout_constraintTop_toBottomOf="@id/ImportPref" />
+            <TextView
+                android:id="@+id/ImportExportCategory"
+                style="@style/PrefCategoryStyle"
+                android:text="@string/import_export_recipes"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/SoundDivider" />
 
+            <TextView
+                android:id="@+id/ExportPref"
+                style="@style/PrefTitleStyle"
+                android:text="@string/export_recipes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
+                app:layout_constraintTop_toBottomOf="@id/ImportExportCategory" />
 
-        <View
-            android:id="@+id/ImportExportDivider"
-            style="@style/SettingsDividerStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ImportPrefSub" />
+            <!--Import Pref-->
 
-        <!--Other-->
-        <TextView
-            android:id="@+id/OtherCategory"
-            style="@style/PrefCategoryStyle"
-            android:text="@string/other_header"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ImportExportDivider" />
+            <TextView
+                android:id="@+id/ExportPrefSub"
+                style="@style/PrefSubStyle"
+                android:text="@string/export_your_recipes_to_file"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
+                app:layout_constraintTop_toBottomOf="@id/ExportPref" />
 
-        <TextView
-            android:id="@+id/BuildInfo"
-            style="@style/PrefTitleStyle"
-            android:text="@string/build_version"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/OtherCategory"
-            app:layout_constraintTop_toBottomOf="@id/OtherCategory" />
+            <TextView
+                android:id="@+id/ImportPref"
+                style="@style/PrefTitleStyle"
+                android:text="@string/import_recipes"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
+                app:layout_constraintTop_toBottomOf="@id/ExportPrefSub" />
 
-        <TextView
-            android:id="@+id/BuildInfoSub"
-            style="@style/PrefSubStyle"
-            android:text="@string/_13"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/OtherCategory"
-            app:layout_constraintTop_toBottomOf="@id/BuildInfo" />
-
-        <TextView
-            android:id="@+id/copyRightDisclaimer"
-            style="@style/PrefTitleStyle"
-            android:text="@string/copyright_disclaimer_str"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/OtherCategory"
-            app:layout_constraintTop_toBottomOf="@id/BuildInfoSub" />
-
-        <TextView
-            android:id="@+id/copyRightDisclaimerSub"
-            style="@style/PrefSubStyle"
-            android:text="@string/tap_to_read"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/OtherCategory"
-            app:layout_constraintTop_toBottomOf="@id/copyRightDisclaimer" />
+            <TextView
+                android:id="@+id/ImportPrefSub"
+                style="@style/PrefSubStyle"
+                android:text="@string/import_recipes_from_file"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/ImportExportCategory"
+                app:layout_constraintTop_toBottomOf="@id/ImportPref" />
 
 
-        <View
-            android:id="@+id/OtherDivider"
-            style="@style/SettingsDividerStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/copyRightDisclaimerSub" />
+            <View
+                android:id="@+id/ImportExportDivider"
+                style="@style/SettingsDividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ImportPrefSub" />
 
-        <!--Developer-->
-        <TextView
-            android:id="@+id/DeveloperCategory"
-            style="@style/PrefCategoryStyle"
-            android:text="@string/developer"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/OtherDivider" />
+            <!--Other-->
+            <TextView
+                android:id="@+id/OtherCategory"
+                style="@style/PrefCategoryStyle"
+                android:text="@string/other_header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ImportExportDivider" />
 
-        <TextView
-            android:id="@+id/DeveloperInfo"
-            style="@style/PrefTitleStyle"
-            android:text="@string/developer_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
-            app:layout_constraintTop_toBottomOf="@id/DeveloperCategory" />
+            <TextView
+                android:id="@+id/BuildInfo"
+                style="@style/PrefTitleStyle"
+                android:text="@string/build_version"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/OtherCategory"
+                app:layout_constraintTop_toBottomOf="@id/OtherCategory" />
 
-        <TextView
-            android:id="@+id/DeveloperInfoSub"
-            style="@style/PrefSubStyle"
-            android:text="@string/tap_for_info"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
-            app:layout_constraintTop_toBottomOf="@id/DeveloperInfo" />
+            <TextView
+                android:id="@+id/BuildInfoSub"
+                style="@style/PrefSubStyle"
+                android:text="@string/_13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/OtherCategory"
+                app:layout_constraintTop_toBottomOf="@id/BuildInfo" />
 
-        <TextView
-            android:id="@+id/contactDeveloper"
-            style="@style/PrefTitleStyle"
-            android:text="@string/contact_developer"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
-            app:layout_constraintTop_toBottomOf="@id/DeveloperInfoSub" />
+            <TextView
+                android:id="@+id/copyRightDisclaimer"
+                style="@style/PrefTitleStyle"
+                android:text="@string/copyright_disclaimer_str"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/OtherCategory"
+                app:layout_constraintTop_toBottomOf="@id/BuildInfoSub" />
 
-        <TextView
-            android:id="@+id/contactDeveloperSub"
-            style="@style/PrefSubStyle"
-            android:text="@string/k33gh4n"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
-            app:layout_constraintTop_toBottomOf="@+id/contactDeveloper" />
+            <TextView
+                android:id="@+id/copyRightDisclaimerSub"
+                style="@style/PrefSubStyle"
+                android:text="@string/tap_to_read"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/OtherCategory"
+                app:layout_constraintTop_toBottomOf="@id/copyRightDisclaimer" />
 
-        <View
-            android:id="@+id/DeveloperDivider"
-            style="@style/SettingsDividerStyle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactDeveloperSub" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+
+            <View
+                android:id="@+id/OtherDivider"
+                style="@style/SettingsDividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/copyRightDisclaimerSub" />
+
+            <!--Developer-->
+            <TextView
+                android:id="@+id/DeveloperCategory"
+                style="@style/PrefCategoryStyle"
+                android:text="@string/developer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/OtherDivider" />
+
+            <TextView
+                android:id="@+id/DeveloperInfo"
+                style="@style/PrefTitleStyle"
+                android:text="@string/developer_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
+                app:layout_constraintTop_toBottomOf="@id/DeveloperCategory" />
+
+            <TextView
+                android:id="@+id/DeveloperInfoSub"
+                style="@style/PrefSubStyle"
+                android:text="@string/tap_for_info"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
+                app:layout_constraintTop_toBottomOf="@id/DeveloperInfo" />
+
+            <TextView
+                android:id="@+id/contactDeveloper"
+                style="@style/PrefTitleStyle"
+                android:text="@string/contact_developer"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
+                app:layout_constraintTop_toBottomOf="@id/DeveloperInfoSub" />
+
+            <TextView
+                android:id="@+id/contactDeveloperSub"
+                style="@style/PrefSubStyle"
+                android:text="@string/k33gh4n"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@+id/DeveloperCategory"
+                app:layout_constraintTop_toBottomOf="@+id/contactDeveloper" />
+
+            <View
+                android:id="@+id/DeveloperDivider"
+                style="@style/SettingsDividerStyle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contactDeveloperSub" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

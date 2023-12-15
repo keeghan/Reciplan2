@@ -10,17 +10,15 @@
 
     <dimen name="explore_card_corner">@dimen/_10sdp</dimen>
     <dimen name="my_radio_button_height">@dimen/_30sdp</dimen>
-    <dimen name="pref_category_top_margin">@dimen/_16sdp</dimen>
+    <dimen name="pref_category_top_margin">@dimen/_10sdp</dimen>
     <dimen name="pref_textSize">@dimen/_14ssp</dimen>
     <dimen name="pref_sub_textSize">@dimen/_11ssp</dimen>
     <dimen name="pref_divider_margin">@dimen/_8sdp</dimen>
     <dimen name="pref_category_start_margin">@dimen/_35sdp</dimen>
     <dimen name="bottom_menu_text_size">@dimen/_12ssp</dimen>
+    <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->
 
-
-    <dimen name="collection_item_img_size">@dimen/_200sdp</dimen>
-    <dimen name="collection_item_btm_size">@dimen/_95sdp</dimen>
-    <dimen name="explore_item_direction_margin">@dimen/_185sdp</dimen>
-
-    <dimen name="add_image_size">@dimen/_180sdp</dimen>
+    <dimen name="collection_item_img_size">@dimen/_180sdp</dimen>
+    <dimen name="collection_item_btm_size">@dimen/_88sdp</dimen>
+    <dimen name="explore_item_direction_margin">@dimen/_165sdp</dimen>
 </resources>

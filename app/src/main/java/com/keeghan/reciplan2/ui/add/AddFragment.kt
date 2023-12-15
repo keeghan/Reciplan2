@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.radiobutton.MaterialRadioButton
@@ -60,34 +61,45 @@ class AddFragment : Fragment() {
         mainBinding.chooseImageButton.setOnClickListener { getContent.launch(ADD_RECIPE_IMAGE_LOC) }
         if (isSw600dp) setUpSw600dpLayout() //tablet layout support
 
+        mainBinding.settingsBtn?.setOnClickListener {
+            val directionsAction = AddFragmentDirections.actionGlobalSettingsFragment()
+            findNavController().navigate(directionsAction)
+        }
+
         return view
     }
 
     //Launch Activity for Result
-    private val getContent = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        //define uri(name and location of un_cropped file)
-        tempImageUri = Uri.fromFile(
-            File(
-                requireActivity().filesDir,
-                "${mainBinding.recipeTitleEditText.text?.trim()?.replace(Regex("\\s"), "")}${System.nanoTime()}.jpg"
+    private val getContent =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+            //define uri(name and location of un_cropped file)
+            tempImageUri = Uri.fromFile(
+                File(
+                    requireActivity().filesDir,
+                    "${
+                        mainBinding.recipeTitleEditText.text?.trim()?.replace(Regex("\\s"), "")
+                    }${System.nanoTime()}.jpg"
+                )
             )
-        )
 
-        //define uri(name and location of cropped file)
-        webpCompressedImageFile = File(
-            requireActivity().filesDir,
-            "${mainBinding.recipeTitleEditText.text?.trim()?.replace(Regex("\\s"), "")}${System.nanoTime()}_c.webp"
-        )
+            //define uri(name and location of cropped file)
+            webpCompressedImageFile = File(
+                requireActivity().filesDir,
+                "${
+                    mainBinding.recipeTitleEditText.text?.trim()?.replace(Regex("\\s"), "")
+                }${System.nanoTime()}_c.webp"
+            )
 
-        //crop image and save in croppedImageUri
-        if (uri != null) {
-            UCrop.of(uri, tempImageUri).withAspectRatio(1F, 1F).withMaxResultSize(400, 400).start(requireActivity())
-        }
+            //crop image and save in croppedImageUri
+            if (uri != null) {
+                UCrop.of(uri, tempImageUri).withAspectRatio(1F, 1F).withMaxResultSize(400, 400)
+                    .start(requireActivity())
+            }
 
-        Glide.with(requireContext()).load(tempImageUri).into(mainBinding.recipeImageView)
+            Glide.with(requireContext()).load(tempImageUri).into(mainBinding.recipeImageView)
 //        Glide.with(requireContext()).load(tempImageUri).placeholder(drawable.ic_launcher_background).centerCrop()
 //            .into(mainBinding.recipeImageView)
-    }
+        }
 
     //Inflate bottom sheet  and show with no data
     private fun inflateBottomLayout() {
@@ -104,17 +116,21 @@ class AddFragment : Fragment() {
     private fun saveRecipe() {
         val checkedTypeID = if (isSw600dp) mainBinding.radioGroup!!.checkedRadioButtonId
         else bottomSheetBinding.radioGroup.checkedRadioButtonId
-        val radioButtonId = if (isSw600dp) mainBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
-        else bottomSheetBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
-        val mins = if (isSw600dp) mainBinding.timePicker!!.value else bottomSheetBinding.timePicker.value
+        val radioButtonId =
+            if (isSw600dp) mainBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
+            else bottomSheetBinding.root.findViewById<MaterialRadioButton>(checkedTypeID).id
+        val mins =
+            if (isSw600dp) mainBinding.timePicker!!.value else bottomSheetBinding.timePicker.value
         val favorite =
             if (isSw600dp) mainBinding.switchFavBtn!!.isChecked else bottomSheetBinding.switchFavBtn.isChecked
-        val ingredients = if (isSw600dp) mainBinding.recipeIngredientEditText?.text?.trim()?.lines()!!.size
-        else bottomSheetBinding.recipeIngredientEditText.text?.trim()?.lines()!!.size
+        val ingredients =
+            if (isSw600dp) mainBinding.recipeIngredientEditText?.text?.trim()?.lines()!!.size
+            else bottomSheetBinding.recipeIngredientEditText.text?.trim()?.lines()!!.size
         val collection = if (isSw600dp) mainBinding.switchColBtn!!.isChecked
         else bottomSheetBinding.switchColBtn.isChecked
-        val userIngredient = if (isSw600dp) mainBinding.recipeIngredientEditText?.text?.trim().toString()
-        else bottomSheetBinding.recipeIngredientEditText.text?.trim().toString()
+        val userIngredient =
+            if (isSw600dp) mainBinding.recipeIngredientEditText?.text?.trim().toString()
+            else bottomSheetBinding.recipeIngredientEditText.text?.trim().toString()
 
         val recipe = Recipe(
             _id = generateUniqueId(),
@@ -127,7 +143,9 @@ class AddFragment : Fragment() {
             collection = collection,
             userDirection = mainBinding.recipeDescEditText.text?.trim().toString(),
             userIngredient = userIngredient,
-            type = if (isSw600dp) typeOptionSelectedSw600dp(radioButtonId) else typeOptionSelected(radioButtonId)
+            type = if (isSw600dp) typeOptionSelectedSw600dp(radioButtonId) else typeOptionSelected(
+                radioButtonId
+            )
         )
         viewModel.saveRecipe(tempImageUri, webpCompressedImageFile, recipe)
 

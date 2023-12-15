@@ -1,8 +1,10 @@
 package com.keeghan.reciplan2
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import android.graphics.text.LineBreaker
 import android.net.Uri
 import android.os.Build
@@ -12,16 +14,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
+import android.webkit.MimeTypeMap
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.keeghan.reciplan2.database.Recipe
-import com.keeghan.reciplan2.databinding.CopyrightDisclaimerDialogBinding
 import com.keeghan.reciplan2.databinding.DeveloperInfoBinding
 import com.keeghan.reciplan2.databinding.ExportDialogBinding
 import com.keeghan.reciplan2.databinding.FragmentSettingsBinding
@@ -36,10 +41,13 @@ import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
 
+
 class SettingsFragment : Fragment(), OnClickListener {
     private lateinit var viewModel: SettingsViewModel
     private val binding by lazy { FragmentSettingsBinding.inflate(layoutInflater) }
-    private val prefs: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(requireContext()) }
+    private val prefs: SharedPreferences by lazy {
+        PreferenceManager.getDefaultSharedPreferences(requireContext())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,19 +59,25 @@ class SettingsFragment : Fragment(), OnClickListener {
     ): View {
         //fill info in settings screen
         binding.apply {
-            BuildInfoSub.text = getString(R.string.version_info, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
+            BuildInfoSub.text =
+                getString(R.string.version_info, BuildConfig.VERSION_NAME, BuildConfig.VERSION_CODE)
             prefThemeSwitch.isChecked = prefs.getBoolean(PreferenceConstants.PREF_THEME, true)
             prefHapticsSwitch.isChecked = prefs.getBoolean(PreferenceConstants.PREF_HAPTICS, true)
             themePref.text =
                 if (prefThemeSwitch.isChecked) getString(R.string.disable_darkmode) else getString(R.string.enable_dark_mode)
             hapticsPref.text =
-                if (prefHapticsSwitch.isChecked) getString(R.string.disable_haptics) else getString(R.string.enable_haptics)
+                if (prefHapticsSwitch.isChecked) getString(R.string.disable_haptics) else getString(
+                    R.string.enable_haptics
+                )
         }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.backBtn.setOnClickListener {
+            findNavController().popBackStack()
+        }
         //Theme change
         binding.prefThemeSwitch.setOnCheckedChangeListener { _, state ->
             prefs.edit().putBoolean(PreferenceConstants.PREF_THEME, state).apply()
@@ -76,9 +90,8 @@ class SettingsFragment : Fragment(), OnClickListener {
             binding.hapticsPref.text =
                 if (state) getString(R.string.disable_haptics) else getString(R.string.enable_haptics)
         }
-        viewModel.errorMsg.observe(viewLifecycleOwner) {
-            if (it.isNotBlank()) showToast(it)
-        }
+        viewModel.errorMsg.observe(viewLifecycleOwner) { if (it.isNotBlank()) showToast(it) }
+
         //set onClickListeners
         binding.DeveloperInfo.setOnClickListener(this)
         binding.DeveloperInfoSub.setOnClickListener(this)
@@ -101,14 +114,40 @@ class SettingsFragment : Fragment(), OnClickListener {
             binding.contactDeveloperSub -> contactDev()
             binding.copyRightDisclaimer -> showCopyRightDisclaimer()
             binding.copyRightDisclaimerSub -> showCopyRightDisclaimer()
-            binding.ExportPref -> exportRecipes()
-            binding.ExportPrefSub -> exportRecipes()
-            binding.ImportPref -> importRecipeFile()
-            binding.ImportPrefSub -> importRecipeFile()
+            binding.ExportPref -> if (checkStoragePermissions()) exportRecipes() else requestForStoragePermissions()
+            binding.ExportPrefSub -> if (checkStoragePermissions()) exportRecipes() else requestForStoragePermissions()
+            binding.ImportPref -> if (checkStoragePermissions()) importRecipeFile() else requestForStoragePermissions()
+            binding.ImportPrefSub -> if (checkStoragePermissions()) importRecipeFile() else requestForStoragePermissions()
             else -> throw IllegalStateException("Button Click doesn't have onclick set")
         }
     }
 
+    private fun checkStoragePermissions(): Boolean {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            val write = ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            val read = ContextCompat.checkSelfPermission(
+                requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+            read == PackageManager.PERMISSION_GRANTED && write == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+    }
+
+    private val STORAGE_PERMISSION_CODE = 23
+
+    private fun requestForStoragePermissions() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            activity?.requestPermissions(
+                arrayOf(
+                    Manifest.permission.READ_EXTERNAL_STORAGE,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                ), STORAGE_PERMISSION_CODE
+            )
+        }
+    }
 
     //Export Recipe to list
     private fun exportRecipes() {
@@ -117,7 +156,8 @@ class SettingsFragment : Fragment(), OnClickListener {
                 val recipes = withContext(Dispatchers.IO) { viewModel.getAllUserCreatedRecipes() }
                 if (recipes.isNotEmpty()) {
                     val json = Json { prettyPrint = true }
-                    val jsonString = json.encodeToString(ListSerializer(Recipe.serializer()), recipes)
+                    val jsonString =
+                        json.encodeToString(ListSerializer(Recipe.serializer()), recipes)
 
                     val binding = ExportDialogBinding.inflate(LayoutInflater.from(context))
                     MaterialAlertDialogBuilder(requireContext()).apply {
@@ -139,7 +179,7 @@ class SettingsFragment : Fragment(), OnClickListener {
     private fun importRecipeFile() {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
             addCategory(Intent.CATEGORY_OPENABLE)
-            type = "application/json"
+            type = if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) "*/*" else "application/json"
         }
         importFileLauncher.launch(intent)
     }
@@ -148,19 +188,22 @@ class SettingsFragment : Fragment(), OnClickListener {
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
                 result.data?.data?.also { uri ->
-                    try {
-                        requireContext().contentResolver.openInputStream(uri)?.use { inputStream ->
-                            BufferedReader(InputStreamReader(inputStream)).use { reader ->
-                                val jsonString = reader.readText()
-                                val recipes = jsonStringToRecipes(jsonString)
-                                if (!recipes.isNullOrEmpty()) {
-                                    viewModel.importRecipes(recipes)
+                    val extension = MimeTypeMap.getFileExtensionFromUrl(uri.path)
+                    if (extension.equals("json", true)) {
+                        try {
+                            requireContext().contentResolver.openInputStream(uri)
+                                ?.use { inputStream ->
+                                    BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                                        val recipes = jsonStringToRecipes(reader.readText())
+                                        if (!recipes.isNullOrEmpty()) {
+                                            viewModel.importRecipes(recipes)
+                                        }
+                                    }
                                 }
-                            }
+                        } catch (e: IOException) {
+                            e.printStackTrace()
                         }
-                    } catch (e: IOException) {
-                        e.printStackTrace()
-                    }
+                    } else showToast("File selected not a json file")
                 }
             }
         }
@@ -181,7 +224,8 @@ class SettingsFragment : Fragment(), OnClickListener {
             setText(R.string.link_developer_profile)
             movementMethod = LinkMovementMethod.getInstance()
         }
-        MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
+        MaterialAlertDialogBuilder(requireContext(), R.style.RoundedAlertDialog)
+            .setView(binding.root)
             .setNegativeButton(R.string.close) { dialog, _ -> dialog.dismiss() }.show()
     }
 
@@ -194,14 +238,15 @@ class SettingsFragment : Fragment(), OnClickListener {
     }
 
     private fun showCopyRightDisclaimer() {
-        // Assuming the generated binding class for your layout is CopyrightDisclaimerDialogBinding
-        val binding = CopyrightDisclaimerDialogBinding.inflate(LayoutInflater.from(context))
-        binding.disclaimerTxt.apply {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) justificationMode =
-                LineBreaker.JUSTIFICATION_MODE_INTER_WORD
+        val textView = TextView(context)
+        textView.text = getString(R.string.copyright_disclaimer)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            textView.justificationMode = LineBreaker.JUSTIFICATION_MODE_INTER_WORD
         }
-        MaterialAlertDialogBuilder(requireContext()).setView(binding.root)
-            .setNegativeButton(R.string.close) { dialog, _ -> dialog.dismiss() }.show()
+        MaterialAlertDialogBuilder(requireContext(), R.style.RoundedAlertDialog)
+            .setView(textView)
+            .setNegativeButton(getString(R.string.close)) { dialog, _ -> dialog.dismiss() }
+            .show()
     }
 
     private fun showToast(msg: String) {

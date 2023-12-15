@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="5dp"
-    app:cardElevation="5dp"
-    android:layout_marginBottom="1dp">
+    android:layout_marginBottom="2dp"
+    app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/planItemBg">
 
         <ImageView
             android:id="@+id/plan_item_image"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="@dimen/plan_item_size"
+            android:layout_height="@dimen/plan_item_size"
+            android:contentDescription="@string/recipe_image_desc"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,13 +23,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-
             android:id="@+id/plan_item_meal_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="Breakfast"
+            android:layout_marginTop="@dimen/plan_item_margin"
+            android:text="@string/str_breakfast"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,8 +41,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
-            android:text="Agushi with palava sauce"
+            android:layout_marginBottom="@dimen/plan_item_margin"
+            android:text="@string/placeholder_recipe_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -13,7 +13,7 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.keeghan.reciplan2.utils.PreferenceConstants.PREF_HAPTICS
-
+//todo: Add a readme
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,17 +36,15 @@ class MainActivity : AppCompatActivity() {
 
             if (prefs.getBoolean(PREF_HAPTICS, true)) {
                 val vibrator = ContextCompat.getSystemService(this, Vibrator::class.java)
-                @Suppress("DEPRECATION") when {
+                @Suppress("DEPRECATION") (when {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                         vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
                     }
-
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> vibrator?.vibrate(
                         VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
                     )
-
                     else -> vibrator?.vibrate(50)
-                }
+                })
             }
 
             //ensure correct BottomBar icon is highlighted on each navigation

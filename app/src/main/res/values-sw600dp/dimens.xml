@@ -7,7 +7,8 @@
     <dimen name="explore_card_size_sw600">@dimen/_140sdp</dimen>
     <dimen name="explore_card_corner">@dimen/_10sdp</dimen>
     <dimen name="my_radio_button_height">@dimen/_20sdp</dimen>
-   <!-- <dimen name="explore_card_size">@dimen/_140sdp</dimen>-->
+    <dimen name="plan_item_size">@dimen/_26sdp</dimen>
+    <dimen name="plan_item_margin">@dimen/_3sdp</dimen>
 
     <dimen name="pref_category_top_margin">@dimen/_10sdp</dimen>
     <dimen name="pref_textSize">@dimen/_10ssp</dimen>
@@ -16,5 +17,6 @@
     <dimen name="pref_category_start_margin">@dimen/_35sdp</dimen>
 
     <dimen name="bottom_menu_text_size">@dimen/_10ssp</dimen>
+    <dimen name="add_image_size">@dimen/_160sdp</dimen>
 
 </resources>

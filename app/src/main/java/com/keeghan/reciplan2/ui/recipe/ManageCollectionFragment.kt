@@ -39,7 +39,6 @@ class ManageCollectionFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         adapter = RecipeAdapter(requireContext())
 
         //Retrieve mealType from ExploreFragment

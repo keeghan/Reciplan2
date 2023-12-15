@@ -30,14 +30,15 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
 
     fun writeToFile(fileName: String, jsonString: String) {
         if (fileName.isNotBlank()) {
-            val downloadsDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            val downloadsDir =
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
             val file = File(downloadsDir, "$fileName.json")
             viewModelScope.launch(Dispatchers.IO) {
                 try {
                     file.writeText(jsonString)
                     _errorMsg.postValue("Recipes Export successfully")
                 } catch (e: Exception) {
-                    _errorMsg.postValue("Error writing to file: ${e.message}")
+                    _errorMsg.postValue("Error: ${e.message}")
                 }
             }
         } else _errorMsg.postValue("FileName Invalid")
@@ -50,7 +51,7 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                     repository.insert(recipe.copy(_id = Constants.generateUniqueId()))
                     delay(5)
                 }
-                _errorMsg.postValue("Imported ${recipes.size} recipes successfully!")
+                _errorMsg.postValue("${recipes.size} recipes imported!\n edit recipes to add images")
             } catch (e: Exception) {
                 _errorMsg.postValue(e.message)
             }
