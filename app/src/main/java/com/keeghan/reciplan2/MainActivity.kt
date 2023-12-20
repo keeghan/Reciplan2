@@ -13,7 +13,6 @@ import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.keeghan.reciplan2.utils.PreferenceConstants.PREF_HAPTICS
-//todo: Add a readme
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

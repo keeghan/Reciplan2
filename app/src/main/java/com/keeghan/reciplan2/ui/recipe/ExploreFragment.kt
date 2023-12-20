@@ -41,26 +41,4 @@ class ExploreFragment : Fragment() {
         findNavController().navigate(dd)
 
     }
-
-
-
-
-
-    //Viable update path for new recipes to be added based on whether app is updated
-    //TODO: IF UPDATE IS NECESSARY IN LATER VERSIONS
-//    private fun updateVersion2() {
-//        if (prefs.getBoolean(Constants.IS_VERSION_TWO_UPDATE, true)) {
-//            if (BuildConfig.VERSION_CODE > 1) {
-//                //version 1 update
-//                viewModel.insertRecipe(
-//                    Recipe(
-//                        24, "Paano shew", R.array.kontomire_stew_array, 11, 45,
-//                        "https://firebasestorage.googleapis.com/v0/b/firesignindemo.appspot.com/o/recipeimages%2Fkontomire.webp?alt=media&token=06b881c0-9c1f-4e7f-b574-cfd9465a3620",
-//                        collection = true, favorite = false, type = "dinner"
-//                    )
-//                )
-//            }
-//            prefs.edit().putBoolean(Constants.IS_VERSION_TWO_UPDATE, false).apply();
-//        }
-//    }
 }
