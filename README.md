@@ -20,6 +20,7 @@ https://github.com/keeghan/MovieSearch/assets/40280581/fb75ae08-1c01-462a-ba55-b
 ## Screenshots
 
 <img src = "screenshots/explore_screen.png" width = "220" height = "471"/> &nbsp; <img src = "screenshots/favorite_screen.png" width = "220" height = "471"/> &nbsp; <img src = "screenshots/plan_screen.png" width = "220" height = "471"/> 
+<br />
 <img src = "screenshots/add_screen.png" width = "220" height = "471"/> &nbsp; <img src = "screenshots/directions_screen.png" width = "220" height = "471"/> &nbsp; <img src = "screenshots/settings_screen.png" width = "220" height = "471"/> 
 
 ## Tech Stack
