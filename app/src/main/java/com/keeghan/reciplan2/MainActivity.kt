@@ -12,7 +12,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.preference.PreferenceManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.keeghan.reciplan2.database.RecipeDatabase
 import com.keeghan.reciplan2.utils.PreferenceConstants.PREF_HAPTICS
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,8 +33,6 @@ class MainActivity : AppCompatActivity() {
 
         NavigationUI.setupWithNavController(bottomNavView, navController)
 
-
-
         navController.addOnDestinationChangedListener { _, destination, _ ->
 
             if (prefs.getBoolean(PREF_HAPTICS, true)) {
@@ -39,9 +41,11 @@ class MainActivity : AppCompatActivity() {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
                         vibrator?.vibrate(VibrationEffect.createPredefined(VibrationEffect.EFFECT_HEAVY_CLICK))
                     }
+
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> vibrator?.vibrate(
                         VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE)
                     )
+
                     else -> vibrator?.vibrate(50)
                 })
             }
@@ -55,11 +59,17 @@ class MainActivity : AppCompatActivity() {
 
             //Hide or Un_hide bottom bar based on BottomBar destinations
             when (destination.id) {
-                R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add -> bottomNavView.visibility =
+                R.id.navigation_recipe,
+                R.id.navigation_plan,
+                R.id.navigation_add -> bottomNavView.visibility =
                     View.VISIBLE
 
                 else -> bottomNavView.visibility = View.GONE
             }
         }
+
+        //Instantiate Database
+        val mainActivityScope = CoroutineScope(Dispatchers.IO)
+        RecipeDatabase.getDatabase(application, mainActivityScope).recipeDao()
     }
 }

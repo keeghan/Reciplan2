@@ -5,7 +5,6 @@
 
 package com.keeghan.reciplan2.ui.plan
 
-import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -36,7 +35,6 @@ import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.databinding.FragmentPlanBinding
 import com.keeghan.reciplan2.ui.adapters.PlanRecyclerAdapter
-import com.keeghan.reciplan2.ui.recipe.RecipeFragmentDirections
 import com.keeghan.reciplan2.utils.Constants
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
@@ -90,7 +88,6 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
         NavigationUI.setupWithNavController(toolbar, navController, appBarConfiguration)
         (activity as AppCompatActivity?)!!.setSupportActionBar(toolbar)
 
-
         val recyclers = arrayOf(
             binding.sundayRecycler,
             binding.mondayRecycler,
@@ -100,8 +97,8 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
             binding.fridayRecycler,
             binding.saturdayRecycler
         )
-
         //Join adapters with Recycler views
+      //  for (i in days.indices) setRecycler(days[i], recyclers[i], adapters!![i])
         for (i in days.indices) setRecycler(days[i], recyclers[i], adapters!![i])
 
         setEditButtonOnclickListener()
@@ -110,20 +107,12 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
 
     private fun setRecycler(
-        dayId: Int, recyclerView: RecyclerView, adapter: PlanRecyclerAdapter
-    ) {
-        val recipes = when (dayId) {
-            1 -> viewModel.recipesForSunday
-            2 -> viewModel.recipesForMonday
-            3 -> viewModel.recipesForTuesday
-            4 -> viewModel.recipesForWednesday
-            5 -> viewModel.recipesForThursday
-            6 -> viewModel.recipesForFriday
-            7 -> viewModel.recipesForSaturday
-            else -> throw IllegalArgumentException("Invalid dayId")
+        dayId: Int, recyclerView: RecyclerView, adapter: PlanRecyclerAdapter    ) {
+        //observe combined liveData
+        viewModel.recipesForWeek.observe(viewLifecycleOwner) { recipesMap ->
+            val recipesForDay = recipesMap[dayId] ?: emptyList()
+            adapter.setRecipes(sortRecipes(recipesForDay))
         }
-
-        recipes.observe(viewLifecycleOwner) { adapter.setRecipes(sortRecipes(it)) }
 
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
