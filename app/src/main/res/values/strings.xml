@@ -166,5 +166,7 @@
     <string name="settings">Settings</string>
     <string name="all_plans_cleared">All Plans cleared</string>
     <string name="operation_cancelled">operation cancelled</string>
+    <string name="recipe_not_set">Recipe not set</string>
+
 
 </resources>

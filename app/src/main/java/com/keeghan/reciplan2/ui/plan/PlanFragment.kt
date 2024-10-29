@@ -98,8 +98,24 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
             binding.saturdayRecycler
         )
         //Join adapters with Recycler views
-      //  for (i in days.indices) setRecycler(days[i], recyclers[i], adapters!![i])
-        for (i in days.indices) setRecycler(days[i], recyclers[i], adapters!![i])
+//        viewModel.recipesForWeek.observe(viewLifecycleOwner) { recipesMap ->
+//            for (i in days.indices) {
+//                setRecycler(days[i], recyclers[i], adapters!![i])
+//                val recipes = recipesMap[days[i]] ?: emptyList()
+//                adapters!![i].setRecipes(sortRecipes(recipes))
+//            }
+//        }
+
+        //Todo: set adapter breakfast, lunch , dinner separately
+        viewModel.allDays.observe(viewLifecycleOwner) { daysMap ->
+            for (i in days.indices) {
+                setRecycler(days[i], recyclers[i], adapters!![i])
+                //   val recipes  = daysMap[i].allRecipes ?: emptyList()
+                val recipes = listOf(daysMap[i].breakfastRecipe, daysMap[i].lunchRecipe, daysMap[i].dinnerRecipe)
+                //adapters!![i].setRecipes(sortRecipes(recipes))
+                adapters!![i].setRecipes(recipes)
+            }
+        }
 
         setEditButtonOnclickListener()
         showWelcomeToast()
@@ -107,13 +123,9 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
 
 
     private fun setRecycler(
-        dayId: Int, recyclerView: RecyclerView, adapter: PlanRecyclerAdapter    ) {
+        dayId: Int, recyclerView: RecyclerView, adapter: PlanRecyclerAdapter
+    ) {
         //observe combined liveData
-        viewModel.recipesForWeek.observe(viewLifecycleOwner) { recipesMap ->
-            val recipesForDay = recipesMap[dayId] ?: emptyList()
-            adapter.setRecipes(sortRecipes(recipesForDay))
-        }
-
         recyclerView.setHasFixedSize(true)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)

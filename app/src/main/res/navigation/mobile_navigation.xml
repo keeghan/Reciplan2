@@ -21,6 +21,9 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_navigation_recipe_to_newPlanFragment"
+            app:destination="@id/navigation_new_plan" />
     </fragment>
 
     <fragment
@@ -98,4 +101,22 @@
         android:id="@+id/settingsFragment"
         android:name="com.keeghan.reciplan2.SettingsFragment"
         android:label="SettingsFragment" />
+
+    <fragment
+        android:id="@+id/navigation_new_plan"
+        android:name="com.keeghan.reciplan2.ui.plan.NewPlanFragment"
+        android:label="New Meal Plan"
+        tools:layout="@layout/new_fragment_plan">
+        <action
+            android:id="@+id/action_newPlanFragment_to_navigation_add"
+            app:destination="@id/navigation_add" />
+        <action
+            android:id="@+id/action_newPlanFragment_to_setPlanFragment"
+            app:destination="@id/setPlanFragment" />
+        <action
+            android:id="@+id/action_navigation_new_plan_to_directionsFragment"
+            app:destination="@id/directionsFragment" />
+    </fragment>
+
+
 </navigation>

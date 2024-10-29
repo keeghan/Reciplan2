@@ -3,6 +3,8 @@ package com.keeghan.reciplan2.ui.plan
 import android.app.Application
 import androidx.lifecycle.*
 import com.keeghan.reciplan2.database.Day
+import com.keeghan.reciplan2.database.DayRepository
+import com.keeghan.reciplan2.database.DayWithRecipes
 import com.keeghan.reciplan2.database.Recipe
 import com.keeghan.reciplan2.database.RecipeDatabase
 import com.keeghan.reciplan2.database.RecipeRepository
@@ -15,14 +17,12 @@ class PlanViewModel(application: Application) : AndroidViewModel(
     private val repository: RecipeRepository = RecipeRepository(
         RecipeDatabase.getDatabase(application, viewModelScope).recipeDao()
     )
+    private val dayRepository: DayRepository = DayRepository(
+        RecipeDatabase.getDatabase(application, viewModelScope).dayDao()
+    )
 
-//    val recipesForSunday: LiveData<List<Recipe>> = repository.getRecipesForDay(1)
-//    val recipesForMonday: LiveData<List<Recipe>> = repository.getRecipesForDay(2)
-//    val recipesForTuesday: LiveData<List<Recipe>> = repository.getRecipesForDay(3)
-//    val recipesForWednesday: LiveData<List<Recipe>> = repository.getRecipesForDay(4)
-//    val recipesForThursday: LiveData<List<Recipe>> = repository.getRecipesForDay(5)
-//    val recipesForFriday: LiveData<List<Recipe>> = repository.getRecipesForDay(6)
-//    val recipesForSaturday: LiveData<List<Recipe>> = repository.getRecipesForDay(7)
+
+    val allDays : LiveData<List<DayWithRecipes>> = dayRepository.getAllDays()
 
     val recipesForWeek: LiveData<Map<Int, List<Recipe>>> = MediatorLiveData<Map<Int, List<Recipe>>>().apply {
         for (day in 1..7) {
@@ -47,7 +47,7 @@ class PlanViewModel(application: Application) : AndroidViewModel(
     }
 
     fun updateDay(day: Day) {
-        viewModelScope.launch(Dispatchers.IO)  {
+        viewModelScope.launch(Dispatchers.IO) {
             repository.update(day)
         }
     }

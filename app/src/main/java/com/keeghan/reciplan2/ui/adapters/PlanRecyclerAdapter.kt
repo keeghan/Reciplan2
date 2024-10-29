@@ -15,14 +15,9 @@ import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH
 import com.keeghan.reciplan2.utils.Constants.MISSING_MEAL_PLAN
-import com.keeghan.reciplan2.utils.Constants.NO_BREAKFAST
-import com.keeghan.reciplan2.utils.Constants.NO_DINNER
-import com.keeghan.reciplan2.utils.Constants.NO_LUNCH
-import java.util.*
 
 class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private var recipes: List<Recipe> = ArrayList<Recipe>()
-   private var dayId: Int = -1 //initialize with invalid value
+    private var recipes: List<Recipe> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
@@ -84,13 +79,6 @@ class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<Recycler
     fun setRecipes(recipes: List<Recipe>) {
         this.recipes = recipes
         notifyDataSetChanged()
-    }
-
-    fun setDayId(dayId: Int){
-        this.dayId = dayId
-    }
-    fun getDayId():Int{
-        return dayId
     }
 
     override fun getItemCount(): Int {

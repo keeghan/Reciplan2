@@ -42,6 +42,7 @@ import com.keeghan.reciplan2.utils.Constants.SNACK
 abstract class RecipeDatabase : RoomDatabase() {
 
     abstract fun recipeDao(): RecipeDao
+    abstract fun dayDao(): DayDao
 
     companion object {
         @Volatile

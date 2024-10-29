@@ -26,7 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         val bottomNavView = findViewById<View>(R.id.nav_view) as BottomNavigationView
 
-        AppBarConfiguration.Builder(R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add).build()
+      //  AppBarConfiguration.Builder(R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add).build()
+        AppBarConfiguration.Builder(R.id.navigation_recipe, R.id.navigation_plan, R.id.navigation_add, R.id.navigation_new_plan).build()
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navController = navHostFragment.navController
@@ -53,14 +54,17 @@ class MainActivity : AppCompatActivity() {
             //ensure correct BottomBar icon is highlighted on each navigation
             when (destination.id) {
                 R.id.navigation_recipe -> bottomNavView.menu.findItem(R.id.navigation_recipe).isChecked = true
+              //  R.id.navigation_plan -> bottomNavView.menu.findItem(R.id.navigation_plan).isChecked = true
                 R.id.navigation_plan -> bottomNavView.menu.findItem(R.id.navigation_plan).isChecked = true
                 R.id.navigation_add -> bottomNavView.menu.findItem(R.id.navigation_add).isChecked = true
+                R.id.navigation_new_plan -> bottomNavView.menu.findItem(R.id.navigation_new_plan).isChecked = true
             }
 
             //Hide or Un_hide bottom bar based on BottomBar destinations
             when (destination.id) {
                 R.id.navigation_recipe,
                 R.id.navigation_plan,
+                R.id.navigation_new_plan,
                 R.id.navigation_add -> bottomNavView.visibility =
                     View.VISIBLE
 
