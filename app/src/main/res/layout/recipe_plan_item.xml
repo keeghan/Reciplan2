@@ -7,6 +7,7 @@
     app:cardCornerRadius="5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/plan_item_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/planItemBg">

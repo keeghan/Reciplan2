@@ -6,6 +6,7 @@
 package com.keeghan.reciplan2.ui.plan
 
 import android.graphics.Canvas
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -54,6 +55,9 @@ import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.json.Json
+import java.nio.charset.StandardCharsets
+import kotlinx.serialization.encodeToString
 
 
 class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
@@ -97,23 +101,22 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
             binding.fridayRecycler,
             binding.saturdayRecycler
         )
-        //Join adapters with Recycler views
-//        viewModel.recipesForWeek.observe(viewLifecycleOwner) { recipesMap ->
-//            for (i in days.indices) {
-//                setRecycler(days[i], recyclers[i], adapters!![i])
-//                val recipes = recipesMap[days[i]] ?: emptyList()
-//                adapters!![i].setRecipes(sortRecipes(recipes))
-//            }
-//        }
 
         //Todo: set adapter breakfast, lunch , dinner separately
         viewModel.allDays.observe(viewLifecycleOwner) { daysMap ->
             for (i in days.indices) {
                 setRecycler(days[i], recyclers[i], adapters!![i])
-                //   val recipes  = daysMap[i].allRecipes ?: emptyList()
                 val recipes = listOf(daysMap[i].breakfastRecipe, daysMap[i].lunchRecipe, daysMap[i].dinnerRecipe)
-                //adapters!![i].setRecipes(sortRecipes(recipes))
                 adapters!![i].setRecipes(recipes)
+                adapters!![i].setPlanItemClickListener(
+                    object : PlanRecyclerAdapter.PlanItemOnClickListener {
+                        override fun onRecipeClick(recipe: Recipe) {
+                            val sRecipe = Uri.encode(Json.encodeToString(recipe), StandardCharsets.UTF_8.toString())
+                            val direction = PlanFragmentDirections.actionNavigationPlanToDirectionsFragment(sRecipe)
+                            findNavController().navigate(direction)
+                        }
+                    }
+                )
             }
         }
 
@@ -234,18 +237,6 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
         }
     }
 
-    //Sort List to make sure the order of breakfast, lunch and dinner is correct
-    private fun sortRecipes(recipes: List<Recipe>): List<Recipe> {
-        val breakfast = recipes.filter { it.type == BREAKFAST }
-        val missing0 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_BREAKFAST }
-        val lunch = recipes.filter { it.type == LUNCH }
-        val missing1 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_LUNCH }
-        val dinner = recipes.filter { it.type == DINNER }
-        val missing2 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_DINNER }
-        return breakfast.asSequence().plus(missing0).plus(lunch).plus(missing1).plus(dinner).plus(missing2).toList()
-    }
-
-
     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.plan_menu, menu)
     }
@@ -283,3 +274,14 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
         builder.show()
     }
 }
+
+//Sort List to make sure the order of breakfast, lunch and dinner is correct
+//    private fun sortRecipes(recipes: List<Recipe>): List<Recipe> {
+//        val breakfast = recipes.filter { it.type == BREAKFAST }
+//        val missing0 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_BREAKFAST }
+//        val lunch = recipes.filter { it.type == LUNCH }
+//        val missing1 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_LUNCH }
+//        val dinner = recipes.filter { it.type == DINNER }
+//        val missing2 = recipes.filter { it.type == MISSING_MEAL_PLAN && it._id == NO_DINNER }
+//        return breakfast.asSequence().plus(missing0).plus(lunch).plus(missing1).plus(dinner).plus(missing2).toList()
+//    }

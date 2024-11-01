@@ -21,17 +21,7 @@ class PlanViewModel(application: Application) : AndroidViewModel(
         RecipeDatabase.getDatabase(application, viewModelScope).dayDao()
     )
 
-
     val allDays : LiveData<List<DayWithRecipes>> = dayRepository.getAllDays()
-
-    val recipesForWeek: LiveData<Map<Int, List<Recipe>>> = MediatorLiveData<Map<Int, List<Recipe>>>().apply {
-        for (day in 1..7) {
-            addSource(repository.getRecipesForDay(day)) { recipes ->
-                val currentMap = value ?: emptyMap()
-                value = currentMap + (day to recipes)
-            }
-        }
-    }
 
     //SetPlanActivity variables
     val breakfastCollection = repository.getBreakfastCollectionRecipes()

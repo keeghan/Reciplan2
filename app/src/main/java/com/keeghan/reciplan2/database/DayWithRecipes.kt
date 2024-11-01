@@ -24,5 +24,4 @@ data class DayWithRecipes(
     )
     val dinnerRecipe: Recipe,
 
-   // val allRecipes: List<Recipe> = listOf(breakfastRecipe, lunchRecipe, dinnerRecipe)
 )

@@ -2,6 +2,7 @@ package com.keeghan.reciplan2.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.text.Layout
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.keeghan.reciplan2.R
 import com.keeghan.reciplan2.database.Recipe
+import com.keeghan.reciplan2.databinding.RecipePlanDefaultItemBinding
+import com.keeghan.reciplan2.databinding.RecipePlanItemBinding
 import com.keeghan.reciplan2.utils.Constants.BREAKFAST
 import com.keeghan.reciplan2.utils.Constants.DINNER
 import com.keeghan.reciplan2.utils.Constants.LUNCH
@@ -19,14 +22,24 @@ import com.keeghan.reciplan2.utils.Constants.MISSING_MEAL_PLAN
 class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var recipes: List<Recipe> = ArrayList()
 
+    //Set onClickListener for when a user clicks on an recipe in plan
+    private var planItemClickListener: PlanItemOnClickListener? = null
+
+    interface PlanItemOnClickListener {
+        fun onRecipeClick(recipe: Recipe)
+    }
+
+    fun setPlanItemClickListener(listener: PlanItemOnClickListener?) {
+        planItemClickListener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == 1) {
-            val itemView: View = LayoutInflater.from(parent.context).inflate(R.layout.recipe_plan_item, parent, false)
-            PlanItemHolder(itemView)
+            val binding = RecipePlanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            PlanItemHolder(binding, planItemClickListener)
         } else {
-            val itemView: View =
-                LayoutInflater.from(parent.context).inflate(R.layout.recipe_plan_default_item, parent, false)
-            PlanDefaultHolder(itemView)
+            val binding = RecipePlanDefaultItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            PlanDefaultHolder(binding)
         }
     }
 
@@ -61,16 +74,27 @@ class PlanRecyclerAdapter(var context: Context?) : RecyclerView.Adapter<Recycler
     }
 
 
-    internal class PlanItemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val mealType: TextView = itemView.findViewById(R.id.plan_item_meal_type)
-        val recipeName: TextView = itemView.findViewById(R.id.plan_item_recipe_name)
-        val planImage: ImageView = itemView.findViewById(R.id.plan_item_image)
+    inner class PlanItemHolder(
+        val binding: RecipePlanItemBinding,
+        planItemOnClickListener: PlanItemOnClickListener?
+    ) : RecyclerView.ViewHolder(binding.root) {
+        val mealType = binding.planItemMealType
+        val recipeName = binding.planItemRecipeName
+        val planImage = binding.planItemImage
+        //Set onClickListener for planItem
+        init {
+            binding.planItemContainer.setOnClickListener {
+                planItemOnClickListener?.onRecipeClick(recipes[absoluteAdapterPosition]);
+            }
+        }
     }
 
-    internal class PlanDefaultHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val defaultText: TextView = itemView.findViewById(R.id.default_item_text)
+    internal class PlanDefaultHolder(val binding: RecipePlanDefaultItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        val defaultText = binding.defaultItemText
     }
 
+    //Use function to perform operations on the recipe selected from the planFragment
     fun getRecipeAt(position: Int): Recipe {
         return recipes[position]
     }
