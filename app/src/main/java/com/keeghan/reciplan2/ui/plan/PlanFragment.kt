@@ -102,7 +102,7 @@ class PlanFragment : Fragment(), View.OnClickListener, MenuProvider {
             binding.saturdayRecycler
         )
 
-        //Todo: set adapter breakfast, lunch , dinner separately
+        //Todo: find a way to update just the changed item in recyclerview (notifyUpdate)
         viewModel.allDays.observe(viewLifecycleOwner) { daysMap ->
             for (i in days.indices) {
                 setRecycler(days[i], recyclers[i], adapters!![i])

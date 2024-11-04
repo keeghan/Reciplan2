@@ -37,10 +37,14 @@
             app:enterAnim="@anim/fragment_fast_out_extra_slow_in" />
         <action
             android:id="@+id/action_navigation_plan_to_setPlanFragment"
-            app:destination="@id/setPlanFragment" />
+            app:destination="@id/setPlanFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
         <action
             android:id="@+id/action_navigation_plan_to_directionsFragment"
-            app:destination="@id/directionsFragment" />
+            app:destination="@id/directionsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment

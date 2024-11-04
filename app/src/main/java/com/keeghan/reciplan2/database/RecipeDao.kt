@@ -36,7 +36,7 @@ interface RecipeDao {
             BREAKFAST -> clearRecipe4rmBreakfast(recipe._id)
             LUNCH -> clearRecipe4rmLunch(recipe._id)
             DINNER -> clearRecipe4rmDinner(recipe._id)
-            MISSING_MEAL_PLAN -> throw Exception("default recipe being deleted")
+            MISSING_MEAL_PLAN -> throw IllegalStateException("default recipe being deleted")
         }
         delete(recipe)
     }
